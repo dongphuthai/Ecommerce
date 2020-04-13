@@ -46,6 +46,7 @@ Route::group(['prefix' => 'products'], function(){
   //Rating Routes
   Route::post('/review','Frontend\ProductsController@review')->name('review');
   Route::post('/rating/comment','Frontend\PagesController@rateComment')->name('rating.comment');
+  Route::get('/rating/show/{slug}','Frontend\PagesController@rateShow')->name('rating.show');
   //Category Routes
   Route::get('/categories', 'Frontend\CategoriesController@index')->name('categories.index');
   
