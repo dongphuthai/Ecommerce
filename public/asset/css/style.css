@@ -3,6 +3,10 @@
  * Override CSS's
  */
 /* Comment Rating */
+.text{
+    border-left: 2px solid #e0e0e0;
+    padding-left: 10px;
+}
 div#rating-result {
     position: absolute;
     top: 18px;

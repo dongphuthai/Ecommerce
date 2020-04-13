@@ -12,9 +12,14 @@ use Illuminate\Support\Str;
 use App\Models\Cmtrate;
 use Validator;
 use Auth;
+use \willvincent\Rateable\Rating;
 
 class PagesController extends Controller
 {  
+  public function rateShow($slug){
+    $product=Product::where('slug',$slug)->first();
+    return view('frontend.pages.products.rating.rating_show',compact('product','slug'));
+  }
   public function rateComment(Request $request){
     $rules = array(
       'cmtrating'=>'required'
@@ -33,7 +38,7 @@ class PagesController extends Controller
       $comment->rating_id=$request->rating_id;
       $comment->user_id=Auth::id();
       $comment->save();
-      return view('frontend.pages.products.partials.rating_comment',compact('comment'));
+      return view('frontend.pages.products.rating.rating_comment',compact('comment'));
     }else{
       return response()->json(['errors'=>'Bạn cần đăng nhập để thảo luận.']);
     }

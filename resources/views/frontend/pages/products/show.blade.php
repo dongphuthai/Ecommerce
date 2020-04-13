@@ -136,10 +136,15 @@
   
 </div>
 <!-- Rating Star -->
-@include('frontend.pages.products.partials.rating')
-
-<!-- Product Compare -->
+<div class="container">
+  <div class="row">
+    @include('frontend.pages.products.rating.rating')
+    @include('frontend.pages.products.rating.cauhinh')
+  </div>
+</div>
 @endsection
+
+
 @section('scripts')   
   <script type="text/javascript">
     $(".rating").rating();
@@ -172,11 +177,24 @@
             data:$(this).serialize(),
             //dataType:"json",
             success:function(data){
+              var html='';
               if(data.errors){
-                console.log(data)
+                for(var count = 0; count < data.errors.length; count++){
+                  html += '<p id="result-cmt" style="color:#ff3c00; font-size:12px;"><i>' + data.errors[count] + '</i></p>';
+                }
+                $('#result-errors-'+id).html(html);
+                $('#cmt'+id).html(html);
+                setTimeout(function(){
+                  $("#result-cmt").remove();
+                }, 100000 );
               }else{
                 $('#submit_cmtrate-'+id)[0].reset();
-                console.log(data)
+                var comment=Number($('#count_comment-'+id).html());
+                ++comment;
+                html=''+comment+'';
+                $('#count_comment-'+id).html(html);
+                $('#tl_comment-'+id).html('thảo luận');
+                console.log(html)
                 $('#cmt-child-rating-'+id).before(data);
                 $('#cmt-child-rating-'+id).addClass('ml-4');
               }
