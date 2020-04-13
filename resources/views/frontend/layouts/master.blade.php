@@ -19,12 +19,33 @@
 		@include('frontend.partials.nav')
 		@include('frontend.partials.messages')
 		@yield('content')
+		<img src="public/images/support/back.png" class="btn-top">		
 		@include('frontend.partials.footer')		
 	</div>
 
 	@include('frontend.partials.scripts')
 	@yield('scripts')
 
+<script type="text/javascript">
+	jQuery(document).ready(function($){ 	
+	if($(".btn-top").length > 0){
+		$(window).scroll(function () {
+			var e = $(window).scrollTop();
+			if (e > 300) {
+				$(".btn-top").show()
+			} else {
+				$(".btn-top").hide()
+			}
+		});
+		$(".btn-top").click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			})
+		})
+	}		
+});
+
+</script>
 {{-- <script type="text/javascript"> 
     $("document").ready(function(){
         setTimeout(function(){

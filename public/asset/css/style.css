@@ -3,6 +3,21 @@
  * Override CSS's
  */
 /* Comment Rating */
+.btn-top {
+    background-repeat: no-repeat;
+    border: medium none;
+    bottom: 10px;
+    cursor: pointer;
+    display: none;
+    height: 45px;
+    outline: medium none;
+    padding: 0;
+    position: fixed;
+    right: 20px;
+    width: 45px;
+    z-index: 9999;
+}
+
 .text{
     border-left: 2px solid #e0e0e0;
     padding-left: 10px;
