@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Parameter;
 use App\Models\ProductImage;
+use App\Models\Paralaptop;
 use Illuminate\Support\Str;
 
 use Image;
@@ -244,6 +245,72 @@ class ProductsController extends Controller
       $parameter->image=$img;
     }
     $parameter->save();
+    return redirect()->route('admin.products')->with('success','Đã cập nhật thông số thành công !!');
+  } 
+  public function updateParalaptop(Request $request){
+    $request->validate([
+      'product_id'       => 'required|numeric',
+      'image'            => 'nullable|image',
+    ]);
+    $paralaptop=new Paralaptop();
+    $paralaptop->product_id=$request->product_id;
+    $paralaptop->cpu=$request->cpu;
+    $paralaptop->ram=$request->ram;
+    $paralaptop->hard_drive=$request->hard_drive;
+    $paralaptop->screen=$request->screen;
+    $paralaptop->card_screen=$request->card_screen;
+    $paralaptop->connector=$request->connector;
+    $paralaptop->operating_system=$request->operating_system;
+    $paralaptop->design=$request->design;
+    $paralaptop->size=$request->size;
+    $paralaptop->time_launch=$request->time_launch;
+
+
+    if($request->hasFile('image')){
+      $image=$request->file('image');
+      $img = $paralaptop->product->slug.'-'.time() . '.'. $image->getClientOriginalExtension();
+      $location=public_path('images/paralaptop/'.$img);
+      Image::make($image)->save($location);
+      $paralaptop->image=$img;
+    }
+    $paralaptop->save();
+    return redirect()->route('admin.products')->with('success','Cập nhật thông số cho laptop thành công !!');
+  }
+  public function showParalaptop($id){
+    $paralaptop=Paralaptop::where('product_id',$id)->first();    
+    if(!is_null($paralaptop)){
+      return view('backend.pages.product.showParalaptop',compact('paralaptop'));
+    }else{
+      return redirect()->route('admin.products')->with('success','Cập nhật thông số cho laptop để xem cấu hình chi tiết.');
+    }
+  }
+  public function editParalaptop(Request $request,$id){
+    $request->validate([
+      'image'            => 'nullable|image',
+    ]);
+    $paralaptop=Paralaptop::find($id);
+    $paralaptop->cpu=$request->cpu;
+    $paralaptop->ram=$request->ram;
+    $paralaptop->hard_drive=$request->hard_drive;
+    $paralaptop->screen=$request->screen;
+    $paralaptop->card_screen=$request->card_screen;
+    $paralaptop->connector=$request->connector;
+    $paralaptop->operating_system=$request->operating_system;
+    $paralaptop->design=$request->design;
+    $paralaptop->size=$request->size;
+    $paralaptop->time_launch=$request->time_launch;
+
+    if($request->hasFile('image')){
+      if(File::exists('public/images/paralaptop/'.$paralaptop->image)){
+          File::delete('public/images/paralaptop/'.$paralaptop->image);
+        }
+      $image=$request->file('image');
+      $img = $paralaptop->product->slug.'-'.time() . '.'. $image->getClientOriginalExtension();
+      $location=public_path('images/paralaptop/'.$img);
+      Image::make($image)->save($location);
+      $paralaptop->image=$img;
+    }
+    $paralaptop->save();
     return redirect()->route('admin.products')->with('success','Đã cập nhật thông số thành công !!');
   } 
 }

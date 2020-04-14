@@ -3,7 +3,7 @@
     <div class="card item mb-2" >    
       <a href="{!! route('products.show',$product->slug) !!}" >
         <div class="img-hover-zoom ">                     
-          <img class=" card-img-top pl-0 pr-0 pl-md-3 pr-md-3 pl-lg-4 pr-lg-4 pl-xl-4 pr-xl-4 pt-3 pt-xl-4 card-img-page" src="public/images/product/{{ $product->image }} " alt=" {{ $product->title }}" >
+          <img class=" card-img-top px-0 px-md-3 px-lg-4 px-xl-4 pt-3 pt-xl-4 card-img-page" src="public/images/product/{{ $product->image }} " alt=" {{ $product->title }}" >
           @if($product->discount>0)
             <label class="card-title m-0 giam-gia"><img src="public/images/discount.png" width="18"> Giảm {!! number_format($product->discount,0,"",".") !!}₫</label>
           @else

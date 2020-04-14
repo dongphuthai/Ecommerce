@@ -23,5 +23,8 @@ class Product extends Model
     public function para(){
         return $this->hasOne(Parameter::class);
     }
+    public function paralaptop(){
+        return $this->hasOne(Paralaptop::class);
+    }
 
 }

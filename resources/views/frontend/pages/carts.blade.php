@@ -12,6 +12,7 @@
 					<th>Ảnh</th>
 					<th>Số lượng</th>
           			<th>Giá</th>
+          			<th>Giảm giá</th>
           			<th>Tổng giá</th>
           			<th>
           				Xóa
@@ -34,20 +35,23 @@
               			@endif
 					</td>
 					<td>
-						<form class="form-inline" action="{{ route('carts.update', $cart->id) }}" method="post">
+						<form class="form-inline" action="{!! route('carts.update', $cart->id) !!}" method="post">
                 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
                 			<input type="number" name="product_quantity" class="form-control" value="{{ $cart->product_quantity }}"/>
                 			<button type="submit" class="btn btn-success ml-1">Cập nhật</button>
               			</form>
 					</td>
 					<td>
-						{{ $cart->product->price }}₫
+						{{ number_format($cart->product->price,0,"",".")}}₫
+					</td>
+					<td>
+						{{ number_format($cart->product->discount,0,"",".") }}₫
 					</td>
 					<td>
 						@php
-              			$total_price += $cart->product->price * $cart->product_quantity;
+              			$total_price += $cart->product->offer_price * $cart->product_quantity;
               			@endphp
-						{{ ($cart->product->price)*($cart->product_quantity) }}₫
+						{{ number_format(($cart->product->offer_price)*($cart->product_quantity),0,"",".") }}₫
 					</td>
 					<td>
 						<form class="form-inline" action="{{ route('carts.delete',$cart->id) }}" method="post">
@@ -59,12 +63,12 @@
 				</tr>
 				@endforeach
 				<tr>
-          			<td colspan="4"></td>
+          			<td colspan="5"></td>
           			<td>
             			Tổng cộng:
           			</td>
           			<td colspan="2">
-            			<strong>  {{ $total_price }}₫</strong>
+            			<strong>  {{ number_format($total_price,0,"","." )}}₫</strong>
           			</td>
         			</tr>
 			</tbody>

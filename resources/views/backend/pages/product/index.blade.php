@@ -24,7 +24,9 @@
 
           <tbody>
             @foreach ($products as $product)
-            
+            @php
+              $parent_id=$product->category->parent->id;
+            @endphp         
             <tr>
               <td>#</td>
               <td>#PLE{{ $product->id }}</td>
@@ -32,10 +34,16 @@
               <td>{{ $product->price }}</td>
               <td>{{ $product->quantity }}</td>
               <td>   
-                <a href="{{ route('admin.product.parameter.show', $product->id) }}" class="btn btn-info">Show</a>
-                <a href="#updateModal{{ $product->id }}" data-toggle="modal" class="btn btn-primary">Update</a>          
-                <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-success">Edit Product</a>
-                <a href="#deleteModal{{ $product->id }}" data-toggle="modal" class="btn btn-danger">Delete</a>              
+                @if($parent_id==32||$parent_id==33)
+                  <a href="{{ route('admin.product.parameter.show', $product->id) }}" class="btn btn-info mb-1">Xem thông số</a>
+                  <a href="#updateModal{{ $product->id }}" data-toggle="modal" class="btn btn-primary mb-1">Thêm thông số</a>
+                @elseif($parent_id==29)
+                  <a href="{{ route('admin.product.paralaptop.show', $product->id) }}" class="btn btn-info mb-1">Xem thông số laptop</a>
+                  <a href="#laptopModal{{ $product->id }}" data-toggle="modal" class="btn btn-primary mb-1">Thêm thông số </a>
+                @endif
+                          
+                <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-success mb-1">Sửa sản phẩm</a>
+                <a href="#deleteModal{{ $product->id }}" data-toggle="modal" class="btn btn-danger mb-1">Xóa</a>              
 
                 <!-- Update Modal -->
                 <div class="modal fade" id="updateModal{{ $product->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -101,6 +109,80 @@
                           <div class="form-group">
                             <label for="pin">Pin</label>
                             <input type="text" class="form-control" name="pin" id="pin" aria-describedby="emailHelp" value="{{ old('pin') }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="image">Image (optional)</label>  
+                            <input type="file" class="form-control" name="image" id="image">
+                            @if($errors->has('image'))
+                              <p class="form-errors small" style="color:Tomato;">{{ $errors->first('image') }}</p>
+                            @endif
+                          </div>
+                          <button type="submit" class="btn btn-success">Product Update</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>                     
+                        </form>
+                      </div>                       
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Laptop Modal -->
+                <div class="modal fade" id="laptopModal{{ $product->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Are sure to update for {{ $product->title }}?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                        <form action="{!! route('admin.product.paralaptop.update')!!}"  method="post" enctype="multipart/form-data">
+                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                          <div class="form-group">
+                            <label for="product_id">ID of {{ $product->title }}</label>
+                            <input type="number" class="form-control" name="product_id" id="product_id" aria-describedby="emailHelp" value="{{ $product->id }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="cpu">CPU</label>
+                            <input type="text" class="form-control" name="cpu" id="cpu" aria-describedby="emailHelp" value="{{ old('cpu') }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="ram">RAM</label>
+                            <input type="text" class="form-control" name="ram" id="ram" aria-describedby="emailHelp" value="{{ old('ram') }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="hard_drive">Ổ cứng</label>
+                            <input type="text" class="form-control" name="hard_drive" id="hard_drive" aria-describedby="emailHelp" value="{{ old('hard_drive') }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="screen">Màn hình</label>
+                            <input type="text" class="form-control" name="screen" id="screen" aria-describedby="emailHelp" value="{{ old('screen') }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="card_screen">Card màn hình</label>
+                            <input type="text" class="form-control" name="card_screen" id="card_screen" aria-describedby="emailHelp" value="{{ old('card_screen') }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="connector">Cổng kết nối</label>
+                            <input type="text" class="form-control" name="connector" id="connector" aria-describedby="emailHelp" value="{{ old('connector') }}" >
+                          </div>
+                          <div class="form-group">
+                            <label for="operating_system">Hệ điều hành</label>
+                            <input type="text" class="form-control" name="operating_system" id="operating_system" aria-describedby="emailHelp" value="{{ old('operating_system') }}" >                        
+                          </div>
+                          <div class="form-group">
+                            <label for="design">Thiết kế</label>
+                            <input type="text" class="form-control" name="design" id="design" aria-describedby="emailHelp" value="{{ old('design') }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="size">Kích thước</label>
+                            <input type="text" class="form-control" name="size" id="size" aria-describedby="emailHelp" value="{{ old('size') }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="time_launch">Thời điểm ra mắt</label>
+                            <input type="number" class="form-control" name="time_launch" id="time_launch" aria-describedby="emailHelp" value="{{ old('time_launch') }}">
                           </div>
                           <div class="form-group">
                             <label for="image">Image (optional)</label>  

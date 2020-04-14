@@ -46,13 +46,13 @@
 });
 
 </script>
-{{-- <script type="text/javascript"> 
+<script type="text/javascript"> 
     $("document").ready(function(){
         setTimeout(function(){
           $(".alert").remove();
-        }, 30000 ); 
+        }, 60000 ); 
     });
-</script> --}}
+</script>
  
 </body>
 </html>

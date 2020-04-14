@@ -77,6 +77,7 @@ Route::group(['prefix' => 'cart'], function(){
   Route::post('/store', 'Frontend\CartsController@store')->name('carts.store');
   Route::post('/update/{id}','Frontend\CartsController@update')->name('carts.update');
   Route::post('/delete/{id}','Frontend\CartsController@destroy')->name('carts.delete');
+  Route::post('/combo/uu-dai','Frontend\CartsController@combo')->name('carts.combo');
 });
 //Ckeckout Routes
 Route::group(['prefix' => 'checkout'], function(){
@@ -115,7 +116,12 @@ Route::group(['prefix' => 'admin'], function(){
       Route::get('/parameter/show/{id}', 'Backend\ProductsController@showParameter')->name('admin.product.parameter.show');
       Route::post('/parameter/edit/{id}', 'Backend\ProductsController@editParameter')->name('admin.product.parameter.edit');
       Route::post('/parameter/update', 'Backend\ProductsController@updateParameter')->name('admin.product.parameter.update');
+      //Para Laptop Routes
+      Route::get('/paralaptop/show/{id}', 'Backend\ProductsController@showParalaptop')->name('admin.product.paralaptop.show');
+      Route::post('/paralaptop/edit/{id}', 'Backend\ProductsController@editParalaptop')->name('admin.product.paralaptop.edit');
+      Route::post('/paralaptop/update', 'Backend\ProductsController@updateParalaptop')->name('admin.product.paralaptop.update');
   	});
+
 
      // Orders Routes
     Route::group(['prefix' => '/orders'], function(){
@@ -224,8 +230,13 @@ Route::get('ajax/card-compare/{slug}',function($slug){
 /*TABLE PARA COMPARE AJAX*/
 Route::get('ajax/card-compare/para/{slug}',function($slug){
   $pdt=App\Models\Product::where('slug',$slug)->first();
-  $para=$pdt->para;
-  return response()->json(['para'=>$para,'pdt'=>$pdt]);
+  $parent_id=$pdt->category->parent->id;
+  if($parent_id==32||$parent_id==33){
+    $para=$pdt->para;
+  }elseif ($parent_id==29) {
+    $para=$pdt->paralaptop;
+  }  
+  return response()->json(['para'=>$para,'pdt'=>$pdt,'parent_id'=>$parent_id]);
 });
 /*BUTTON COMPARE AJAX*/
 Route::get('ajax/button-compare/{slug}',function($slug){

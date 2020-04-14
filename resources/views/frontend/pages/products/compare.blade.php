@@ -2,7 +2,16 @@
 
 @section('content')
 
-<div class="container page-feature pt-4" style="font-size: 14px">
+<div class="container page-feature pt-2" style="font-size: 14px">
+  <div style="font-size: 14px;" class="mb-2 mt-1">
+    <a href="">Trang chủ</a>
+    <span class="duongdan px-1">›</span>
+    <a href="the-loai/{{ $product->category->parent->slug }}">{{ $product->category->parent->name }}</a>
+    <span class="duongdan px-1">›</span>
+    <a href="the-loai/{{ $product->category->parent->slug }}/{{ $product->category->slug }}">{{ $product->category->name }}</a>
+    <span class="duongdan px-1">›</span>
+    <a href="products/{{ $product->slug }}">{{ $product->title }}</a>
+  </div>
   <h4 class="pb-2" class="data-compare">So sánh điện thoại
     <span id="slug1" title1="{{ $slug1 }}"><b>{{ $product->title }}</b></span>
     <span id="slug2" title2="{{ $slug2 }}">và <b>{{ $pdt->title }}</b></span>
@@ -47,99 +56,12 @@
     </ul>    
   </section>
 
-  <section>
-    <h2 class="compare-table-title mb-0">Cấu hình sản phẩm</h2>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">Màn hình</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->screen:'' }}</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para1"></span>
-      </li>
-    </ul>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">Hệ điều hành</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->operating_system:'' }}</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para2"></span>
-      </li>
-    </ul>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">Camera sau</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->rear_camera:'' }}</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para3"></span>
-      </li>
-    </ul>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">Camera trước</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->front_camera:'' }}</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para4"></span>
-      </li>
-    </ul>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">CPU</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->cpu:'' }}</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para5"></span>
-      </li>
-    </ul>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">RAM</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->ram:'' }} GB</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para6"></span>
-      </li>
-    </ul>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">Bộ nhớ trong</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->internal_memory:'' }} GB</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para7"></span>
-      </li>
-    </ul>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">Thẻ nhớ</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->memory:'' }}</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para8"></span>
-      </li>
-    </ul>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">Sim</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->sim:'' }}</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para9"></span>
-      </li>
-    </ul>
-    <ul class="compare-table compare-product mb-0">
-      <li class="cp-cell cp-cell-1"><span class="cp-space">Pin</span></li>
-      <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->pin:'' }}</span>
-      </li>
-      <li class="cp-cell cp-cell-3 cp-product">
-        <span class="cp-space" id="para10"></span>
-      </li>
-    </ul>
-  </section>
+  @if( $product->category->parent->id==33||$product->category->parent->id==32)
+    @include('frontend.pages.products.compare.table_compare')
+  @elseif($product->category->parent->id==29)
+    @include('frontend.pages.products.compare.table_compare_laptop')
+  @endif
+
   <section>
     <h2 class="compare-table-title mb-0">Thông tin khác</h2>
     <ul class="compare-table compare-product mb-0">
@@ -187,16 +109,29 @@
       $.ajax({
         url:url+'/ajax/card-compare/para/'+slug
       }).done(function(data){
-        $('#para1').html(data.para.screen);
-        $('#para2').html(data.para.operating_system);
-        $('#para3').html(data.para.rear_camera);
-        $('#para4').html(data.para.front_camera);
-        $('#para5').html(data.para.cpu);
-        $('#para6').html(data.para.ram +' GB');
-        $('#para7').html(data.para.internal_memory +'GB');
-        $('#para8').html(data.para.memory);
-        $('#para9').html(data.para.sim);
-        $('#para10').html(data.para.pin);
+        if(data.parent_id==29){
+          $('#para1').html(data.para.cpu);
+          $('#para2').html(data.para.ram);
+          $('#para3').html(data.para.hard_drive);
+          $('#para4').html(data.para.screen);
+          $('#para5').html(data.para.card_screen);
+          $('#para6').html(data.para.connector);
+          $('#para7').html(data.para.operating_system);
+          $('#para8').html(data.para.design);
+          $('#para9').html(data.para.size);
+          $('#para10').html(data.para.time_launch);
+        }else if(data.parent_id==32||data.parent_id==33){
+          $('#para1').html(data.para.screen);
+          $('#para2').html(data.para.operating_system);
+          $('#para3').html(data.para.rear_camera);
+          $('#para4').html(data.para.front_camera);
+          $('#para5').html(data.para.cpu);
+          $('#para6').html(data.para.ram);
+          $('#para7').html(data.para.internal_memory);
+          $('#para8').html(data.para.memory);
+          $('#para9').html(data.para.sim);
+          $('#para10').html(data.para.pin);
+        }       
       });
       $.ajax({
         url:url+'/ajax/button-compare/'+slug
@@ -267,16 +202,29 @@
       $.ajax({
         url:url+'/ajax/card-compare/para/'+slug
       }).done(function(data){
-        $('#para1').html(data.para.screen);
-        $('#para2').html(data.para.operating_system);
-        $('#para3').html(data.para.rear_camera);
-        $('#para4').html(data.para.front_camera);
-        $('#para5').html(data.para.cpu);
-        $('#para6').html(data.para.ram +' GB');
-        $('#para7').html(data.para.internal_memory +'GB');
-        $('#para8').html(data.para.memory);
-        $('#para9').html(data.para.sim);
-        $('#para10').html(data.para.pin);
+        if(data.parent_id==29){
+          $('#para1').html(data.para.cpu);
+          $('#para2').html(data.para.ram);
+          $('#para3').html(data.para.hard_drive);
+          $('#para4').html(data.para.screen);
+          $('#para5').html(data.para.card_screen);
+          $('#para6').html(data.para.connector);
+          $('#para7').html(data.para.operating_system);
+          $('#para8').html(data.para.design);
+          $('#para9').html(data.para.size);
+          $('#para10').html(data.para.time_launch);
+        }else if(data.parent_id==32||data.parent_id==33){
+          $('#para1').html(data.para.screen);
+          $('#para2').html(data.para.operating_system);
+          $('#para3').html(data.para.rear_camera);
+          $('#para4').html(data.para.front_camera);
+          $('#para5').html(data.para.cpu);
+          $('#para6').html(data.para.ram);
+          $('#para7').html(data.para.internal_memory);
+          $('#para8').html(data.para.memory);
+          $('#para9').html(data.para.sim);
+          $('#para10').html(data.para.pin);
+        }
         $('#slug2').html('và <b>'+data.pdt.title+'</b>');
       });
       $.ajax({
