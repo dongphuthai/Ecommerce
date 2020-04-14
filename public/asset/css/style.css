@@ -3,6 +3,11 @@
  * Override CSS's
  */
 /* Comment Rating */
+.duongdan {
+    color: #999;
+    font-size: 16px;
+    
+}
 .btn-top {
     background-repeat: no-repeat;
     border: medium none;
@@ -17,7 +22,6 @@
     width: 45px;
     z-index: 9999;
 }
-
 .text{
     border-left: 2px solid #e0e0e0;
     padding-left: 10px;
@@ -518,6 +522,7 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
 .modalImg{
   width: 500px;height: auto; margin:0 auto; display: block;
 }
+.uudai{width: 25%}
 
 @media only screen and (max-width: 580px) {
   body {
@@ -538,6 +543,7 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
   .hidden-star{display: none;}
   .img-hover-zoom {height: 170px; overflow: hidden; }
   .item.product-compara-x{width: 33.3%}
+  .uudai{width: 33.3%;font-size: 12px}
 }
 @media only screen and (min-width: 580px) and (max-width: 770px) {
   .mobile-item{width:20%}
@@ -552,6 +558,7 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
   .hidden-star{display: none;}
   .img-hover-zoom {height: 170px; overflow: hidden; }
   .item.product-compara-x{width: 33.3%}
+  .uudai{width: 33.3%;font-size: 12px}
 }
 @media only screen and (min-width: 700px) and (max-width: 992px) {
   .mobile-item{width:20%}
@@ -563,6 +570,7 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
   .hiddenphone{display: none;}
   .hidden-star{display: none;}
   .item.product-compara-x{width: 33.3%}
+  .uudai{width: 33.3%;}
 }  
 @media only screen and (min-width: 992px) and (max-width: 1024px) {
   body {

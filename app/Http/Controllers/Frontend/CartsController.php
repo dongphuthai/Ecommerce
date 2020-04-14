@@ -28,9 +28,35 @@ class CartsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function combo(Request $request)
     {
-        //
+        foreach($request->combo as $product_id){
+            if (Auth::check()) {
+                $cart = Cart::where('user_id', Auth::id())
+                ->where('product_id', $product_id)
+                ->where('order_id',NULL)
+                ->first();
+            }else {
+                $cart = Cart::where('ip_address', request()->ip())
+                ->where('product_id', $product_id)
+                ->where('order_id',NULL)
+                ->first();
+            }
+
+            if (!is_null($cart)) {
+                $cart->increment('product_quantity');
+            }else {
+                $cart = new Cart();
+                if (Auth::check()) {
+                $cart->user_id = Auth::id();
+                }
+                $cart->ip_address = request()->ip();
+                $cart->product_id = $product_id;
+                $cart->save();
+            }
+        }
+        return redirect()->route('carts');
+
     }
 
     /**
@@ -45,7 +71,7 @@ class CartsController extends Controller
             'product_id'=>'required',
         ],
         [
-            'product_id.required'=>'Please give a product',
+            'product_id.required'=>'Hãy chọn sản phẩm bạn muốn mua.',
         ]);
 
         if (Auth::check()) {
@@ -79,7 +105,7 @@ class CartsController extends Controller
         // $cart->ip_address=request()->ip();
         // $cart->product_id=$request->product_id;
         // $cart->save();
-        session()->flash('success','Product has added to cart !!');
+        session()->flash('success','Sản phẩm đã được thêm vào giỏ hàng !!');
         return back();
     }
 

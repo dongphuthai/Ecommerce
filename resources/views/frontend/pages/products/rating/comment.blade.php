@@ -23,6 +23,11 @@
                         <span id="count_comment-{{ $rating->id }}">{{ count($comments)>0 ? count($comments):'' }}</span> <span id="tl_comment-{{ $rating->id }}">{{ count($comments)>0 ? 'thảo luận':'Thảo luận' }}</span>
                       </a></span>
                       <span> • </span>
+                      <span id="like-{{ $rating->id }}">
+                        <img src="public/images/support/like.png" width="13" style="padding-bottom: 4px;">
+                        <a id="like-href-{{ $rating->id }}" href="javascript:void(0)" style="color: #007bff">Thích</a>
+                      </span>
+                      <span> • </span>
                       <span style="">{{ $rating->updated_at->diffForHumans(Carbon\Carbon::now()) }}</span>
                     </div>                                        
                   </div>

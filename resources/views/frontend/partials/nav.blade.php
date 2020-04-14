@@ -3,7 +3,7 @@
 
 
     <a class="navbar-brand" href="{{ route('index') }}">
-      <img src="public/images/logo.png">
+      <img src="public/images/logo.png" style="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
             <div class="input-group">
               <input type="text" class="form-control search" id="search" name="search" placeholder="Nhập sản phẩm cần tìm" style="border-bottom-right-radius: 0;border-top-right-radius: 0;">
               <div class="input-group-append">
-                <button class="btn  search-icon-button" type="submit" ><i class="fa fa-search"></i></button>
+                <button class="btn  search-icon-button" type="submit" ><i class="fa fa-search" style="color: #999"></i></button>
               </div>
             </div>
           </form>
@@ -37,7 +37,7 @@
       <ul class="navbar-nav ml-auto">
         <li>
           <a class="nav-link btn-cart-nav" href="{{ route('carts') }}">
-            <div class=" " style="padding: 5px!important; background: #006EB7 ">
+            <div class=" " style=" background: #006EB7 ">
               <span style="font-size: 20px;"><img src="public/images/support/cart.png" width="35"></span>
               <span class="badge badge-warning " id="totalItem" style="vertical-align:top;">
                 {{ App\Models\Cart::totalItem() }}
@@ -46,8 +46,8 @@
           </a>
         </li>
         @guest
-          <li><a class="nav-link mt-2" href="{{ route('login') }}">Login</a></li>
-          <li><a class="nav-link mt-2 " href="{{ route('register') }}">Register</a></li>
+          <li><a class="nav-link mt-1" href="{{ route('login') }}">Đăng nhập</a></li>
+          <li><a class="nav-link mt-1 " href="{{ route('register') }}">Đăng kí</a></li>
         @else
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link btn-cart-nav dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -59,13 +59,13 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
               <a class="dropdown-item" href="{{ route('user.dashboard') }}">
-                My dashboard
+                Thông tin
               </a>
 
               <a class="dropdown-item" href="{{ route('logout') }}"
               onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
-              Logout
+              Đăng xuất
             </a>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

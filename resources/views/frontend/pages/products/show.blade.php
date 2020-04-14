@@ -9,8 +9,16 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0"></script>
 
 <!-- Show Products  -->
-<div class='container page-feature pt-4'>
+<div class='container page-feature pt-2'>  
   <div >
+    
+    <div style="font-size: 14px;" class="mb-2 mt-1">
+       <a href="">Trang chủ</a>
+       <span class="duongdan px-1">›</span>
+       <a href="the-loai/{{ $product->category->parent->slug }}">{{ $product->category->parent->name }}</a>
+       <span class="duongdan px-1">›</span>
+       <a href="the-loai/{{ $product->category->parent->slug }}/{{ $product->category->slug }}">{{ $product->category->name }}</a>
+    </div>
     <h4> {{ $product->title }} <a href="{!! route('products.show',$product->slug) !!}#view-rating" style="font-size: 15px;"><span class="count-review">{{ \willvincent\Rateable\Rating::where('rateable_id',$product->id)->count() }}</span> đánh giá </a>
     
       <div class="fb-like" data-href="https://www.codeinhouse.com/how-to-integrate-facebook-like-and-share-post-button-in-laravel/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true" style="float: right;"></div> 
@@ -18,7 +26,7 @@
   </div>
   <hr style="border:1px solid rgba(0, 0, 0, 0.1)">           
   <div class="row">
-    <div class="col-lg-5 p-md-5 p-lg-0">    
+    <div class="col-xl-5 col-lg-7 p-md-5 p-lg-0">    
         <div class="carousel-inner pt-2 pl-4 pr-4 pb-4">
           @php $i=1; @endphp
           @foreach($product->images as $image)
@@ -30,7 +38,7 @@
       </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 pl-lg-2 ">
+    <div class="col-xl-4 col-lg-5 col-md-6 pl-lg-2 ">
       <div style="padding-left: 0px">        
         <h3><b>
           @if($product->discount>0)
@@ -83,7 +91,7 @@
       </div>
     </div>
 
-    <div class="col-lg-3 col-md-6 pt-2 pl-lg-3 pl-md-0">
+    <div class="col-xl-3 col-lg-12 col-md-6 pt-2 pl-lg-3 pl-md-0">
       <div>
         <div class="phone-lienhe">        
           Gọi đặt mua:
@@ -130,6 +138,9 @@
       </div>
     </div>
   </div>
+
+  @include('frontend.pages.products.rating.uudai')
+
   </div>
 </div>
 <div class="{{ $product->category->parent->id==29||$product->category->parent->id==32||$product->category->parent->id==33 ? 'product-compare':'' }}">
@@ -139,7 +150,11 @@
 <div class="container">
   <div class="row">
     @include('frontend.pages.products.rating.rating')
-    @include('frontend.pages.products.rating.cauhinh')
+    @if( $product->category->parent->id==33||$product->category->parent->id==32)
+      @include('frontend.pages.products.rating.cauhinh')
+    @elseif($product->category->parent->id==29)
+      @include('frontend.pages.products.rating.cauhinhlaptop')
+    @endif
   </div>
 </div>
 @endsection
@@ -158,17 +173,22 @@
       });
 
       $('.text').hide();
-
+      /*LOOP RATING*/
       $('.cmthref').each(function(){
         var id=$(this).attr('rate_id');
+        $('#like-href-'+id).click(function(event) {
+          $('#like-href-'+id).html('1 thích');
+        });
         $('#cmt-'+id).click(function(event) {
           event.preventDefault();
           $('#text-'+id).toggle();
+          /*LOOP COMMENT*/
           $('.text-'+id).each(function(){
             var comment_id=$(this).attr('comment_id');
             $('#child-'+comment_id).toggle();
           });
         });
+        /*AJAX SUBMIT COMMENT*/
         $('#submit_cmtrate-'+id).on('submit', function(event) {
           event.preventDefault();
           $.ajax({

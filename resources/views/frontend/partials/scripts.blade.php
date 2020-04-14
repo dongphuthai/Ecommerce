@@ -31,7 +31,7 @@
   			data=JSON.parse(data);
     		if (data.status=='success') {
     			alertify.set('notifier','position', 'top-center');
- 				alertify.success('Item added to cart successfuly !! TotalItem: '+ data.totalItem + '<br/>To checkout <a href="{{ route('carts') }}">go to check page</a>');
+ 				alertify.success('Sản phẩm đã được thêm vào giỏ hàng !! Tổng số sản phẩm: '+ data.totalItem + '<br/>Tiến hành thanh toán <a href="{{ route('carts') }}">tại đây</a>');
     			$('#totalItem').html(data.totalItem);
     		}
   		});
@@ -43,13 +43,13 @@
   $(document).on('click', '.child-item a', function(event) {
     event.preventDefault();
     var id=$(this).attr('data-child-id');
-        var slug=$(this).attr('data-child-slug');
+    var slug=$(this).attr('data-child-slug');
     var url="{{ url('/') }}";
     $.ajax({
       url:url+'/ajax/category/'+id
     }).done(function(data){
       $('.content-child').html(data);
-            $(".rating").rating();
+      $(".rating").rating();
       location.hash=slug;
     });
   });

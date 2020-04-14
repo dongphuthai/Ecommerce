@@ -24,10 +24,11 @@
   </div>
   <div class="container page-feature  ">
    <div class="list-item content-product">
-      @include('frontend.partials.product-sidebar-child')
+      {{-- @include('frontend.partials.product-sidebar-child') --}}
+      @include('frontend.partials.product-sidebar-child-ajax')
     </div>
   </div>
-
+<div class="content-child">
   <div class='container mt-2 page-feature'> 
     @php
     $str_parent=mb_convert_case(App\Models\Category::where('id',$id)->first()->name,MB_CASE_UPPER, "UTF-8");
@@ -52,6 +53,7 @@
         @endif
     </div>
   </div>
+</div>
 
   <!-- End Sidebar + Content -->
 @endsection

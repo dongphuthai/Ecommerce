@@ -5,7 +5,16 @@
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0"></script>
 
-<div class="container page-feature pt-4">
+<div class="container page-feature pt-2">
+  <div style="font-size: 14px;" class="mb-2 mt-1">
+    <a href="">Trang chủ</a>
+    <span class="duongdan px-1">›</span>
+    <a href="the-loai/{{ $product->category->parent->slug }}">{{ $product->category->parent->name }}</a>
+    <span class="duongdan px-1">›</span>
+    <a href="the-loai/{{ $product->category->parent->slug }}/{{ $product->category->slug }}">{{ $product->category->name }}</a>
+    <span class="duongdan px-1">›</span>
+    <a href="products/{{ $product->slug }}">{{ $product->title }}</a>
+  </div>
   <h5 id="view-rating"  >
     <b><span class="count-review">{{ \willvincent\Rateable\Rating::where('rateable_id',$product->id)->count() }}</span> đánh giá {{ $product->title }}</b>
     <div class="fb-like" data-href="https://www.codeinhouse.com/how-to-integrate-facebook-like-and-share-post-button-in-laravel/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true" style="float: right;"></div>
