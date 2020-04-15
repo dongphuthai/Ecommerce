@@ -38,22 +38,16 @@
 	}
 </script>
 
-<!-- CATEGORY CHILD PRODUCT AJAX -->
-<script type="text/javascript">
-  $(document).on('click', '.child-item a', function(event) {
+<!-- PARENT PRICE LINK -->
+{{-- <script type="text/javascript">
+  $(document).on('click', '.selector', function(event) {
     event.preventDefault();
-    var id=$(this).attr('data-child-id');
-    var slug=$(this).attr('data-child-slug');
-    var url="{{ url('/') }}";
-    $.ajax({
-      url:url+'/ajax/category/'+id
-    }).done(function(data){
-      $('.content-child').html(data);
-      $(".rating").rating();
-      location.hash=slug;
-    });
+    /* Act on the event */
   });
-</script>
+</script> --}}
+
+<!-- CATEGORY CHILD PRODUCT AJAX -->
+
 
 <!-- PRODUCT AJAX -->
 <script type="text/javascript">
@@ -142,4 +136,5 @@
         });
   });
 </script>
+
 

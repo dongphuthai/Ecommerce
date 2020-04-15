@@ -12,31 +12,43 @@
 */
 
 
-Route::get('/', 'Frontend\PagesController@index')->name('index');
-Route::get('/contact', 'Frontend\PagesController@contact')->name('contact');
-Route::get('/search', 'Frontend\ProductsController@searchType')->name('type.search');
-Route::get('/compare/{slug}/search','Frontend\PagesController@searchCompare')->name('search.compare');
+  Route::get('/', 'Frontend\PagesController@index')->name('index');
+  Route::get('/contact', 'Frontend\PagesController@contact')->name('contact');
+  Route::get('/search', 'Frontend\ProductsController@searchType')->name('type.search');
+  Route::get('/compare/{slug}/search','Frontend\PagesController@searchCompare')->name('search.compare');
 //Compare Route
-Route::get('/compare/{slug1}-vs-{slug2}','Frontend\ProductsController@compareProduct')
-->where('slug1', '[a-zA-Z0-9-_]+')
-->where('slug2', '[a-zA-Z0-9-_]+')
-->name('compare.product');
+  Route::get('/compare/{slug1}-vs-{slug2}','Frontend\ProductsController@compareProduct')
+  ->where('slug1', '[a-zA-Z0-9-_]+')
+  ->where('slug2', '[a-zA-Z0-9-_]+')
+  ->name('compare.product');
 /*Frontend Category Router*/
-Route::get('/the-loai/{slug}', 'Frontend\CategoriesController@showParent')
-->where('slug', '[a-zA-Z0-9-_]+')
-->name('categories.show.parent');
-Route::get('/the-loai/{slug1}/{slug2}', 'Frontend\CategoriesController@show')
-->where('slug1', '[a-zA-Z0-9-_]+')
-->where('slug2', '[a-zA-Z0-9-_]+')
-->name('categories.show');
+  Route::get('/the-loai/{slug}', 'Frontend\CategoriesController@showParent')
+  ->where('slug', '[a-zA-Z0-9-_]+')
+  ->name('categories.show.parent');
+  Route::get('/the-loai/{slug1}/{slug2}', 'Frontend\CategoriesController@show')
+  ->where('slug1', '[a-zA-Z0-9-_]+')
+  ->where('slug2', '[a-zA-Z0-9-_]+')
+  ->name('categories.show');
+//Show price category parent
+  Route::get('{slug1}/duoi-2-trieu', 'Frontend\CategoriesController@showPrice2')->name('categories.show.parent.price2');
+  Route::get('{slug1}/2-4-trieu', 'Frontend\CategoriesController@showPrice24')->name('categories.show.parent.price24');
+  Route::get('{slug1}/4-7-trieu', 'Frontend\CategoriesController@showPrice47')->name('categories.show.parent.price47');
+  Route::get('{slug1}/7-13-trieu', 'Frontend\CategoriesController@showPrice713')->name('categories.show.parent.price713');
+  Route::get('{slug1}/tren-trieu', 'Frontend\CategoriesController@showPrice13')->name('categories.show.parent.price13');
+  //Show price category child
+  Route::get('{slug1}/{slug2}/duoi-2-trieu', 'Frontend\CategoriesController@show2')->name('categories.show.child.price2');
+  Route::get('{slug1}/{slug2}/2-4-trieu', 'Frontend\CategoriesController@show24')->name('categories.show.child.price24');
+  Route::get('{slug1}/{slug2}/4-7-trieu', 'Frontend\CategoriesController@show47')->name('categories.show.child.price47');
+  Route::get('{slug1}/{slug2}/7-13-trieu', 'Frontend\CategoriesController@show713')->name('categories.show.child.price713');
+  Route::get('{slug1}/{slug2}/tren-13-trieu', 'Frontend\CategoriesController@show13')->name('categories.show.child.price13');
 
 
 //Price Routes
-Route::get('/duoi-2-trieu', 'Frontend\ProductsController@price2')->name('products.price2');
-Route::get('/2-4-trieu', 'Frontend\ProductsController@price24')->name('products.price24');
-Route::get('/4-7-trieu', 'Frontend\ProductsController@price47')->name('products.price47');
-Route::get('/7-13-trieu', 'Frontend\ProductsController@price713')->name('products.price713');
-Route::get('/tren-13-trieu', 'Frontend\ProductsController@price13')->name('products.price13');
+  Route::get('/duoi-2-trieu', 'Frontend\ProductsController@price2')->name('products.price2');
+  Route::get('/2-4-trieu', 'Frontend\ProductsController@price24')->name('products.price24');
+  Route::get('/4-7-trieu', 'Frontend\ProductsController@price47')->name('products.price47');
+  Route::get('/7-13-trieu', 'Frontend\ProductsController@price713')->name('products.price713');
+  Route::get('/tren-13-trieu', 'Frontend\ProductsController@price13')->name('products.price13');
 
 //Products Routes
 Route::group(['prefix' => 'products'], function(){
@@ -50,18 +62,6 @@ Route::group(['prefix' => 'products'], function(){
   //Category Routes
   Route::get('/categories', 'Frontend\CategoriesController@index')->name('categories.index');
   
-  //Show price category parent
-  Route::get('{slug1}/duoi-2-trieu', 'Frontend\CategoriesController@showPrice2')->name('categories.show.parent.price2');
-  Route::get('{slug1}/2-4-trieu', 'Frontend\CategoriesController@showPrice24')->name('categories.show.parent.price24');
-  Route::get('{slug1}/4-7-trieu', 'Frontend\CategoriesController@showPrice47')->name('categories.show.parent.price47');
-  Route::get('{slug1}/7-13-trieu', 'Frontend\CategoriesController@showPrice713')->name('categories.show.parent.price713');
-  Route::get('{slug1}/tren-trieu', 'Frontend\CategoriesController@showPrice13')->name('categories.show.parent.price13');
-  //Show price category child
-  Route::get('{slug1}/{slug2}/duoi-2-trieu', 'Frontend\CategoriesController@show2')->name('categories.show.child.price2');
-  Route::get('{slug1}/{slug2}/2-4-trieu', 'Frontend\CategoriesController@show24')->name('categories.show.child.price24');
-  Route::get('{slug1}/{slug2}/4-7-trieu', 'Frontend\CategoriesController@show47')->name('categories.show.child.price47');
-  Route::get('{slug1}/{slug2}/7-13-trieu', 'Frontend\CategoriesController@show713')->name('categories.show.child.price713');
-  Route::get('{slug1}/{slug2}/tren-13-trieu', 'Frontend\CategoriesController@show13')->name('categories.show.child.price13');
 });
 
 //User Routes
@@ -101,8 +101,6 @@ Route::group(['prefix' => 'admin'], function(){
      // Password Reset
     Route::get('/password/reset/{token}', 'Auth\Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
     Route::post('/password/reset', 'Auth\Admin\ResetPasswordController@reset')->name('admin.password.reset.post');
-
-
 
   // Product Routes
   	Route::group(['prefix' => '/products'], function(){
@@ -243,5 +241,81 @@ Route::get('ajax/button-compare/{slug}',function($slug){
   $pdt=App\Models\Product::where('slug',$slug)->first();
   return view('frontend.pages.products.compare.cart-button-compare',compact('pdt'));
 });
-
-
+/*LINK PRICE CHILD*/
+Route::get('ajax/link-price/{slug}',function($slug){
+  $slug1=App\Models\Category::where('slug',$slug)->first()->parent->slug;
+  $slug2=$slug;
+  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2'));
+});
+/*PRICE CHILD AJAX*/
+Route::get('ajax/{slug1}/{slug2}/duoi-2-trieu',function($slug1,$slug2){
+  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
+  $products=App\Models\Product::where('category_id',$id)->where('price','<','2000000')->get();
+  $id_child=$id;
+  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
+  $price=1; 
+  if(!is_null($products)){
+    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
+  }
+});
+Route::get('ajax/{slug1}/{slug2}/2-4-trieu',function($slug1,$slug2){
+  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
+  $products=App\Models\Product::where('category_id',$id)->where('price','>=','2000000')->where('price','<','4000000')->get();
+  $id_child=$id;
+  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
+  $price=2; 
+  if(!is_null($products)){
+    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
+  }
+});
+Route::get('ajax/{slug1}/{slug2}/4-7-trieu',function($slug1,$slug2){
+  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
+  $products=App\Models\Product::where('category_id',$id)->where('price','>=','4000000')->where('price','<','7000000')->get();
+  $id_child=$id;
+  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
+  $price=3; 
+  if(!is_null($products)){
+    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
+  }
+});
+Route::get('ajax/{slug1}/{slug2}/7-13-trieu',function($slug1,$slug2){
+  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
+  $products=App\Models\Product::where('category_id',$id)->where('price','>=','7000000')->where('price','<','13000000')->get();
+  $id_child=$id;
+  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
+  $price=4; 
+  if(!is_null($products)){
+    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
+  }
+});
+Route::get('ajax/{slug1}/{slug2}/tren-13-trieu',function($slug1,$slug2){
+  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
+  $products=App\Models\Product::where('category_id',$id)->where('category_id',$id)->where('price','>','13000000')->get();
+  $id_child=$id;
+  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
+  $price=5; 
+  if(!is_null($products)){
+    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
+  }
+});
+/*LINK PRICE CHILD AJAX*/
+Route::get('ajax/link-price/{slug1}/{slug2}/duoi-2-trieu',function($slug1,$slug2){
+  $price=1;
+  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
+});
+Route::get('ajax/link-price/{slug1}/{slug2}/2-4-trieu',function($slug1,$slug2){
+  $price=2;
+  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
+});
+Route::get('ajax/link-price/{slug1}/{slug2}/4-7-trieu',function($slug1,$slug2){
+  $price=3;
+  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
+});
+Route::get('ajax/link-price/{slug1}/{slug2}/7-13-trieu',function($slug1,$slug2){
+  $price=4;
+  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
+});
+Route::get('ajax/link-price/{slug1}/{slug2}/tren-13-trieu',function($slug1,$slug2){
+  $price=5;
+  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
+});

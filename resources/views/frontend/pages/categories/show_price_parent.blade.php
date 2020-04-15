@@ -20,8 +20,8 @@
   </div>
   <div class="container page-feature  ">
    <div class="list-item content-product">
-      {{-- @include('frontend.partials.product-sidebar-child') --}}
-      @include('frontend.partials.product-sidebar-child-ajax')
+      @include('frontend.partials.product-sidebar-child')
+      {{-- @include('frontend.partials.product-sidebar-child-ajax') --}}
     </div>
   </div>
 <div class="content-child">

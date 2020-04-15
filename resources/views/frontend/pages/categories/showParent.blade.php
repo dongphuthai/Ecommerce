@@ -13,7 +13,9 @@
       </div>  
 
       <div class="price col-12 col-lg-4 mt-1" style="font-size: 12px; ">
-        @include('frontend.pages.categories.price.link_price_parent')         
+        <div class="link_price_parent">
+          @include('frontend.pages.categories.price.link_price_parent')
+        </div>               
       </div>
 
       </div>    
