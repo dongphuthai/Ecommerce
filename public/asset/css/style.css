@@ -427,6 +427,7 @@ body{
 li a:link, li a:visited{color: #282d30;}
 a:link,a:visited{text-decoration: none; }
 a:hover,a:active{color: #cf0000;}
+.price-active{background: #ffa600}
 .footer-icon1{
   border: 1px solid #f4f4f4;
   padding: 11px;
