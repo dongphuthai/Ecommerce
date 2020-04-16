@@ -13,7 +13,7 @@
       $('.content-child').html(data);
       $(".rating").rating();
       $('.child-item a').removeClass('active');
-      $('#parent_'+id).addClass('active');
+      $('#child_'+id).addClass('active');
       location.hash=slug;
     });
     $.ajax({
@@ -56,7 +56,7 @@
 </div>
 
 <div class="content-child">
-  @include('frontend.pages.products.partials.all_products_child')
+  @include('frontend.pages.categories.price.all_products_child')
 </div>
 @endsection
 

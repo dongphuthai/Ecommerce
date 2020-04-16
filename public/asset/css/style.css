@@ -353,12 +353,36 @@ a.list-group-item.tt-suggestion.tt-selectable{
   color: red;
 }
 .child-rows a.list-group-item{border-left: 0px!important;}
-.list-group-item.active {
+.parent-item a.list-group-item.active {
     z-index: 2;
     color: #fff;
     background-color: #02aadd;
     border-color: #02aadd;
     border-radius: 0px!important;
+}
+.child-item{
+  position: relative;
+}
+
+.child-item a.list-group-item{
+  border-bottom-right-radius: 0rem;
+  border-bottom-left-radius: 0rem;
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+}
+.child-item a.list-group-item.active:after {
+  z-index: 2;
+  color: #fff;
+  border-color: #52a2e1;
+  border-radius: 0px!important;
+  background: transparent url(active-child.png) no-repeat left top;
+  content: "";
+  width: 23px;
+  height: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-size: 23px 20px;
 }
 
 html{height: 100%;}
@@ -427,7 +451,7 @@ body{
 li a:link, li a:visited{color: #282d30;}
 a:link,a:visited{text-decoration: none; }
 a:hover,a:active{color: #cf0000;}
-.price-active{background: #ffa600}
+.price-active{background: #ffa600;border: 1px solid #52a2e1; padding-bottom: 1px;padding-top: 1px}
 .footer-icon1{
   border: 1px solid #f4f4f4;
   padding: 11px;

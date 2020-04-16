@@ -209,8 +209,15 @@ Route::get('ajax/category/{id}',function($id){
   $products=App\Models\Product::orderBy('id','desc')->where('category_id',$id)->get();
   $id_child=$id;
   $id=App\Models\Category::find($id)->parent_id;  
-  return view('frontend.pages.products.partials.all_products_child',compact('products','id','id_child'))->render();
+  return view('frontend.pages.categories.price.all_products_child',compact('products','id','id_child'))->render();
 })->name('categories.show.ajax');
+Route::get('ajax/category/child/{slug}',function($slug){
+  $category=App\Models\Category::where('slug',$slug)->first();
+  $products=App\Models\Product::orderBy('id','desc')->where('category_id',$category->id)->get();
+  $id_child=$category->id;
+  $id=$category->parent->id;  
+  return view('frontend.pages.categories.price.all_products_child',compact('products','id','id_child'))->render();
+});
 /*PRODUCT COMPARE SHOW AJAX*/
 Route::get('ajax/product-compare/{slug}',function($slug){
   $product=App\Models\Product::where('slug',$slug)->first();
@@ -298,24 +305,20 @@ Route::get('ajax/{slug1}/{slug2}/tren-13-trieu',function($slug1,$slug2){
     return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
   }
 });
-/*LINK PRICE CHILD AJAX*/
-Route::get('ajax/link-price/{slug1}/{slug2}/duoi-2-trieu',function($slug1,$slug2){
-  $price=1;
-  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
+/*Routes Parent Ajax*/
+Route::get('ajax/parent/{slug}',function($slug){
+  $id=App\Models\Category::where('slug',$slug)->first()->id;
+  $categories=App\Models\Category::where('parent_id',$id)->get();
+  $slug1=$slug;
+  if(!is_null($categories)){
+    return view('frontend.pages.categories.price.all_products_parent',compact('categories','id','slug1'));
+  }
 });
-Route::get('ajax/link-price/{slug1}/{slug2}/2-4-trieu',function($slug1,$slug2){
-  $price=2;
-  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
+/*Route Sidebar child*/
+Route::get('ajax/sidebar-child/{id}',function($id){
+  return view('frontend.partials.product-sidebar-child-ajax',compact('id'));
 });
-Route::get('ajax/link-price/{slug1}/{slug2}/4-7-trieu',function($slug1,$slug2){
-  $price=3;
-  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
-});
-Route::get('ajax/link-price/{slug1}/{slug2}/7-13-trieu',function($slug1,$slug2){
-  $price=4;
-  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
-});
-Route::get('ajax/link-price/{slug1}/{slug2}/tren-13-trieu',function($slug1,$slug2){
-  $price=5;
-  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2','price'));
+/*Link price parent*/
+Route::get('ajax/parent-link/{slug1}',function($slug1){
+  return view('frontend.pages.categories.price.link_price_parent_ajax',compact('slug1'));
 });
