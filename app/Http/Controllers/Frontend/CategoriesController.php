@@ -19,7 +19,8 @@ class CategoriesController extends Controller
         $id_child=Category::where('slug',$slug2)->first()->id;
         $products=Product::orderBy('id','desc')->where('category_id',$id_child)->get();
         $id=Category::where('slug',$slug1)->first()->id; 
-        return view('frontend.pages.categories.show',compact('slug1','slug2','sliders','products','id','id_child'));
+        $setup=1;
+        return view('frontend.pages.categories.show_price',compact('slug1','slug2','sliders','products','id','id_child','setup'));
     }
 
     public function showParent($slug){       
@@ -34,14 +35,13 @@ class CategoriesController extends Controller
             return redirect('/');
         }
     }
-
-    //Price Parent
+    /*Price Parent*/
     public function showPrice2($slug1){
         $id=Category::where('slug',$slug1)->first()->id;
         $categories=Category::where('parent_id',$id)->get();
-        $price=1;    
+        $price=1;   
         if(!is_null($categories)){
-            return view('frontend.pages.categories.show_price_parent',compact('slug1','categories','id','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','categories','id','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');
@@ -52,7 +52,7 @@ class CategoriesController extends Controller
         $categories=Category::where('parent_id',$id)->get();  
         $price=2;    
         if(!is_null($categories)){
-            return view('frontend.pages.categories.show_price_parent',compact('slug1','categories','id','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','categories','id','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');
@@ -61,9 +61,9 @@ class CategoriesController extends Controller
     public function showPrice47($slug1){
         $id=Category::where('slug',$slug1)->first()->id;
         $categories=Category::where('parent_id',$id)->get();
-         $price=3;      
+        $price=3;     
         if(!is_null($categories)){
-            return view('frontend.pages.categories.show_price_parent',compact('slug1','categories','id','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','categories','id','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');
@@ -72,9 +72,9 @@ class CategoriesController extends Controller
     public function showPrice713($slug1){
         $id=Category::where('slug',$slug1)->first()->id;
         $categories=Category::where('parent_id',$id)->get(); 
-         $price=4;     
+        $price=4;
         if(!is_null($categories)){
-            return view('frontend.pages.categories.show_price_parent',compact('slug1','categories','id','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','categories','id','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');
@@ -83,16 +83,15 @@ class CategoriesController extends Controller
     public function showPrice13($slug1){
         $id=Category::where('slug',$slug1)->first()->id;
         $categories=Category::where('parent_id',$id)->get();
-         $price=5;      
+        $price=5;
         if(!is_null($categories)){
-            return view('frontend.pages.categories.show_price_parent',compact('slug1','categories','id','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','categories','id','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');
         }
     }
-
-    //Price Child
+    /*Price Child*/
     public function show2($slug1,$slug2){ 
         $id=Category::where('slug',$slug2)->first()->id;  
         $products=Product::where('category_id',$id)->where('price','<','2000000')->get();
@@ -100,7 +99,7 @@ class CategoriesController extends Controller
         $id=Category::where('slug',$slug1)->first()->id; 
         $price=1;        
         if(!is_null($products)){
-            return view('frontend.pages.categories.show_price_child',compact('slug1','slug2','products','id','id_child','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','slug2','products','id','id_child','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');
@@ -111,9 +110,9 @@ class CategoriesController extends Controller
         $products=Product::where('category_id',$id)->where('price','>=','2000000')->where('price','<','4000000')->get();
         $id_child=$id;
         $id=Category::where('slug',$slug1)->first()->id;
-        $price=2;           
+        $price=2;          
         if(!is_null($products)){
-            return view('frontend.pages.categories.show_price_child',compact('slug1','slug2','products','id','id_child','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','slug2','products','id','id_child','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');
@@ -124,9 +123,9 @@ class CategoriesController extends Controller
         $products=Product::where('category_id',$id)->where('price','>=','4000000')->where('price','<','7000000')->get();
         $id_child=$id;
         $id=Category::where('slug',$slug1)->first()->id; 
-        $price=3;          
+        $price=3;        
         if(!is_null($products)){
-            return view('frontend.pages.categories.show_price_child',compact('slug1','slug2','products','id','id_child','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','slug2','products','id','id_child','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');
@@ -137,9 +136,9 @@ class CategoriesController extends Controller
         $products=Product::where('category_id',$id)->where('price','>=','7000000')->where('price','<','13000000')->get();
         $id_child=$id;
         $id=Category::where('slug',$slug1)->first()->id; 
-        $price=4;          
+        $price=4;         
         if(!is_null($products)){
-            return view('frontend.pages.categories.show_price_child',compact('slug1','slug2','products','id','id_child','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','slug2','products','id','id_child','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');
@@ -152,7 +151,7 @@ class CategoriesController extends Controller
         $id=Category::where('slug',$slug1)->first()->id;
         $price=5;
         if(!is_null($products)){
-            return view('frontend.pages.categories.show_price_child',compact('slug1','slug2','products','id','id_child','price'));
+            return view('frontend.pages.categories.show_price',compact('slug1','slug2','products','id','id_child','price'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');

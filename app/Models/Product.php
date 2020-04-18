@@ -26,5 +26,14 @@ class Product extends Model
     public function paralaptop(){
         return $this->hasOne(Paralaptop::class);
     }
+    public static function count_product($parent_id){
+        $count=0;
+        $categories=Category::where('parent_id',$parent_id)->get();
+        foreach($categories as $category){
+            $products=Product::where('category_id',$category->id)->get();
+            $count+=count($products);
+        }
+          return $count;
+    }
 
 }

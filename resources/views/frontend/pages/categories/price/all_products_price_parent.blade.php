@@ -1,36 +1,8 @@
-@extends('frontend.layouts.master')
-
-@section('content')
-
-  <div class="container page-feature ">
-  <!-- Start Sidebar + Content -->
-
-  <div class="mt-2 mb-2">
-    <div class="row">
-      <div class="col-12 col-lg-8 ">
-        @include('frontend.partials.product-sidebar-parent-ajax')
-      </div>  
-
-      <div class="price col-12 col-lg-4 mt-1" style="font-size: 12px; ">
-        @include('frontend.pages.categories.price.link_price_parent')                       
-      </div>
-
-      </div>    
-    </div>
-  </div>
-  <div class="container page-feature  ">
-   <div class="list-item content-product">
-      @include('frontend.partials.product-sidebar-child')
-      {{-- @include('frontend.partials.product-sidebar-child-ajax') --}}
-    </div>
-  </div>
-<div class="content-child">
-  <div class='container mt-2 page-feature'>
+  <div class="price_child_item"> 
     @php
-    $str=mb_convert_case(App\Models\Category::where('id',$id)->first()->name,MB_CASE_UPPER, "UTF-8");
+      $str=mb_convert_case(App\Models\Category::where('id',$id)->first()->name,MB_CASE_UPPER, "UTF-8");
     @endphp 
     <div id="hidden2" >
-
       @if($price==1)
         <p style="font-family: arial;"><b>{{ $str }} DƯỚI 2 TRIỆU</b></p>
       @elseif($price==2)
@@ -67,11 +39,3 @@
       </div>
     </div>
   </div>
-</div>
-
-  <!-- End Sidebar + Content -->
-@endsection
-
-@section('scripts')
- 
-@endsection

@@ -16,6 +16,7 @@
   Route::get('/contact', 'Frontend\PagesController@contact')->name('contact');
   Route::get('/search', 'Frontend\ProductsController@searchType')->name('type.search');
   Route::get('/compare/{slug}/search','Frontend\PagesController@searchCompare')->name('search.compare');
+  Route::get('/product/compare/{slug}','Frontend\PagesController@showCompare')->name('show.compare');
 //Compare Route
   Route::get('/compare/{slug1}-vs-{slug2}','Frontend\ProductsController@compareProduct')
   ->where('slug1', '[a-zA-Z0-9-_]+')
@@ -41,7 +42,6 @@
   Route::get('{slug1}/{slug2}/4-7-trieu', 'Frontend\CategoriesController@show47')->name('categories.show.child.price47');
   Route::get('{slug1}/{slug2}/7-13-trieu', 'Frontend\CategoriesController@show713')->name('categories.show.child.price713');
   Route::get('{slug1}/{slug2}/tren-13-trieu', 'Frontend\CategoriesController@show13')->name('categories.show.child.price13');
-
 
 //Price Routes
   Route::get('/duoi-2-trieu', 'Frontend\ProductsController@price2')->name('products.price2');
@@ -126,9 +126,7 @@ Route::group(['prefix' => 'admin'], function(){
       Route::get('/', 'Backend\OrdersController@index')->name('admin.orders');
       Route::get('/view/{id}', 'Backend\OrdersController@show')->name('admin.order.show');
       Route::post('/delete/{id}', 'Backend\OrdersController@delete')->name('admin.order.delete');
-
       Route::post('/completed/{id}', 'Backend\OrdersController@completed')->name('admin.order.completed');
-
       Route::post('/paid/{id}', 'Backend\OrdersController@paid')->name('admin.order.paid');
       Route::post('/charge-update/{id}', 'Backend\OrdersController@chargeUpdate')->name('admin.order.charge');
       Route::get('invoice/{id}', 'Backend\OrdersController@invoice')->name('admin.order.invoice');
@@ -191,7 +189,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/home/login', 'Auth\LoginController@login')->name('login');
 
-
 //API Routes
 Route::get('get-districts/{id}',function($id){
   return json_encode(App\Models\District::where('division_id',$id)->get());
@@ -199,126 +196,41 @@ Route::get('get-districts/{id}',function($id){
 Route::get('get-category/{id}',function($id){
   return json_encode(App\Models\Category::orderBy('name', 'asc')->where('parent_id', $id)->get());
 });
-/*PRODUCT AJAX*/
-Route::get('ajax/products',function(){
-  $products = App\Models\Product::orderBy('price', 'desc')->paginate(15);
-  return view('frontend.pages.products.partials.all',compact('products'))->render();
-});
-/*PARENT PRRODUCT AJAX*/
-Route::get('ajax/category/{id}',function($id){
-  $products=App\Models\Product::orderBy('id','desc')->where('category_id',$id)->get();
-  $id_child=$id;
-  $id=App\Models\Category::find($id)->parent_id;  
-  return view('frontend.pages.categories.price.all_products_child',compact('products','id','id_child'))->render();
-})->name('categories.show.ajax');
-Route::get('ajax/category/child/{slug}',function($slug){
-  $category=App\Models\Category::where('slug',$slug)->first();
-  $products=App\Models\Product::orderBy('id','desc')->where('category_id',$category->id)->get();
-  $id_child=$category->id;
-  $id=$category->parent->id;  
-  return view('frontend.pages.categories.price.all_products_child',compact('products','id','id_child'))->render();
-});
-/*PRODUCT COMPARE SHOW AJAX*/
-Route::get('ajax/product-compare/{slug}',function($slug){
-  $product=App\Models\Product::where('slug',$slug)->first();
-  $parent_id=$product->category->parent->id;
-  $categories=App\Models\Category::where('parent_id',$parent_id)->get();
-  $price=$product->price;
-  $id=$product->id;
-  return view('frontend.pages.products.compare.all_products_compare',compact('price','categories','id','product'));
-});
-/*CARD PRODUCT COMPARE AJAX*/
-Route::get('ajax/card-compare/{slug}',function($slug){
-  $pdt=App\Models\Product::where('slug',$slug)->first();
-  return view('frontend.pages.products.compare.card-product-compare',compact('pdt'));
-});
-/*TABLE PARA COMPARE AJAX*/
-Route::get('ajax/card-compare/para/{slug}',function($slug){
-  $pdt=App\Models\Product::where('slug',$slug)->first();
-  $parent_id=$pdt->category->parent->id;
-  if($parent_id==32||$parent_id==33){
-    $para=$pdt->para;
-  }elseif ($parent_id==29) {
-    $para=$pdt->paralaptop;
-  }  
-  return response()->json(['para'=>$para,'pdt'=>$pdt,'parent_id'=>$parent_id]);
-});
-/*BUTTON COMPARE AJAX*/
-Route::get('ajax/button-compare/{slug}',function($slug){
-  $pdt=App\Models\Product::where('slug',$slug)->first();
-  return view('frontend.pages.products.compare.cart-button-compare',compact('pdt'));
-});
-/*LINK PRICE CHILD*/
-Route::get('ajax/link-price/{slug}',function($slug){
-  $slug1=App\Models\Category::where('slug',$slug)->first()->parent->slug;
-  $slug2=$slug;
-  return view('frontend.pages.categories.price.link_price_child_ajax',compact('slug1','slug2'));
-});
+
+/*PRODUCT ALL AJAX*/
+Route::get('ajax/products','Frontend\showProductsController@allProduct');
+/*SHOW CHILD-PARENT PRRODUCT AJAX*/
+Route::get('ajax/category/{id}','Frontend\showProductsController@parentProduct')->name('categories.show.ajax');
+Route::get('ajax/parent/{slug}','Frontend\showProductsController@parentslugProduct');
+Route::get('ajax/category/child/{slug}','Frontend\showProductsController@childProduct');
+/*SHOW SIDEBAR CHILD*/
+Route::get('ajax/sidebar-child/{id}','Frontend\showProductsController@sidabarChild');
+/*SẮP XẾP SẢN PHẨM THỂ LOẠI CON THEO GIÁ*/
+Route::get('ajax/thap/child/{slug}','Frontend\ShowpriceController@priceChildthap');
+Route::get('ajax/cao/child/{slug}','Frontend\ShowpriceController@priceChildcao');
+/*SẮP XẾP SẢN PHẨM THỂ LOẠI CHA THEO GIÁ*/
+Route::get('ajax/thap/parent/{slug}','Frontend\ShowpriceController@priceParentthap');
+Route::get('ajax/cao/parent/{slug}','Frontend\ShowpriceController@priceParentcao');
+/*PRODUCT COMPARE AJAX*/
+Route::get('ajax/product-compare/{slug}','Frontend\CompareProductsController@compareShowProduct');
+Route::get('ajax/card-compare/{slug}','Frontend\CompareProductsController@compareCard');
+Route::get('ajax/card-compare/para/{slug}','Frontend\CompareProductsController@compareTable');
+Route::get('ajax/button-compare/{slug}','Frontend\CompareProductsController@compareButton');
 /*PRICE CHILD AJAX*/
-Route::get('ajax/{slug1}/{slug2}/duoi-2-trieu',function($slug1,$slug2){
-  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
-  $products=App\Models\Product::where('category_id',$id)->where('price','<','2000000')->get();
-  $id_child=$id;
-  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
-  $price=1; 
-  if(!is_null($products)){
-    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
-  }
-});
-Route::get('ajax/{slug1}/{slug2}/2-4-trieu',function($slug1,$slug2){
-  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
-  $products=App\Models\Product::where('category_id',$id)->where('price','>=','2000000')->where('price','<','4000000')->get();
-  $id_child=$id;
-  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
-  $price=2; 
-  if(!is_null($products)){
-    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
-  }
-});
-Route::get('ajax/{slug1}/{slug2}/4-7-trieu',function($slug1,$slug2){
-  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
-  $products=App\Models\Product::where('category_id',$id)->where('price','>=','4000000')->where('price','<','7000000')->get();
-  $id_child=$id;
-  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
-  $price=3; 
-  if(!is_null($products)){
-    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
-  }
-});
-Route::get('ajax/{slug1}/{slug2}/7-13-trieu',function($slug1,$slug2){
-  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
-  $products=App\Models\Product::where('category_id',$id)->where('price','>=','7000000')->where('price','<','13000000')->get();
-  $id_child=$id;
-  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
-  $price=4; 
-  if(!is_null($products)){
-    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
-  }
-});
-Route::get('ajax/{slug1}/{slug2}/tren-13-trieu',function($slug1,$slug2){
-  $id=App\Models\Category::where('slug',$slug2)->first()->id;  
-  $products=App\Models\Product::where('category_id',$id)->where('category_id',$id)->where('price','>','13000000')->get();
-  $id_child=$id;
-  $id=App\Models\Category::where('slug',$slug1)->first()->id; 
-  $price=5; 
-  if(!is_null($products)){
-    return view('frontend.pages.categories.price.all_products_price_child',compact('slug1','slug2','products','id','id_child','price'));
-  }
-});
-/*Routes Parent Ajax*/
-Route::get('ajax/parent/{slug}',function($slug){
-  $id=App\Models\Category::where('slug',$slug)->first()->id;
-  $categories=App\Models\Category::where('parent_id',$id)->get();
-  $slug1=$slug;
-  if(!is_null($categories)){
-    return view('frontend.pages.categories.price.all_products_parent',compact('categories','id','slug1'));
-  }
-});
-/*Route Sidebar child*/
-Route::get('ajax/sidebar-child/{id}',function($id){
-  return view('frontend.partials.product-sidebar-child-ajax',compact('id'));
-});
-/*Link price parent*/
-Route::get('ajax/parent-link/{slug1}',function($slug1){
-  return view('frontend.pages.categories.price.link_price_parent_ajax',compact('slug1'));
-});
+Route::get('ajax/{slug1}/{slug2}/duoi-2-trieu','Frontend\ShowpriceController@priceChild2');
+Route::get('ajax/{slug1}/{slug2}/2-4-trieu','Frontend\ShowpriceController@priceChild24');
+Route::get('ajax/{slug1}/{slug2}/4-7-trieu','Frontend\ShowpriceController@priceChild47');
+Route::get('ajax/{slug1}/{slug2}/7-13-trieu','Frontend\ShowpriceController@priceChild713');
+Route::get('ajax/{slug1}/{slug2}/tren-13-trieu','Frontend\ShowpriceController@priceChild13');
+/*LINK PRICE CHILD-PARENT*/
+Route::get('ajax/parent-link/{slug1}','Frontend\ShowpriceController@linkParent');
+Route::get('ajax/link-price/{slug}','Frontend\ShowpriceController@linkChild');
+/*PRICE PARENT AJAX*/
+Route::get('ajax/{slug1}/duoi-2t','Frontend\ShowpriceController@priceParent2');
+Route::get('ajax/{slug1}/2-4t','Frontend\ShowpriceController@priceParent24');
+Route::get('ajax/{slug1}/4-7t','Frontend\ShowpriceController@priceParent47');
+Route::get('ajax/{slug1}/7-13t','Frontend\ShowpriceController@priceParent713');
+Route::get('ajax/{slug1}/tren-13t','Frontend\ShowpriceController@priceParent13');
+/*SẮP XẾP THEO GIÁ CỦA GIÁ CHILD*/
+Route::get('ajax/thap/{slug1}/{slug2}/tren-13-trieu','Frontend\ShowpriceController@thapChild13');
+Route::get('ajax/cao/{slug1}/{slug2}/tren-13-trieu','Frontend\ShowpriceController@caoChild13');

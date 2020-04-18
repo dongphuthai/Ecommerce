@@ -2,37 +2,31 @@
 
 @section('content')
 
-  <div class="container page-feature ">
+<div class="container page-feature ">
   <!-- Start Sidebar + Content -->
   @include('frontend.pages.products.partials.slider')
-
   <div class="mt-2 mb-2">
     <div class="row">
       <div class="col-12 col-lg-8 ">
         @include('frontend.partials.product-sidebar-parent')
-      </div>  
-
+      </div> 
       <div class="price col-12 col-lg-4 mt-1" style="font-size: 12px; ">
         <div class="link_price_parent">
           @include('frontend.pages.categories.price.link_price_parent')
         </div>               
       </div>
-
-      </div>    
-    </div>
-  </div>
-  <div class="container page-feature  ">
-    <div class="list-item content-product">
-      {{-- @include('frontend.partials.product-sidebar-mobile') --}}
+    </div> 
+    <div class="list-item content-product mt-3">
       @foreach (App\Models\Category::orderBy('id', 'asc')->where('parent_id', $id)->get() as $child)
-        <div class="{{ ($id==41||$id==45)?'watches-item': 'mobile-item'}}" >
-        <a id="parent_{{ $child->id }}" href="the-loai/{{ $slug1 }}/{{ $child->slug }}" data-child-id="{{ $child->id }}" class="list-group-item list-group-item-action p-0 btn">
-          <img src="{!! asset('public/images/categories/'.$child->image) !!}" width="100%" style="height: auto; background: #fff;">
+        <div class="child-item {{ ($id==41||$id==45)?'watches-item': 'mobile-item'}}" >
+        <a id="child_{{ $child->id }}" href="the-loai/{{ $slug1 }}/{{ $child->slug }}" data-child-id="{{ $child->id }}" class="list-group-item list-group-item-action p-0 btn">
+          <img src="{!! asset('public/images/categories/'.$child->image) !!}" width="100%" style="height: auto; background: #fff;padding:3px;">
         </a>
       </div>
       @endforeach
-    </div>
-  </div>
+    </div>   
+  </div>   
+</div>
 
   <div class="{{ $id==32?'':'hidden' }}">
     @include('frontend.partials.featured.phone-featured')

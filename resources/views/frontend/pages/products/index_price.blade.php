@@ -17,7 +17,7 @@
             <p class="mb-0 hiddentitle" style="font-size: 14px; font-family: arial;">{{ $parent->name }}</p>
           </a>
         @endforeach
-</div>
+    </div>
     </div>     
       @include('frontend.pages.products.partials.price') 
     </div>    

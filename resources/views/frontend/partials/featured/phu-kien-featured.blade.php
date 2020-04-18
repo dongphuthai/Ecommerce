@@ -1,21 +1,10 @@
 <div class='container mt-3 page-feature'>
   <div class="mb-2" style="font-family: arial;">
     <span ><b>PHỤ KIỆN NỔI BẬT NHẤT</b></span>
-
-    {{-- @php     
-      $categories = App\Models\Category::where('parent_id',45)->get();
-      foreach($categories as $category){
-        $products=App\Models\Product::where('category_id',$category->id)->get();
-      }        
-        dd($products);
-    @endphp --}}
-
-    {{-- @php
-    $rating=\willvincent\Rateable\Rating::where('rating',5)->where('rateable_id',87)->count();
-    dd($rating);
-    @endphp --}}
-
-    <span class="float-right" style="font-size: 14px;"><a href="products/category/parent/phu-kien">Xem tất cả sản phẩm</a></span>
+    @php
+      $count=App\Models\Product::count_product(45);
+    @endphp
+    <span class="float-right" style="font-size: 14px;"><a href="the-loai/phu-kien">Xem tất cả {{ $count }} phụ kiện</a></span>
   </div>
     <div class="list-item" >                                
       @php

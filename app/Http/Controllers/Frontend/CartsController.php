@@ -147,7 +147,7 @@ class CartsController extends Controller
         }else {
             return redirect()->route('carts');
         }
-            session()->flash('success', 'Cart item has updated successfully !!');
+            session()->flash('success', 'Bạn đã thêm sản phẩm vào giỏ hàng !!');
             return back();
     }
 
@@ -166,7 +166,7 @@ class CartsController extends Controller
         }else{
             return redirect()->route('carts');
         }
-        session()->flash('success', 'Cart item has deleted !!');
+        session()->flash('success', 'Bạn đã xóa sản phẩm khỏi giỏ hàng !!');
         return back();
     }
 }

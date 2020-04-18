@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Models\Product;
 use App\Models\Parameter;
 use App\Models\Slider;
 use App\Models\Cmtrate;
 use Illuminate\Support\Str;
-
 use Validator;
 use Auth;
 
