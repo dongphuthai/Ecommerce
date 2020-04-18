@@ -45,7 +45,7 @@ class PagesController extends Controller
   }
 	public function index(){
     $sliders = Slider::orderBy('priority', 'asc')->get();
-		$products = Product::orderBy('id', 'desc')->paginate(12);
+		$products = Product::orderBy('id', 'desc')->paginate(20);
     return view('frontend.pages.index', compact('products','sliders'));
 	}
 	public function contact(){
@@ -61,23 +61,24 @@ class PagesController extends Controller
   public function searchCompare(Request $request,$slug){
     $search=$request->search;
     $parent_id = Product::where('slug',$slug)->first()->category->parent->id; 
+    $id=Product::where('slug',$slug)->first()->id;
     $categories=Category::where('parent_id',$parent_id)->get();
-    function add($categories,$search){
-      $a=array();
-      foreach($categories as $key => $category){
-        $products=array(Product::orderBy('price','desc')->where('category_id',$category->id)->where('title','like','%'.$search.'%')->get());     
-        $a=array_merge($a,$products);  
-      } 
-      return $a; 
+    $products=array();
+    foreach($categories as $key => $category){
+      $pdts=Product::orderBy('price','desc')->where('id','<>',$id)->where('category_id',$category->id)->where('slug','like','%'.$search.'%')->get();     
+      foreach($pdts as $pdt){
+        $pdt=array($pdt);
+        $products=array_merge_recursive($pdt,$products);
+      }  
     }
-    $b=add($categories,$search);
-    return json_encode($b);
-    //return response()->json(['a'=>$a]);
+    return $products;
   }
 
-  public function compare($slug){
+  public function showCompare($slug){
     $product=Product::where('slug',$slug)->first();
-    return view('frontend.pages.products.compare',compact('product'));
+    $slug1=$slug;
+    return view('frontend.pages.products.compare',compact('product','slug1'));
   }
+
     
 }

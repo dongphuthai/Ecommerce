@@ -48,9 +48,9 @@
         <div class="contact col-8 col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <h5>Liên lạc</h5>
             <ul class="list-unstyled">
-	            <li class="address"><i class="fa fa-map-marker footer-icon1"></i>Bigshop Plaza, An Ha, Lang Giang, Bac Giang.</li>
-	            <li class="mobile"><i class="fa fa-phone footer-icon"></i>+98 989748373</li>
-	            <li class="email"><i class="fa fa-envelope footer-icon"></i><a href="mailto:info@bigshop.com">info@bigshop.com</a>
+	            <li class="address"><img class="footer-icon" src="public/images/support/map.png" width="30"> Bigshop Plaza, Bac Giang.</li>
+              <li class="mobile"><img class="footer-icon" src="public/images/support/call.png" width="30"> +98 989748373</li>
+              <li class="email"><img class="footer-icon" src="public/images/support/email.png" width="30"><a href="mailto:info@bigshop.com">info@bigshop.com</a>
 			</ul>
         </div>                               
       </div>

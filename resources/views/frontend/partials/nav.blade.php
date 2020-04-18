@@ -12,11 +12,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item mr-1">
-          <form class=" my-2 my-lg-0" action="{!! route('type.search') !!}" method="get">   
+          <form class=" my-2 my-lg-0" action="{!! route('type.search') !!}" method="get" style="font-size: 14px">   
             <div class="input-group">
-              <input type="text" class="form-control search" id="search" name="search" placeholder="Nhập sản phẩm cần tìm" style="border-bottom-right-radius: 0;border-top-right-radius: 0;">
+              <input type="text" class="form-control search" id="search" name="search" placeholder="Bạn cần tìm..." style="border-bottom-right-radius: 0;border-top-right-radius: 0;">
               <div class="input-group-append">
-                <button class="btn  search-icon-button" type="submit" ><i class="fa fa-search" style="color: #999"></i></button>
+                <button class="btn  search-icon-button" type="submit" ><img src="public/images/support/search.png" width="18"></button>
               </div>
             </div>
           </form>

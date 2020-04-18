@@ -1,7 +1,10 @@
 <div class='container mt-3 page-feature mb-4'>
   <div class="mb-2" style="font-family: arial;">
     <span ><b>ĐỒNG HỒ NỔI BẬT NHẤT</b></span>
-    <span class="float-right" style="font-size: 14px;"><a href="products/category/parent/watches">Xem tất cả sản phẩm</a></span>
+    @php
+      $count=App\Models\Product::count_product(41);
+    @endphp
+    <span class="float-right" style="font-size: 14px;"><a href="the-loai/watches">Xem tất cả {{ $count }} đồng hồ</a></span>
   </div>
     <div class="list-item" >                                
       @php

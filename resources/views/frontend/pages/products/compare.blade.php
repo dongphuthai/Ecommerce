@@ -12,9 +12,14 @@
     <span class="duongdan px-1">›</span>
     <a href="products/{{ $product->slug }}">{{ $product->title }}</a>
   </div>
-  <h4 class="pb-2" class="data-compare">So sánh điện thoại
-    <span id="slug1" title1="{{ $slug1 }}"><b>{{ $product->title }}</b></span>
-    <span id="slug2" title2="{{ $slug2 }}">và <b>{{ $pdt->title }}</b></span>
+  <h4 class="pb-2" class="data-compare">So sánh điện thoại   
+    @if(isset($slug2))
+      <span id="slug1" title1="{{ $slug1 }}"><b>{{ $product->title }}</b></span>
+      <span id="slug2" title2="{{ $slug2 }}">và <b>{{ $pdt->title }}</b></span>
+    @else
+      <span id="slug1" title1="{{ $slug1 }}"><b>{{ $product->title }}</b></span>
+      <span id="slug2" title2=""></span>  
+    @endif
   </h4>
   <section>
     <ul class="compare-table compare-product mb-0">
@@ -47,7 +52,11 @@
       </li>
       <li class="cp-cell cp-cell-3 cp-product pt-4" >
         <div class="cancelPro2">
-          <img src="public/images/support/delete.png" class="cancel-img" id="cancel-img" width="22">
+          @if(isset($slug2))
+            <img src="public/images/support/delete.png" class="cancel-img" id="cancel-img" width="22" style="padding:5px;">
+          @else
+            <img src="public/images/support/plus.png" class="cancel-img" id="cancel-img" width="45" style="border-radius: 5px;padding:10px;background: #f0f0f0;left:46%;top: 42%;">
+          @endif
         </div>
         <div id="itemProd2">
           
@@ -92,9 +101,9 @@
 
 
 @section('scripts')
-  <script type="text/javascript">
-    $("#input-id").rating();
-  </script> 
+  {{-- <script type="text/javascript">
+    $(".rating").rating();
+  </script>  --}}
 <!-- STAR PAGE COMPARE -->
   <script type="text/javascript">
     $(document).ready(function(){
@@ -163,7 +172,7 @@
       var url="{{ url('/') }}";
         var engine = new Bloodhound({
             remote: {
-                url:  url+'/products/new/search?search=%QUERY%',
+                url:  url+'/compare/'+slug+'/search?search=%QUERY%',
                 wildcard: '%QUERY%'
             },
             datumTokenizer: Bloodhound.tokenizers.whitespace('search'),
@@ -175,11 +184,11 @@
             minLength: 3
         },{
             source: engine.ttAdapter(),
-            limit:10,
+            limit:100,
             display: function(data){
             },templates: {
                 suggestion: function (data) {
-                    var price=number_format(data.price, 0, ',', '.');
+                  console.log(data)
                     return '<a href="products/'+data.slug+'" class="list-group-item" style="width:370px">' + data.title + '</a>';
                 }
             }
@@ -195,9 +204,9 @@
       $.ajax({
         url:url+'/ajax/card-compare/'+slug
       }).done(function(data){
-        $(".rating").rating();
         $('#itemProd2').html(data);
-        $('.cancelPro2').html('<img src="public/images/support/delete.png" class="cancel-img" id="cancel-img" width="22">');
+        $(".rating").rating();
+        $('.cancelPro2').html('<img src="public/images/support/delete.png" class="cancel-img" id="cancel-img" width="22" style="padding:5px;">');
       });
       $.ajax({
         url:url+'/ajax/card-compare/para/'+slug
@@ -236,6 +245,4 @@
     });
   </script>
 
-
-  
 @endsection

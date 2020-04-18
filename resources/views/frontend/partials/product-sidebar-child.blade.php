@@ -1,7 +1,7 @@
 
 @foreach (App\Models\Category::orderBy('id', 'asc')->where('parent_id', $id)->get() as $child)
-        <div class="{{ ($id==41||$id==45)?'watches-item': 'mobile-item'}}" >
-        <a id="parent_{{ $child->id }}" href="the-loai/{{ $slug1 }}/{{ $child->slug }}" data-child-id="{{ $child->id }}" class="list-group-item list-group-item-action p-0">
+        <div  class="child-pro {{ ($id==41||$id==45)?'watches-item': 'mobile-item'}}" >
+        <a id="parent_{{ $child->id }}" href="the-loai/{{ $slug1 }}/{{ $child->slug }}" data-child-id="{{ $child->id }}" class="list-group-item list-group-item-action @if(isset($id_child)){{ $child->id==$id_child?'active':'' }} @endif p-0">
           <img src="{!! asset('public/images/categories/'.$child->image) !!}" width="100%" style="height: auto; background: #fff;padding:3px;">
         </a>
       </div>

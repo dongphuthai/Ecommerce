@@ -27,14 +27,14 @@
         <div class="in_skillbar" style="display: flex;" >
           <div class="left">
             <span id="danhgia" class="side-left">{{ number_format($product->averageRating,1) }}</span>
-            <small style="vertical-align: top; color: orange" class="hidden-star"><i class="fas fa-star" ></i></small>
+            <small style="vertical-align: top;" class="hidden-star"><img src="public/images/support/star1.png" width="15" style="font-size: 14px"></small>
           </div>
           <div class="side" style="border-left: 1px solid rgba(0, 0, 0, 0.1); padding-left: 10px;">
-            <div>5 <i class="fas fa-star" ></i></div>
-            <div class="">4 <i class="fas fa-star" ></i></div>
-            <div class="">3 <i class="fas fa-star" ></i></div>
-            <div class="">2 <i class="fas fa-star" ></i></div>
-            <div class="">1 <i class="fas fa-star" ></i></div>
+            <div class="">5 <img src="public/images/support/star1.png" width="12" style="padding-bottom: 4px"></div>
+            <div class="">4 <img src="public/images/support/star1.png" width="12" style="padding-bottom: 4px"></div>
+            <div class="">3 <img src="public/images/support/star1.png" width="12" style="padding-bottom: 4px"></div>
+            <div class="">2 <img src="public/images/support/star1.png" width="12" style="padding-bottom: 4px"></div>
+            <div class="">1 <img src="public/images/support/star1.png" width="12" style="padding-bottom: 4px"></div>
           </div>
           @php
             $ratings=\willvincent\Rateable\Rating::where('rateable_id',$product->id)->get();

@@ -5,15 +5,8 @@
 	<script type="text/javascript" src="public/asset/css/scripts/star-rating.min.js"></script>
 	<script type="text/javascript" src="public/asset/css/scripts/typeahead.bundle.js"></script>
 	<script type="text/javascript" src="public/asset/js/bootstrap.min.js"></script>
-	
 	<!-- JavaScript -->
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script> --}}
-
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <!-- CART AJAX -->
 <script type="text/javascript">
 	$.ajaxSetup({
@@ -37,18 +30,6 @@
   		});
 	}
 </script>
-
-<!-- PARENT PRICE LINK -->
-{{-- <script type="text/javascript">
-  $(document).on('click', '.selector', function(event) {
-    event.preventDefault();
-    /* Act on the event */
-  });
-</script> --}}
-
-<!-- CATEGORY CHILD PRODUCT AJAX -->
-
-
 <!-- PRODUCT AJAX -->
 <script type="text/javascript">
     $(document).on('click','.pagination-all nav ul.pagination a', function(e) {
@@ -125,7 +106,7 @@
             minLength: 3
         },{
             source: engine.ttAdapter(),
-            limit:7,
+            limit:25,
             display: function(data){
             },templates: {
                 suggestion: function (data) {

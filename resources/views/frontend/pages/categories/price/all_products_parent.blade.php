@@ -8,8 +8,8 @@
         <p style="font-family: arial;"><b>TẤT CẢ {{ $str }}</b></p>                 
         <div class="list-item">
           @foreach($categories as $category)             
-            @php           
-              $products = App\Models\Product::where('category_id',$category->id)->paginate(15);
+            @php            
+              $products = App\Models\Product::where('category_id',$category->id)->paginate(30);          
             @endphp
             @if ($products->count() > 0)
               @include('frontend.pages.products.partials.all_products')

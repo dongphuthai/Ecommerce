@@ -1,7 +1,7 @@
 <div class='container' style="font-size: 14px;">
   <div class="row">
     <div class="col-xl-7 col-12 page-feature">
-      <h5 class="pb-3">So sánh với các sản phẩm tương tự</h5>
+      <h5 class="pb-3">So sánh với các sản phẩm tương tự (<a href="{{ route('show.compare',$product->slug) }}" style="font-size: 16px">hoặc với sản phẩm khác</a>)</h5>    
       <div class="list-item height-item" >
         @foreach($categories as $category)
           @php
@@ -9,7 +9,7 @@
             ->where('price','>',$price-2990000)
             ->where('id','<>',$id)
             ->where('price','<',$price+2990000)
-            ->take(3)->get();
+            ->get();
           @endphp
           @if($products->count() > 0)
             @foreach($products as $pdt)
