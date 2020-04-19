@@ -4,15 +4,15 @@
     @endphp 
     <div id="hidden2" >
       @if($price==1)
-        <p style="font-family: arial;"><b>{{ $str }} DƯỚI 2 TRIỆU</b></p>
+        <p class="font-name"><b>{{ $str }} DƯỚI 2 TRIỆU</b></p>
       @elseif($price==2)
-        <p style="font-family: arial;"><b>{{ $str }} TỪ 2-4 TRIỆU</b></p>
+        <p class="font-name"><b>{{ $str }} TỪ 2-4 TRIỆU</b></p>
       @elseif($price==3)
-        <p style="font-family: arial;"><b>{{ $str }} TỪ 4-7 TRIỆU</b></p>
+        <p class="font-name"><b>{{ $str }} TỪ 4-7 TRIỆU</b></p>
       @elseif($price==4)
-        <p style="font-family: arial;"><b>{{ $str }} TỪ 7-13 TRIỆU</b></p>
+        <p class="font-name"><b>{{ $str }} TỪ 7-13 TRIỆU</b></p>
       @elseif($price==5)
-        <p style="font-family: arial;"><b>{{ $str }} TRÊN 13 TRIỆU</b></p>
+        <p class="font-name"><b>{{ $str }} TRÊN 13 TRIỆU</b></p>
       @endif
 
       <div class="list-item" style="min-height: 200px;">

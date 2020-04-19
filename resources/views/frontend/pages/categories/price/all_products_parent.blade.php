@@ -5,7 +5,7 @@
         @php
           $str=mb_convert_case(App\Models\Category::where('id',$id)->first()->name,MB_CASE_UPPER, "UTF-8");
         @endphp
-        <p style="font-family: arial;"><b>TẤT CẢ {{ $str }}</b></p>                 
+        <p class="font-name"><b>TẤT CẢ {{ $str }}</b></p>                 
         <div class="list-item">
           @foreach($categories as $category)             
             @php            

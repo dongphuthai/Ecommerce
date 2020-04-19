@@ -1,3 +1,4 @@
+<!-- Lấy ra sản phẩm thể loại cha được sắp xếp dùng hàm usort -->
 <div class="content-child">
   <div class='container mt-2 page-feature'>
     <div class="price_parent_item">

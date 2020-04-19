@@ -6,15 +6,15 @@
     <div class="mb-3 mt-2">
       <div class="float-right" style="font-size: 15px">
         @if($price==1)
-          <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">DƯỚI 2 TRIỆU</span></b></span>
+          <span class="font-name"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">DƯỚI 2 TRIỆU</span></b></span>
         @elseif($price==2)
-          <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">TỪ 2-4 TRIỆU</span></b></span>
+          <span class="font-name"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">TỪ 2-4 TRIỆU</span></b></span>
         @elseif($price==3)
-          <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">TỪ 4-7 TRIỆU</span></b></span>
+          <span class="font-name"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">TỪ 4-7 TRIỆU</span></b></span>
         @elseif($price==4)
-          <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">TỪ 7-13 TRIỆU</span></b></span>
+          <span class="font-name"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">TỪ 7-13 TRIỆU</span></b></span>
         @elseif($price==5)
-          <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">TRÊN 13 TRIỆU</span></b></span>
+          <span class="font-name"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">TRÊN 13 TRIỆU</span></b></span>
         @endif
       </div> 
       <span class="price-right mr-1">

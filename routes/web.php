@@ -234,3 +234,8 @@ Route::get('ajax/{slug1}/tren-13t','Frontend\ShowpriceController@priceParent13')
 /*SẮP XẾP THEO GIÁ CỦA GIÁ CHILD*/
 Route::get('ajax/thap/{slug1}/{slug2}/tren-13-trieu','Frontend\ShowpriceController@thapChild13');
 Route::get('ajax/cao/{slug1}/{slug2}/tren-13-trieu','Frontend\ShowpriceController@caoChild13');
+/*LẤY RA SẢN PHẨM MỚI-GIẢM GIÁ*/
+Route::get('ajax/child/new/{slug1}/{slug2}','Frontend\showProductsController@newChild');
+Route::get('ajax/parent/new/{slug1}','Frontend\showProductsController@newParent');
+Route::get('ajax/child/giam-gia/{slug1}/{slug2}','Frontend\showProductsController@giamgiaChild');
+Route::get('ajax/parent/giam-gia/{slug1}','Frontend\showProductsController@giamgiaParent');

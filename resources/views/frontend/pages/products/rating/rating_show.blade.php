@@ -52,7 +52,7 @@
             </div>
         </form>
       </div>
-
+      <!-- Skillbar -->
       <div id="skillbar">
         <div class="in_skillbar" style="display: flex;" >
           <div class="left">

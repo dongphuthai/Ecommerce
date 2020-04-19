@@ -5,6 +5,7 @@
 	<script type="text/javascript" src="public/asset/css/scripts/star-rating.min.js"></script>
 	<script type="text/javascript" src="public/asset/css/scripts/typeahead.bundle.js"></script>
 	<script type="text/javascript" src="public/asset/js/bootstrap.min.js"></script>
+  {{-- <script type="text/javascript" src="public/asset/js/data-table.min.js"></script> --}}
 	<!-- JavaScript -->
   <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <!-- CART AJAX -->
@@ -23,8 +24,8 @@
   		.done(function( data ) {
   			data=JSON.parse(data);
     		if (data.status=='success') {
-    			alertify.set('notifier','position', 'top-center');
- 				alertify.success('Sản phẩm đã được thêm vào giỏ hàng !! Tổng số sản phẩm: '+ data.totalItem + '<br/>Tiến hành thanh toán <a href="{{ route('carts') }}">tại đây</a>');
+    		alertify.set('notifier','position', 'top-center');
+ 				alertify.success('Giỏ hàng có: '+ data.totalItem + ' sản phẩm<br/>Tiến hành thanh toán <a href="{{ route('carts') }}">tại đây</a>');
     			$('#totalItem').html(data.totalItem);
     		}
   		});
