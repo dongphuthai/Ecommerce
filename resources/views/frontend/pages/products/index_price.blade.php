@@ -9,7 +9,6 @@
   <div class="mt-2 mb-2">
   <div class="row">
     <div class="col-12 col-lg-8">
-      {{-- @include('frontend.partials.product-sidebar-parent') --}}
       <div style="display: flex;" class="text-center parent-item">
         @foreach (App\Models\Category::orderBy('name', 'asc')->where('parent_id', NULL)->get() as $parent)
           <a id="parent_{{ $parent->id }}" href="{{ route('categories.show.parent',$parent->slug) }}" class="list-group-item list-group-item-action p-0 btn ">

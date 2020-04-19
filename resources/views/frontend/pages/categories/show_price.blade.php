@@ -5,6 +5,10 @@
 /*Lấy ra sản phẩm thể loại con có giá 2 triệu*/
   $(document).on('click','#duoi-2-trieu',function() {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     /*Bắt lấy slug của thể loại con đang được active*/
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
@@ -48,6 +52,10 @@
 /*Lấy ra sản phẩm thể loại con có giá 2-4 triệu*/
   $(document).on('click', '#2-4-trieu', function(event) {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var slug=$(this).attr('id');
@@ -85,6 +93,10 @@
 /*Lấy ra sản phẩm thể loại con có giá 4-7 triệu*/
   $(document).on('click', '#4-7-trieu', function(event) {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var slug=$(this).attr('id');
@@ -122,6 +134,10 @@
 /*Lấy ra sản phẩm thể loại con có giá 7-13 triệu*/
   $(document).on('click', '#7-13-trieu', function(event) {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var slug=$(this).attr('id');
@@ -159,6 +175,10 @@
 /*Lấy ra sản phẩm thể loại con có giá trên 13 triệu*/
   $(document).on('click', '#tren-13-trieu', function(event) {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var slug=$(this).attr('id');
@@ -296,23 +316,47 @@
         }
       /*Không active:lấy ra tất cả sản phẩm */
       }else{
-        $.ajax({
-          url:url+'/ajax/category/child/'+slug2
-        }).done(function(data){
-          $('.content-child').html(data);
-          $(".rating").rating();
-          $('.child-item a').removeClass('active');
-          $('#child_'+id).addClass('active');
-          $('#thap').html('<span>Giá thấp đến cao</span>');
-          $('#cao').html('<span>Giá thấp đến cao</span>');
-          location.hash=slug2;
-        });
+        if($('#link-new').hasClass('link-check')){
+          $.ajax({
+            url:url+'/ajax/child/new/'+slug1+'/'+slug2
+          }).done(function(data){
+            $('.content-child').html(data);
+            $('.rating').rating();
+            $('.child-item a').removeClass('active');
+            $('#child_'+id).addClass('active');
+          });
+        }else if($('#link-giamgia').hasClass('link-check')){
+          $.ajax({
+            url:url+'/ajax/child/giam-gia/'+slug1+'/'+slug2
+          }).done(function(data){
+            $('.content-child').html(data);
+            $('.rating').rating();
+            $('.child-item a').removeClass('active');
+            $('#child_'+id).addClass('active');
+          });
+        }else{
+          $.ajax({
+            url:url+'/ajax/category/child/'+slug2
+          }).done(function(data){
+            $('.content-child').html(data);
+            $(".rating").rating();
+            $('.child-item a').removeClass('active');
+            $('#child_'+id).addClass('active');
+            $('#thap').html('<span>Giá thấp đến cao</span>');
+            $('#cao').html('<span>Giá thấp đến cao</span>');
+            location.hash=slug2;
+          });
+        }
       }  
     }    
   });
 /*Click và danh sách thể loại cha*/
   $(document).on('click', '.parent-item a', function(event) {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var parent_id=$(this).attr('data-parent-id');
     var slug1=$(this).attr('data-parent-slug');
     var url="{{ url('/') }}";
@@ -339,6 +383,10 @@
 /*Click vào tên giá sản phẩm thể loại con*/
   $(document).on('click', '#price-child-right', function(event) {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var url="{{ url('/') }}";
     $.ajax({
@@ -355,6 +403,10 @@
 /*Click vào tên thể loại con*/
   $(document).on('click', '#price-parent-right', function(event) {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
     var url="{{ url('/') }}";
     $.ajax({
@@ -374,6 +426,10 @@
 /*Lấy ra thể loại cha có giá dưới 2 triệu*/
   $(document).on('click','#duoi-2t',function() {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
     var id=$(this).attr('data-parent-id');
     var url="{{ url('/') }}";
@@ -391,6 +447,10 @@
 /*Lấy ra thể loại cha có giá 2-4 triệu*/
   $(document).on('click','#2-4t',function() {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
     var id=$(this).attr('data-parent-id');
     var url="{{ url('/') }}";
@@ -408,6 +468,10 @@
 /*Lấy ra thể loại cha có giá 4-7 triệu*/
   $(document).on('click','#4-7t',function() {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
     var id=$(this).attr('data-parent-id');
     var url="{{ url('/') }}";
@@ -425,6 +489,10 @@
 /*Lấy ra thể loại cha có giá 7-13 triệu*/
   $(document).on('click','#7-13t',function() {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
     var id=$(this).attr('data-parent-id');
     var url="{{ url('/') }}";
@@ -442,6 +510,10 @@
 /*Lấy ra thể loại cha có giá tren 13 triệu*/
   $(document).on('click','#tren-13t',function() {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
     var id=$(this).attr('data-parent-id');
     var url="{{ url('/') }}";
@@ -459,6 +531,10 @@
 /*Giá thấp đến cao*/
   $(document).on('click', '#thap', function(event) {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     if($('.child-item a').hasClass('active')){
       var id=$('.child-item a').attr('data-child-id');
       var slug1=$('.child-item a').attr('data-parent-slug');
@@ -513,6 +589,10 @@
 /*Giá cao đến thấp*/
   $(document).on('click', '#cao', function(event) {
     event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
     if($('.child-item a').hasClass('active')){
       var id=$('.child-item a').attr('data-child-id');
       var slug1=$('.child-item a').attr('data-parent-slug');
@@ -565,6 +645,138 @@
       }   
     }
   });
+/*Lấy ra sản phẩm mới*/
+  $(document).on('click', '#link-new', function(event) {
+    event.preventDefault();
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    $(this).toggleClass('link-check');
+    if($('.child-item a').hasClass('active')){
+      var slug1=$('.child-item a.active').attr('data-parent-slug');
+      var slug2=$('.child-item a.active').attr('data-child-slug');
+      var url="{{ url('/') }}";
+      if($('#link-new').hasClass('link-check')){
+        $.ajax({
+          url:url+'/ajax/child/new/'+slug1+'/'+slug2
+        }).done(function(data){
+          $('.content-child').html(data);
+          $('.rating').rating();
+          $('a.child-plink').removeClass('price-active');
+          $('#link-new').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Mới');
+          $('#thap').html('<span>Giá thấp đến cao</span>');
+          $('#cao').html('<span>Giá thấp đến cao</span>');
+          location.hash='new';
+        });
+      }else{
+          $.ajax({
+            url:url+'/ajax/category/child/'+slug2
+          }).done(function(data){
+          $('.content-child').html(data);
+          $(".rating").rating();
+          $('a.child-plink').removeClass('price-active');
+          $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+          $('#thap').html('<span>Giá thấp đến cao</span>');
+          $('#cao').html('<span>Giá thấp đến cao</span>');
+          location.hash=slug2;
+      });
+      }
+    }else{
+      var slug1=$('.parent-item a.active').attr('data-parent-slug');
+      var url="{{ url('/') }}";
+      if($('#link-new').hasClass('link-check')){
+        $.ajax({
+          url:url+'/ajax/parent/new/'+slug1
+        }).done(function(data){
+          $('.content-parent').html(data);
+          $('.rating').rating();
+          $('a.parent-plink').removeClass('price-active');
+          $('#link-new').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Mới');
+          $('#thap').html('<span>Giá thấp đến cao</span>');
+          $('#cao').html('<span>Giá thấp đến cao</span>');
+          location.hash='new';
+        });
+      }else{
+        $.ajax({
+          url:url+'/ajax/parent/'+slug1
+        }).done(function(data){
+          $('.content-parent').html(data);
+          $('.rating').rating();
+          $('a.parent-plink').removeClass('price-active');
+          $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+          location.hash=slug1;
+        });
+      }
+    }     
+  });
+/*Lấy ra sản phẩm trả góp*/
+  $(document).on('click', '#link-tragop', function(event) {
+    event.preventDefault();
+    $(this).toggleClass('link-check');
+  });
+/*Lấy ra sản phẩm có giảm giá*/
+  $(document).on('click', '#link-giamgia', function(event) {
+    event.preventDefault();
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $(this).toggleClass('link-check');
+    if($('.child-item a').hasClass('active')){
+      var slug1=$('.child-item a.active').attr('data-parent-slug');
+      var slug2=$('.child-item a.active').attr('data-child-slug');
+      var url="{{ url('/') }}";
+      if($('#link-giamgia').hasClass('link-check')){
+        $.ajax({
+          url:url+'/ajax/child/giam-gia/'+slug1+'/'+slug2
+        }).done(function(data){
+          $('.content-child').html(data);
+          $('.rating').rating();
+          $('a.child-plink').removeClass('price-active');
+          $('#link-giamgia').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Khuyến mãi<span class="new-after">MỚI</span>');
+          $('#thap').html('<span>Giá thấp đến cao</span>');
+          $('#cao').html('<span>Giá thấp đến cao</span>');
+          location.hash='giam-gia';
+        });
+      }else{
+          $.ajax({
+            url:url+'/ajax/category/child/'+slug2
+          }).done(function(data){
+          $('.content-child').html(data);
+          $(".rating").rating();
+          $('a.child-plink').removeClass('price-active');
+          $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+          $('#thap').html('<span>Giá thấp đến cao</span>');
+          $('#cao').html('<span>Giá thấp đến cao</span>');
+          location.hash=slug2;
+      });
+      }
+    }else{
+      var slug1=$('.parent-item a.active').attr('data-parent-slug');
+      var url="{{ url('/') }}";
+      if($('#link-giamgia').hasClass('link-check')){
+        $.ajax({
+          url:url+'/ajax/parent/giam-gia/'+slug1
+        }).done(function(data){
+          $('.content-parent').html(data);
+          $('.rating').rating();
+          $('a.parent-plink').removeClass('price-active');
+          $('#link-giamgia').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Khuyến mãi<span class="new-after">MỚI</span>');
+          $('#thap').html('<span>Giá thấp đến cao</span>');
+          $('#cao').html('<span>Giá thấp đến cao</span>');
+          location.hash='giam-gia';
+        });
+      }else{
+        $.ajax({
+          url:url+'/ajax/parent/'+slug1
+        }).done(function(data){
+          $('.content-parent').html(data);
+          $('.rating').rating();
+          $('a.parent-plink').removeClass('price-active');
+          $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+          location.hash=slug1;
+        });
+      }
+    } 
+  });
+    
 </script>
 @endsection
 
@@ -599,93 +811,17 @@
     <div class='container mt-0 page-feature'>
       <div class="price_parent_item">
         <div class="price_child_item">
-        <!-- XEM SẢN PHẨM THỂ LOẠI CON -->
         @if(isset($products))
+          <!-- XEM SẢN PHẨM THỂ LOẠI CON (từ showParent->show_price)-->
           @if(isset($setup)) 
-            @include('frontend.pages.categories.price.all_products_child')
+            @include('frontend.pages.categories.partials.show_child')
+          <!-- XEM GIÁ SẢN PHẨM THỂ LOẠI CON (ĐÃ XÓA CHỨC NĂNG NÀY--trước đó từ show->show_price) -->
           @else
-          @php
-          $name_child=App\Models\Category::where('id',$id_child)->first()->name;
-          $str_parent=mb_convert_case(App\Models\Category::where('id',$id)->first()->name,MB_CASE_UPPER, "UTF-8");
-          $str_child=mb_convert_case(App\Models\Category::where('id',$id_child)->first()->name,MB_CASE_UPPER, "UTF-8");
-          @endphp          
-          <div class="mb-3 mt-2">
-            <div class="float-right" style="font-size: 15px">
-              @if($price==1)
-                <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }} <span class="hiddenphone">DƯỚI 2 TRIỆU</span></b></span>
-              @elseif($price==2)
-                <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }}  <span class="hiddenphone">TỪ 2-4 TRIỆU</span></b></span>
-              @elseif($price==3)
-                <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }}  <span class="hiddenphone">TỪ 4-7 TRIỆU</span></b></span>
-              @elseif($price==4)
-                <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }}  <span class="hiddenphone">TỪ 7-13 TRIỆU</span></b></span>
-              @elseif($price==5)
-                <span style="font-family: arial;"><b>{{ $str_parent }} {{ $str_child }}  <span class="hiddenphone">TRÊN 13 TRIỆU</span></b></span>
-              @endif
-            </div> 
-            <span class="price-right mr-1">
-              <a href="javascript:void(0)" id="price-parent-right" class="px-2 py-price">{{ $name_child }} <img src="public/images/support/close-button.png" width="12px"></a>
-            </span>
-            <span class="price-right">
-              @if($price==1)
-              <a href="javascript:void(0)" id="price-child-right" class="py-price">Dưới 2 triệu <img src="public/images/support/close-button.png" width="12px"></a>
-              @elseif($price==2)
-              <a href="javascript:void(0)" id="price-child-right" class="py-price">Từ 2-4 triệu <img src="public/images/support/close-button.png" width="12px"></a>
-              @elseif($price==3)
-              <a href="javascript:void(0)" id="price-child-right" class="py-price">Từ 4-7 triệu <img src="public/images/support/close-button.png" width="12px"></a>
-              @elseif($price==4)
-              <a href="javascript:void(0)" id="price-child-right" class="py-price">Từ 7-13 triệu <img src="public/images/support/close-button.png" width="12px"></a>
-              @elseif($price==5)
-              <a href="javascript:void(0)" id="price-child-right" class="py-price">Trên 13 triệu <img src="public/images/support/close-button.png" width="12px"></a>
-              @endif
-            </span>       
-          </div>
-          <div class="list-item " style="min-height: 250px;">            
-            @if ($products->count() > 0)
-              @include('frontend.pages.products.partials.all_products')
-            @endif
-          </div>
+            @include('frontend.pages.categories.partials.show_price_child')
           @endif
-        <!-- XEM SẢN PHẨM THỂ LOẠI CHA -->
+        <!-- XEM GIÁ SẢN PHẨM THỂ LOẠI CHA (từ showParent->show_price)-->
         @elseif(isset($categories))
-          @php
-            $str=mb_convert_case(App\Models\Category::where('id',$id)->first()->name,MB_CASE_UPPER, "UTF-8");
-          @endphp 
-          <div id="hidden2" >
-            @if($price==1)
-              <p style="font-family: arial;"><b>{{ $str }} DƯỚI 2 TRIỆU</b></p>
-            @elseif($price==2)
-              <p style="font-family: arial;"><b>{{ $str }} TỪ 2-4 TRIỆU</b></p>
-            @elseif($price==3)
-              <p style="font-family: arial;"><b>{{ $str }} TỪ 4-7 TRIỆU</b></p>
-            @elseif($price==4)
-              <p style="font-family: arial;"><b>{{ $str }} TỪ 7-13 TRIỆU</b></p>
-            @elseif($price==5)
-              <p style="font-family: arial;"><b>{{ $str }} TRÊN 13 TRIỆU</b></p>
-            @endif
-
-            <div class="list-item" style="min-height: 200px;">
-              @foreach($categories as $category)  
-                @php
-                if($price==1) {
-                  $products = App\Models\Product::where('category_id',$category->id)->where('price','<','2000000')->get();
-                }elseif($price==2){
-                  $products = App\Models\Product::where('category_id',$category->id)->where('price','>=','2000000')->where('price','<','4000000')->get();
-                }elseif($price==3){
-                  $products = App\Models\Product::where('category_id',$category->id)->where('price','>=','4000000')->where('price','<','7000000')->get();
-                }elseif($price==4){
-                  $products = App\Models\Product::where('category_id',$category->id)->where('price','>=','7000000')->where('price','<','13000000')->get();
-                }elseif($price==5){
-                  $products = App\Models\Product::where('category_id',$category->id)->where('price','>','13000000')->get();
-                }
-                @endphp
-
-                @if ($products->count() > 0)
-                  @include('frontend.pages.products.partials.all_products')
-                @endif
-              @endforeach
-            </div>
-          </div>
+          @include('frontend.pages.categories.partials.show_price_parent')
         @endif
         </div>
       </div>

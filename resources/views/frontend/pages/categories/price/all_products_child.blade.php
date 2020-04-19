@@ -9,7 +9,7 @@
     @endphp
     <div class="mb-3 mt-2">
       <div class="float-right">
-        <span style="font-family: arial;"><b>TẤT CẢ {{ $str_parent }} {{ $str_child }}</b></span>
+        <span class="font-name"><b>TẤT CẢ {{ $str_parent }} {{ $str_child }}</b></span>
       </div>     
       <span class="price-right mr-1">
         <a href="javascript:void(0)" id="price-parent-right" class="px-2 py-price">{{ $name_child }} <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px"></a>

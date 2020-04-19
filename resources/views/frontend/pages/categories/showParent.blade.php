@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="container page-feature ">
-  <!-- Start Sidebar + Content -->
   @include('frontend.pages.products.partials.slider')
   <div class="mt-2 mb-2">
     <div class="row">
@@ -27,7 +26,7 @@
     </div>   
   </div>   
 </div>
-
+  <!-- Sản phẩm nổi bật -->
   <div class="{{ $id==32?'':'hidden' }}">
     @include('frontend.partials.featured.phone-featured')
   </div>
