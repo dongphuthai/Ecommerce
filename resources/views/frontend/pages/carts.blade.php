@@ -4,7 +4,8 @@
 	<div class='container mt-3'>
     <h2 class="pb-2">Giỏ hàng của bạn</h2>
 		@if(App\Models\Cart::totalItem() >0)
-			<table id="cart_table" class="table table-bordered table-stripe text-center">
+		<div class="reload_table">
+			<table id="cart_table" class="table table-bordered table-stripe text-center" >
 			<thead>
 				<tr>
 					<th>No.</th>
@@ -34,11 +35,11 @@
                 		<img src="{{ asset('public/images/products/'. $cart->product->images->first()->image) }}" width="60px">
               			@endif
 					</td>
-					<td>
-						<form class="form-inline" action="{!! route('carts.update', $cart->id) !!}" method="post">
-                			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-                			<input type="number" name="product_quantity" class="form-control" value="{{ $cart->product_quantity }}"/>
-                			<button type="submit" class="btn btn-success ml-1">Cập nhật</button>
+					<td >
+						<form id="cart_update" class="form-inline cart_update" action="{!! route('carts.update', $cart->id) !!}" method="post" data_id="{{ $cart->id }}">
+                			@csrf
+                			<input style="width: 75%" id="product_quantity_{{ $cart->id }}" type="number" name="product_quantity" class="form-control" value="{{ $cart->product_quantity }}"/>
+                			<button id="update_button" type="submit" class="btn btn-success ml-1">Thêm</button>
               			</form>
 					</td>
 					<td>
@@ -53,32 +54,11 @@
               			@endphp
 						{{ number_format(($cart->product->offer_price)*($cart->product_quantity),0,"",".") }}₫
 					</td>
-					<td>
-						<a href="#deleteModal" data-toggle="modal" class="btn btn-danger mb-1">Xóa</a>
-						<!-- Delete Modal -->
-		                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		                  <div class="modal-dialog" role="document">
-		                    <div class="modal-content">
-		                      <div class="modal-header">
-		                        <h5 class="modal-title" id="exampleModalLabel">{{ $cart->product->title }}</h5>
-		                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                          <span aria-hidden="true">&times;</span>
-		                        </button>
-		                      </div>
-		                      <div class="modal-body">
-		                        <h6 class="text-left" id="">Bạn muốn xóa sản phẩm này khỏi giỏ hàng?</h6>
-		                      </div>
-		                      <div class="modal-footer">
-		                      	<form id="cart_delete" class="form-inline" action="{{ route('carts.delete',$cart->id) }}"  method="post">
-		                          @csrf
-		                          <input type="hidden" name="cart_id" id="cart_id" data-cart-id="{{ $cart->id }}">
-		                          <button id="ok_button" type="submit" class="btn btn-danger">OK</button>
-		                        </form>
-		                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-		                      </div>
-		                    </div>
-		                  </div>
-		                </div>
+					<td style="width: 10%">
+		                <form id="cart_delete" class="form-inline cart_delete" action="{{ route('carts.delete',$cart->id) }}" method="post" data-id="{{ $cart->id }}">
+							@csrf
+		                    <button id="ok_button_{{ $cart->id }}" type="submit" class="btn btn-danger" style="width: 100%">Xóa</button>
+		                </form>
 					</td>
 				</tr>
 				@endforeach
@@ -93,6 +73,7 @@
         			</tr>
 			</tbody>
 		</table>
+	</div>
 		<div class="d-flex flex-row-reverse mb-4">
 			<a href="{{ route('checkouts') }}" class="btn btn-warning btn-lg ">Thanh toán</a>
       		<a href="{{ route('products') }}" class="btn btn-info btn-lg mr-2">Tiếp tục mua hàng...</a>
@@ -112,31 +93,45 @@
 
 @endsection
 
-{{-- @section('scripts')
-<script>
-    $(document).ready(function() {
-      $('#cart_table').DataTable();
-    });
-  </script>
+@section('scripts')
 	<script type="text/javascript">
-		$('#cart_delete').on('submit', function(event) {
+		$(document).on('submit','.cart_delete', function(event) {
 			event.preventDefault();
-			var id=$('#cart_id').attr('data-cart-id');
+			var id=$(this).attr('data-id');
 			var url="{{ url('/') }}";
 			$.ajax({
 				url:url+'/cart/delete/'+id,
+				method:"POST",
 				beforeSend:function(){
-					$('#ok_button').text('Xóa...');
+					$('#ok_button_'+id).text('Đang xóa...');
 			},
 			success:function(data)
 			{
-				setTimeout(function(){
-					$('#deleteModal').modal('hide');
-					$('#cart_table').DataTable().ajax.reload();
-				},2000);
+					setTimeout(function(){
+					$('.reload_table').load(' #cart_table');
+					$('#totalItem').html(data.totalItem);
+				},1000);
 			}
-
 			})
 		});
+		$(document).on('submit','.cart_update', function(event) {
+			event.preventDefault();
+			var id=$(this).attr('data_id');
+			var url="{{ url('/') }}";
+			var html='';
+			$.ajax({
+				url:url+'/cart/update/'+id,
+				method:"POST",
+				data:$(this).serialize()
+			}).done(function(data){
+				if(data.success){
+					alertify.set('notifier','position', 'top-center');
+ 					alertify.success('Giỏ hàng có: '+ data.totalItem + ' sản phẩm');				
+ 				}
+				setTimeout(function(){
+					$('#totalItem').html(data.totalItem);
+				},2000);
+			});
+		});
 	</script>
-@endsection --}}
+@endsection

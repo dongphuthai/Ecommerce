@@ -97,14 +97,6 @@ class CartsController extends Controller
             $cart->product_id = $request->product_id;
             $cart->save();
         }
-
-        // $cart=new Cart();
-        // if(Auth::check()){
-        //     $cart->user_id=Auth::id();
-        // }
-        // $cart->ip_address=request()->ip();
-        // $cart->product_id=$request->product_id;
-        // $cart->save();
         session()->flash('success','Sản phẩm đã được thêm vào giỏ hàng !!');
         return back();
     }
@@ -141,14 +133,24 @@ class CartsController extends Controller
     public function update(Request $request, $id)
     {
         $cart = Cart::find($id);
-        if (!is_null($cart)) {
-            $cart->product_quantity = $request->product_quantity;
-            $cart->save();
+        if (!is_null($cart)){
+            if($cart->product_quantity == $request->product_quantity){
+                
+            }else if($cart->product_quantity < $request->product_quantity){
+                $cart->product_quantity = $request->product_quantity;
+                $cart->save();
+                $totalItem=Cart::totalItem();
+                return response()->json(['totalItem'=>$totalItem,'success'=>'Bạn đã thêm sản phẩm vào giỏ hàng']);
+            }else{
+                $cart->product_quantity = $request->product_quantity;
+                $cart->save();
+                $totalItem=Cart::totalItem();
+                return response()->json(['totalItem'=>$totalItem,'success'=>'Bạn đã giảm số lượng sản phẩm trong giỏ hàng']);
+            }
         }else {
-            return redirect()->route('carts');
+             
         }
-            session()->flash('success', 'Bạn đã thêm sản phẩm vào giỏ hàng !!');
-            return back();
+
     }
 
 
@@ -164,9 +166,11 @@ class CartsController extends Controller
         if(!is_null($cart)){
             $cart->delete();
         }else{
-            return redirect()->route('carts');
+            //return redirect()->route('carts');
         }
-        session()->flash('success', 'Bạn đã xóa sản phẩm khỏi giỏ hàng !!');
-        return back();
+        $totalItem=Cart::totalItem();
+        return response()->json(['totalItem'=>$totalItem]);
+        // session()->flash('success', 'Bạn đã xóa sản phẩm khỏi giỏ hàng !!');
+        // return back();
     }
 }

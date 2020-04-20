@@ -20,7 +20,7 @@
 
             @foreach ($divisions as $division)
               <tr>
-                <td>#</td>
+                <td>{{ $loop->index+1 }}</td>
                 <td>{{ $division->name }}</td>
                 <td>{{ $division->priority }}</td>
 
