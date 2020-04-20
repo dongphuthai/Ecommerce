@@ -32,7 +32,7 @@ class Cart extends Model
 		    ->where('order_id', NULL)
       	->get();
     }else {
-      	$carts = Cart::Where('ip_address', request()->ip())->get();
+      	$carts = Cart::where('ip_address', request()->ip())->where('order_id', NULL)->get();
     }
     	return $carts;
   	}
@@ -46,7 +46,7 @@ class Cart extends Model
       ->get();
 
     }else {
-      $carts = Cart::Where('ip_address', request()->ip())->get();
+      $carts = Cart::Where('ip_address', request()->ip())->where('order_id', NULL)->get();
     }
     $total_item = 0;
 

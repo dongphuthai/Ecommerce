@@ -19,7 +19,7 @@
        <span class="duongdan px-1">›</span>
        <a href="the-loai/{{ $product->category->parent->slug }}/{{ $product->category->slug }}">{{ $product->category->name }}</a>
     </div>
-    <h4> {{ $product->title }} <a href="{!! route('products.show',$product->slug) !!}#view-rating" style="font-size: 15px;"><span class="count-review">{{ \willvincent\Rateable\Rating::where('rateable_id',$product->id)->count() }}</span> đánh giá </a>
+    <h4> {{ $product->description }} <a href="{!! route('products.show',$product->slug) !!}#view-rating" style="font-size: 15px;"><span class="count-review">{{ \willvincent\Rateable\Rating::where('rateable_id',$product->id)->count() }}</span> đánh giá </a>
     
       <div class="fb-like" data-href="https://www.codeinhouse.com/how-to-integrate-facebook-like-and-share-post-button-in-laravel/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true" style="float: right;"></div> 
     </h4>

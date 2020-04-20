@@ -52,7 +52,7 @@ class CheckoutsController extends Controller
     // check transaction ID has given or not
     if ($request->payment_method_id != 'cash_in') {
       if ($request->transaction_id == NULL || empty($request->transaction_id)) {
-        session()->flash('sticky_error', 'Please give transaction ID for your payment');
+        session()->flash('sticky_error', 'Hãy nhập mã giao dịch của bạn');
         return back();
       }
     }
@@ -78,7 +78,7 @@ class CheckoutsController extends Controller
       $cart->save();
     }
 
-    session()->flash('success', 'Your order has taken successfully !!! Please wait admin will soon confirm it.');
+    session()->flash('success', 'Bạn đã đặt hàng thành công !!! Chờ đợi xác nhận từ admin.');
     return redirect()->route('index');
     }
 

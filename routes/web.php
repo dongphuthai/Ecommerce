@@ -17,6 +17,9 @@
   Route::get('/search', 'Frontend\ProductsController@searchType')->name('type.search');
   Route::get('/compare/{slug}/search','Frontend\PagesController@searchCompare')->name('search.compare');
   Route::get('/product/compare/{slug}','Frontend\PagesController@showCompare')->name('show.compare');
+// Ajax xóa và cập nhập số lượng sản phẩm cart
+  Route::post('/cart/delete/{id}','Frontend\CartsController@destroy')->name('carts.delete');
+  Route::post('/cart/update/{id}','Frontend\CartsController@update')->name('carts.update');
 //Compare Route
   Route::get('/compare/{slug1}-vs-{slug2}','Frontend\ProductsController@compareProduct')
   ->where('slug1', '[a-zA-Z0-9-_]+')
@@ -76,7 +79,7 @@ Route::group(['prefix' => 'cart'], function(){
   Route::get('/','Frontend\CartsController@index')->name('carts');
   Route::post('/store', 'Frontend\CartsController@store')->name('carts.store');
   Route::post('/update/{id}','Frontend\CartsController@update')->name('carts.update');
-  Route::post('/delete/{id}','Frontend\CartsController@destroy')->name('carts.delete');
+  // Route::post('/delete/{id}','Frontend\CartsController@destroy')->name('carts.delete');
   Route::post('/combo/uu-dai','Frontend\CartsController@combo')->name('carts.combo');
 });
 //Ckeckout Routes

@@ -7,7 +7,7 @@
 
           <a id="link-new" class="mr-4 ml-4 " href=""><span class="link-check-none mr-1" style=""></span> Mới</a>
           <a id="link-tragop" class="mr-4 ml-1 " href=""><span class="link-check-none mr-1" style=""></span> Trả góp 0%</a>
-          <a id="link-giamgia" class="mr-4 ml-1 " href=""><span class="link-check-none mr-1" style=""></span> Giảm giá</a>
+          <a id="link-giamgia" class="mr-4 ml-1 " href=""><span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span></a>
           
          <div class="float-right expand">
          	<span class="criteria" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
