@@ -68,10 +68,10 @@
                 </div>                       
               </div>
             </div>
-          </div>
-            
-          </div>
-
+          </div>   
+        </div>
+        
+        <div class="load_slider_tb">
           <table id="slider_table" class="table table-hover table-striped" >
             <thead>
             <tr>
@@ -197,6 +197,7 @@
           </tfoot> --}}
 
           </table>
+        </div>
         </div>
       </div>
 

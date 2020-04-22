@@ -39,20 +39,18 @@
   Route::get('{slug1}/4-7-trieu', 'Frontend\CategoriesController@showPrice47')->name('categories.show.parent.price47');
   Route::get('{slug1}/7-13-trieu', 'Frontend\CategoriesController@showPrice713')->name('categories.show.parent.price713');
   Route::get('{slug1}/tren-trieu', 'Frontend\CategoriesController@showPrice13')->name('categories.show.parent.price13');
-  //Show price category child
+//Show price category child
   Route::get('{slug1}/{slug2}/duoi-2-trieu', 'Frontend\CategoriesController@show2')->name('categories.show.child.price2');
   Route::get('{slug1}/{slug2}/2-4-trieu', 'Frontend\CategoriesController@show24')->name('categories.show.child.price24');
   Route::get('{slug1}/{slug2}/4-7-trieu', 'Frontend\CategoriesController@show47')->name('categories.show.child.price47');
   Route::get('{slug1}/{slug2}/7-13-trieu', 'Frontend\CategoriesController@show713')->name('categories.show.child.price713');
   Route::get('{slug1}/{slug2}/tren-13-trieu', 'Frontend\CategoriesController@show13')->name('categories.show.child.price13');
-
 //Price Routes
   Route::get('/duoi-2-trieu', 'Frontend\ProductsController@price2')->name('products.price2');
   Route::get('/2-4-trieu', 'Frontend\ProductsController@price24')->name('products.price24');
   Route::get('/4-7-trieu', 'Frontend\ProductsController@price47')->name('products.price47');
   Route::get('/7-13-trieu', 'Frontend\ProductsController@price713')->name('products.price713');
   Route::get('/tren-13-trieu', 'Frontend\ProductsController@price13')->name('products.price13');
-
 //Products Routes
 Route::group(['prefix' => 'products'], function(){
   Route::get('/', 'Frontend\ProductsController@index')->name('products');
@@ -78,8 +76,6 @@ Route::group(['prefix' => 'user'], function(){
 Route::group(['prefix' => 'cart'], function(){
   Route::get('/','Frontend\CartsController@index')->name('carts');
   Route::post('/store', 'Frontend\CartsController@store')->name('carts.store');
-  Route::post('/update/{id}','Frontend\CartsController@update')->name('carts.update');
-  // Route::post('/delete/{id}','Frontend\CartsController@destroy')->name('carts.delete');
   Route::post('/combo/uu-dai','Frontend\CartsController@combo')->name('carts.combo');
 });
 //Ckeckout Routes
@@ -87,75 +83,65 @@ Route::group(['prefix' => 'checkout'], function(){
   Route::get('/','Frontend\CheckoutsController@index')->name('checkouts');
   Route::post('/store','Frontend\CheckoutsController@store')->name('checkouts.store');
 });
-
 // Admin Routes
 Route::group(['prefix' => 'admin'], function(){
-  	Route::get('/', 'Backend\PagesController@index')->name('admin.index');
-
-    //Admin Login Routes
-    Route::get('/login', 'Auth\Admin\LoginController@showLoginForm')->name('admin.login');
-    Route::post('/login/submit', 'Auth\Admin\LoginController@login')->name('admin.login.submit');
-    Route::post('/logout/submit', 'Auth\Admin\LoginController@logout')->name('admin.logout');
-
-    //Password Email send 
-    Route::get('/password/reset', 'Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-    Route::post('/password/resetPost', 'Auth\Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-
-     // Password Reset
-    Route::get('/password/reset/{token}', 'Auth\Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
-    Route::post('/password/reset', 'Auth\Admin\ResetPasswordController@reset')->name('admin.password.reset.post');
-
+  Route::get('/', 'Backend\PagesController@index')->name('admin.index');
+  //Admin Login Routes
+  Route::get('/login', 'Auth\Admin\LoginController@showLoginForm')->name('admin.login');
+  Route::post('/login/submit', 'Auth\Admin\LoginController@login')->name('admin.login.submit');
+  Route::post('/logout/submit', 'Auth\Admin\LoginController@logout')->name('admin.logout');
+  //Password Email send 
+  Route::get('/password/reset', 'Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+  Route::post('/password/resetPost', 'Auth\Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+  // Password Reset
+  Route::get('/password/reset/{token}', 'Auth\Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
+  Route::post('/password/reset', 'Auth\Admin\ResetPasswordController@reset')->name('admin.password.reset.post');
   // Product Routes
-  	Route::group(['prefix' => '/products'], function(){
-    	Route::get('/', 'Backend\ProductsController@index')->name('admin.products');
-    	Route::get('/create', 'Backend\ProductsController@create')->name('admin.product.create');
-    	Route::get('/edit/{id}', 'Backend\ProductsController@edit')->name('admin.product.edit');
-    	Route::post('/store', 'Backend\ProductsController@store')->name('admin.product.store');
-    	Route::post('/product/edit/{id}', 'Backend\ProductsController@update')->name('admin.product.update');
-    	Route::post('/product/delete/{id}', 'Backend\ProductsController@delete')->name('admin.product.delete');
-      //Parameter Route
-      Route::get('/parameter/show/{id}', 'Backend\ProductsController@showParameter')->name('admin.product.parameter.show');
-      Route::post('/parameter/edit/{id}', 'Backend\ProductsController@editParameter')->name('admin.product.parameter.edit');
-      Route::post('/parameter/update', 'Backend\ProductsController@updateParameter')->name('admin.product.parameter.update');
-      //Para Laptop Routes
-      Route::get('/paralaptop/show/{id}', 'Backend\ProductsController@showParalaptop')->name('admin.product.paralaptop.show');
-      Route::post('/paralaptop/edit/{id}', 'Backend\ProductsController@editParalaptop')->name('admin.product.paralaptop.edit');
-      Route::post('/paralaptop/update', 'Backend\ProductsController@updateParalaptop')->name('admin.product.paralaptop.update');
-  	});
-
-
-     // Orders Routes
-    Route::group(['prefix' => '/orders'], function(){
-      Route::get('/', 'Backend\OrdersController@index')->name('admin.orders');
-      Route::get('/view/{id}', 'Backend\OrdersController@show')->name('admin.order.show');
-      Route::post('/delete/{id}', 'Backend\OrdersController@delete')->name('admin.order.delete');
-      Route::post('/completed/{id}', 'Backend\OrdersController@completed')->name('admin.order.completed');
-      Route::post('/paid/{id}', 'Backend\OrdersController@paid')->name('admin.order.paid');
-      Route::post('/charge-update/{id}', 'Backend\OrdersController@chargeUpdate')->name('admin.order.charge');
-      Route::get('invoice/{id}', 'Backend\OrdersController@invoice')->name('admin.order.invoice');
-    });
-
-  	// Category Routes
-  	Route::group(['prefix' => '/categories'], function(){
-    	Route::get('/', 'Backend\CategoriesController@index')->name('admin.categories');
-    	Route::get('create', 'Backend\CategoriesController@create')->name('admin.category.create');
-    	Route::get('edit/{id}', 'Backend\CategoriesController@edit')->name('admin.category.edit');
-    	Route::post('store', 'Backend\CategoriesController@store')->name('admin.category.store');
-    	Route::post('category/edit/{id}', 'Backend\CategoriesController@update')->name('admin.category.update');
-    	Route::post('category/delete/{id}', 'Backend\CategoriesController@delete')->name('admin.category.delete');
-  	});
-
-    //Brand Routes
-    Route::group(['prefix' => '/brands'], function(){
-      Route::get('/', 'Backend\BrandsController@index')->name('admin.brands');
-      Route::get('create', 'Backend\BrandsController@create')->name('admin.brand.create');
-      Route::get('edit/{id}', 'Backend\BrandsController@edit')->name('admin.brand.edit');
-      Route::post('store', 'Backend\BrandsController@store')->name('admin.brand.store');
-      Route::post('brand/edit/{id}', 'Backend\BrandsController@update')->name('admin.brand.update');
-      Route::post('brand/delete/{id}', 'Backend\BrandsController@delete')->name('admin.brand.delete');
-    });
-
-    // Division Routes
+  Route::group(['prefix' => '/products'], function(){
+    Route::get('/', 'Backend\ProductsController@index')->name('admin.products');
+    Route::get('/create', 'Backend\ProductsController@create')->name('admin.product.create');
+    Route::get('/edit/{id}', 'Backend\ProductsController@edit')->name('admin.product.edit');
+    Route::post('/store', 'Backend\ProductsController@store')->name('admin.product.store');
+    Route::post('/product/edit/{id}', 'Backend\ProductsController@update')->name('admin.product.update');
+    Route::post('/product/delete/{id}', 'Backend\ProductsController@delete')->name('admin.product.delete');
+    //Parameter Route
+    Route::get('/parameter/show/{id}', 'Backend\ProductsController@showParameter')->name('admin.product.parameter.show');
+    Route::post('/parameter/edit/{id}', 'Backend\ProductsController@editParameter')->name('admin.product.parameter.edit');
+    Route::post('/parameter/update', 'Backend\ProductsController@updateParameter')->name('admin.product.parameter.update');
+    //Para Laptop Routes
+    Route::get('/paralaptop/show/{id}', 'Backend\ProductsController@showParalaptop')->name('admin.product.paralaptop.show');
+    Route::post('/paralaptop/edit/{id}', 'Backend\ProductsController@editParalaptop')->name('admin.product.paralaptop.edit');
+    Route::post('/paralaptop/update', 'Backend\ProductsController@updateParalaptop')->name('admin.product.paralaptop.update');
+  });
+  // Orders Routes
+  Route::group(['prefix' => '/orders'], function(){
+    Route::get('/', 'Backend\OrdersController@index')->name('admin.orders');
+    Route::get('/view/{id}', 'Backend\OrdersController@show')->name('admin.order.show');
+    Route::post('/delete/{id}', 'Backend\OrdersController@delete')->name('admin.order.delete');
+    Route::post('/completed/{id}', 'Backend\OrdersController@completed')->name('admin.order.completed');
+    Route::post('/paid/{id}', 'Backend\OrdersController@paid')->name('admin.order.paid');
+    Route::post('/charge-update/{id}', 'Backend\OrdersController@chargeUpdate')->name('admin.order.charge');
+    Route::get('invoice/{id}', 'Backend\OrdersController@invoice')->name('admin.order.invoice');
+  });
+  // Category Routes
+  Route::group(['prefix' => '/categories'], function(){
+    Route::get('/', 'Backend\CategoriesController@index')->name('admin.categories');
+    Route::get('create', 'Backend\CategoriesController@create')->name('admin.category.create');
+    Route::get('edit/{id}', 'Backend\CategoriesController@edit')->name('admin.category.edit');
+    Route::post('store', 'Backend\CategoriesController@store')->name('admin.category.store');
+    Route::post('category/edit/{id}', 'Backend\CategoriesController@update')->name('admin.category.update');
+    Route::post('category/delete/{id}', 'Backend\CategoriesController@delete')->name('admin.category.delete');
+  });
+  //Brand Routes
+  Route::group(['prefix' => '/brands'], function(){
+    Route::get('/', 'Backend\BrandsController@index')->name('admin.brands');
+    Route::get('create', 'Backend\BrandsController@create')->name('admin.brand.create');
+    Route::get('edit/{id}', 'Backend\BrandsController@edit')->name('admin.brand.edit');
+    Route::post('store', 'Backend\BrandsController@store')->name('admin.brand.store');
+    Route::post('brand/edit/{id}', 'Backend\BrandsController@update')->name('admin.brand.update');
+    Route::post('brand/delete/{id}', 'Backend\BrandsController@delete')->name('admin.brand.delete');
+  });
+  // Division Routes
   Route::group(['prefix' => '/divisions'], function(){
     Route::get('/', 'Backend\DivisionsController@index')->name('admin.divisions');
     Route::get('/create', 'Backend\DivisionsController@create')->name('admin.division.create');
@@ -164,7 +150,6 @@ Route::group(['prefix' => 'admin'], function(){
     Route::post('/division/edit/{id}', 'Backend\DivisionsController@update')->name('admin.division.update');
     Route::post('/division/delete/{id}', 'Backend\DivisionsController@delete')->name('admin.division.delete');
   });
-
   // District Routes
   Route::group(['prefix' => '/districts'], function(){
     Route::get('/', 'Backend\DistrictsController@index')->name('admin.districts');
@@ -174,7 +159,6 @@ Route::group(['prefix' => 'admin'], function(){
     Route::post('/district/edit/{id}', 'Backend\DistrictsController@update')->name('admin.district.update');
     Route::post('/district/delete/{id}', 'Backend\DistrictsController@delete')->name('admin.district.delete');
   });
-
   // Slider Routes
   Route::group(['prefix' => '/sliders'], function(){
     Route::get('/', 'Backend\SlidersController@index')->name('admin.sliders');
@@ -183,7 +167,6 @@ Route::group(['prefix' => 'admin'], function(){
     Route::post('/slider/edit/{id}', 'Backend\SlidersController@update')->name('admin.slider.update');
     Route::post('/slider/delete/{id}', 'Backend\SlidersController@delete')->name('admin.slider.delete');
   });
-
 });
 
 

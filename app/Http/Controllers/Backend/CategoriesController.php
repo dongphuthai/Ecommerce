@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Image;
@@ -12,10 +11,9 @@ use File;
 
 class CategoriesController extends Controller
 {
-    public function __construct()
-      {
+    public function __construct(){
         $this->middleware('auth:admin');
-      }
+    }
     public function index(){
     	$categories=Category::orderBy('id','asc')->get();
     	return view('backend.pages.categories.index')->with('categories',$categories);
@@ -46,10 +44,8 @@ class CategoriesController extends Controller
         	Image::make($image)->save($location);
         	$category->image=$img;
 		}
-
     	$category->save();
     	return redirect()->route('admin.categories')->with('success','A new category has added successfuly !!');
-
     }
     public function edit($id){
     	$main_categories=Category::orderBy('name','asc')->where('parent_id',NULL)->get();
@@ -85,15 +81,11 @@ class CategoriesController extends Controller
         	Image::make($image)->save($location);
         	$category->image=$img;
 		}
-
     	$category->save();
     	return redirect()->route('admin.categories')->with('success','A new category has updated successfuly !!');
-
     }
-    public function delete($id)
-  	{
+    public function delete($id){
     	$category = Category::find($id);
-
     	if (!is_null($category)) {
     		if($category->parent_id==NULL){
     			$sub_categories=Category::orderBy('name','asc')->where('parent_id',NULL)->get();
@@ -104,7 +96,6 @@ class CategoriesController extends Controller
     				$sub->delete();
     			}
     		}
-
     		if(File::exists('public/images/categories/'.$category->image)){
     			File::delete('public/images/categories/'.$category->image);
     		}
@@ -112,6 +103,5 @@ class CategoriesController extends Controller
     	}
     	session()->flash('success', 'Category has deleted successfully !!');
     	return back();
-
   	}
 }

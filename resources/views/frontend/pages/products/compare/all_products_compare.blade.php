@@ -13,7 +13,7 @@
           @endphp
           @if($products->count() > 0)
             @foreach($products as $pdt)
-              <div class=" item mb-2 product-compara-x"  {{-- style="width: 33.3%" --}}>               
+              <div class=" item mb-2 product-compara-x">               
                 <a href="{!! route('products.show',$pdt->slug) !!}" >
                   <div class="img-hover-zoom ">                     
                     <img class=" card-img-top pl-0 pr-0 pl-sm-2 pr-sm-2 pl-md-0 pr-md-0 pl-lg-3 pr-lg-3 pl-xl-3 pr-xl-3 pt-3 card-img-page" src="public/images/product/{{ $pdt->image }} " alt=" {{ $pdt->title }}" >
@@ -32,7 +32,7 @@
                   <p>
                     @if($pdt->discount>0)
                       <span class="card-text">{!! number_format($pdt->offer_price,0,"",".") !!}₫ </span>
-                      <small><span class="pl-1" style="text-decoration: line-through">{{ number_format($pdt->price,0,"",".") }} ₫ </span></small>
+                      <small><span class="pl-1" style="text-decoration: line-through">{{ number_format($pdt->price,0,"",".") }}₫ </span></small>
                     @else
                       <span class="card-text">{{ number_format($pdt->price,0,"",".") }}₫ </span>
                     @endif

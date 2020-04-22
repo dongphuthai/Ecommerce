@@ -1,6 +1,6 @@
   <div class="price_child_item"> 
     @php
-      $str=mb_convert_case(App\Models\Category::where('id',$id)->first()->name,MB_CASE_UPPER, "UTF-8");
+      $str=App\Models\Category::where('id',$id)->first()->name;
     @endphp 
     <div id="hidden2" >
       @if($price==1)

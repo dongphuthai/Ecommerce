@@ -1,14 +1,13 @@
             @php
-              $name_child=App\Models\Category::where('id',$id_child)->first()->name;
-              $str_parent=mb_convert_case(App\Models\Category::where('id',$id)->first()->name,MB_CASE_UPPER, "UTF-8");
-              $str_child=mb_convert_case(App\Models\Category::where('id',$id_child)->first()->name,MB_CASE_UPPER, "UTF-8");
+              $str_parent=App\Models\Category::where('id',$id)->first()->name;
+              $str_child=App\Models\Category::where('id',$id_child)->first()->name;
             @endphp
             <div class="mb-3 mt-2">
               <div class="float-right">
                 <span class="font-name"><b>{{ $str_parent }} {{ $str_child }}</b></span>
               </div>     
               <span class="price-right mr-1">
-                <a href="javascript:void(0)" id="price-parent-right" class="px-2 py-price">{{ $name_child }} <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px"></a>
+                <a href="javascript:void(0)" id="price-parent-right" class="px-2 py-price">{{ $str_child }} <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px"></a>
               </span>
               <span class="price-right mr-1">
                 @if(isset($thap))

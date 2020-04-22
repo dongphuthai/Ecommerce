@@ -9,7 +9,7 @@
 	</form>
 </div>
 <div class="muatragop">
-	<a href="#" >
+	<a href="javascript:void(0)" >
 		<div class="buttontragop mr-0 mr-xl-1" >
 			<div>MUA TRẢ GÓP 0%</div>
 			<span class="hiddenphone">Thủ tục đơn giản</span>
@@ -17,7 +17,7 @@
 	</a>
 </div>
 <div class="muatragop">
-	<a href="#" >
+	<a href="javascript:void(0)" >
 		<div class="buttontragop" >
 			<div>TRẢ GÓP QUA THẺ</div>
 			<span class="hiddenphone">Visa, Master, JCB</span>

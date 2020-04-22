@@ -49,11 +49,11 @@
       $('#dataTable').DataTable();
     } );
   </script>
-  <script>
+  {{-- <script>
     $(document).ready(function() {
       $('#slider_table').DataTable();
     } );
-  </script>
+  </script> --}}
   <script type="text/javascript">
     $('#sample_form').on('submit', function(event) {
       event.preventDefault();
@@ -67,22 +67,22 @@
         dataType:"json",
         success:function(data){
           console.log(data);
-          // var html='';
-          // if(data.errors)
-          // {
-          //   html='<div class="alert alert-danger">';
-          //   for(var count=0; count<data.errors.length; count++)
-          //   {
-          //     html+='<p>'+data.errors[count]+'</p>';
-          //   }
-          //   html+='</div>';
-          // }
-          // if(data.success){
-          //   html='<div class="alert alert-success">'+data.success+'</div>';
+          var html='';
+          if(data.errors)
+          {
+            html='<div class="alert alert-danger">';
+            for(var count=0; count<data.errors.length; count++)
+            {
+              html+='<p>'+data.errors[count]+'</p>';
+            }
+            html+='</div>';
+          }
+          if(data.success){
+            html='<div class="alert alert-success">'+data.success+'</div>';
             $('#sample_form')[0].reset();
-            $('#slider_table').DataTable().ajax.reload();
-          // }
-          // $('#form_result').html(html);
+            $('.load_slider_tb').load(' #slider_table');
+          }
+          $('#form_result').html(html);
 
         }
       });

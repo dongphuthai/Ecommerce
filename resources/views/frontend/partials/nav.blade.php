@@ -29,9 +29,7 @@
         </li>
         <li class="nav-item ">
           <a class="nav-link" href="#">Hỏi đáp</a>
-        </li>
-        
-
+        </li>       
       </ul>
 
       <ul class="navbar-nav ml-auto">
@@ -57,27 +55,23 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
               <a class="dropdown-item" href="{{ route('user.dashboard') }}">
                 Thông tin
               </a>
-
               <a class="dropdown-item" href="{{ route('logout') }}"
               onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
               Đăng xuất
             </a>
-
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf
             </form>
           </div>
         </li>
       @endguest
-    </ul>
-
+      </ul>
+    </div>
   </div>
-</div>
 </nav>
 <!-- End Navbar Part -->
 

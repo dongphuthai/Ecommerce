@@ -1,4 +1,7 @@
 @extends('frontend.layouts.master')
+@section('title')
+  Bigshop | Ecommerce Site
+@endsection
 <!-- JAVASCRIPT -->
 @section('scripts')
 <script type="text/javascript">
@@ -775,8 +778,7 @@
         });
       }
     } 
-  });
-    
+  });   
 </script>
 @endsection
 

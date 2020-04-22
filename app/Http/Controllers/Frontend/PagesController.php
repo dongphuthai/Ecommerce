@@ -78,7 +78,5 @@ class PagesController extends Controller
     $product=Product::where('slug',$slug)->first();
     $slug1=$slug;
     return view('frontend.pages.products.compare',compact('product','slug1'));
-  }
-
-    
+  }   
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Order;
 use App\Models\Cart;
 use PDF;
@@ -24,7 +23,6 @@ class OrdersController extends Controller
     	$order->is_seen_by_admin=1;
     	$order->save();
     	return view('backend.pages.orders.show',compact('order'));
-
     }
     public function completed($id){
     	$order=Order::find($id);
@@ -49,21 +47,18 @@ class OrdersController extends Controller
 	  	$order->save();
 	  	session()->flash('success', 'Order paid status changed ..!');
 	  	return back();
-	  }
+	}
     public function chargeUpdate(Request $request,$id){
         $order=Order::find($id);
         $order->shipping_charge=$request->shipping_charge;
         $order->custom_discount=$request->custom_discount;
-
         $order->save();
         session()->flash('success', 'Order charge and discount has changed ..!');
         return back();
     }
     public function invoice($id){
-        // set_time_limit(0);
         $order=Order::find($id);
         $pdf = PDF::loadView('backend.pages.orders.invoice', compact('order'));
-        //return $pdf->stream('invoice.pdf');
         return $pdf->download('invoice.pdf');
     }
 }

@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 	use Rateable;
-    // public function ratings(){
-    //     return $this->hasMany(Rateable::class);
-    // }
     public function images(){
     	return $this->hasMany(ProductImage::class);
     }

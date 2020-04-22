@@ -17,10 +17,8 @@ class CartsController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function index()
-    {
+    public function index(){
         return view('frontend.pages.carts');
-
     }
 
     /**
@@ -130,8 +128,7 @@ class CartsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $cart = Cart::find($id);
         if (!is_null($cart)){
             if($cart->product_quantity == $request->product_quantity){
@@ -150,7 +147,6 @@ class CartsController extends Controller
         }else {
              
         }
-
     }
 
 
@@ -160,17 +156,14 @@ class CartsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         $cart=Cart::find($id);
         if(!is_null($cart)){
             $cart->delete();
         }else{
-            //return redirect()->route('carts');
+          
         }
         $totalItem=Cart::totalItem();
         return response()->json(['totalItem'=>$totalItem]);
-        // session()->flash('success', 'Bạn đã xóa sản phẩm khỏi giỏ hàng !!');
-        // return back();
     }
 }
