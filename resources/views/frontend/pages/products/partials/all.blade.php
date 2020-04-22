@@ -3,7 +3,8 @@
     <div class="card item">
       <a href="{!! route('products.show',$product->slug) !!}" >
         <div class="img-hover-zoom ">                     
-          <img class=" card-img-top px-0 px-md-3 px-lg-4 px-xl-4 pt-3 pt-xl-4 card-img-page" src="public/images/product/{{ $product->image }} " alt=" {{ $product->title }}">      @if($product->discount>0)
+          <img class=" card-img-top px-0 px-md-3 px-lg-4 px-xl-4 pt-3 pt-xl-4 card-img-page" src="public/images/product/{{ $product->image }} " alt=" {{ $product->title }}"> 
+          @if($product->discount>0)
             <label class="card-title m-0 giam-gia"><img src="public/images/discount.png" width="18"> Giảm {!! number_format($product->discount,0,"",".") !!}₫</label>
           @else
             <label class="card-title m-0 tra-gop">Trả góp 0%</label>
@@ -22,7 +23,7 @@
             <span class="card-text">{{ number_format($product->price,0,"",".") }}₫ </span>
           @endif                    
         </p>
-        <input id="input-1" name="input-1" class="rating rating-loading " data-min="0" data-max="5" data-step="0.1" value="{{ $product->averageRating }}" data-size="x" disabled >
+        <input id="input-{{ $product->id }}" name="input-1" class="rating rating-loading " data-min="0" data-max="5" data-step="0.1" value="{{ $product->averageRating }}" data-size="x" disabled >
       </div>
     </div>
   @endforeach
@@ -32,7 +33,7 @@
 
 @section('scripts')
   <script type="text/javascript">
-    $("#input-1").rating();
+    $(".rating").rating();
   </script>
 @endsection
 

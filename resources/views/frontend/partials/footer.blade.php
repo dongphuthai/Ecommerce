@@ -1,14 +1,10 @@
-<!-- Footer -->
-		{{-- <footer class=" footer-bottom">
-			<p class="text-center">&copy; 2020 All rights reserved |Ecommerce site</p>
-		</footer> --}}
+
 <div class="clearfix"></div>
 <div class="" style="position: relative;bottom: 0;left: 0;right: 0;">
 <footer id="footer" class="footer-bottom mt-5">
   <div class="fpart-first">
     <div class="container">
-      <div class="row">
-        
+      <div class="row">      
         <div class="column col-4 col-lg-2 col-md-2 col-sm-3 col-xs-12">
           <h5>Thông tin</h5>
           <ul class="list-unstyled">
@@ -43,26 +39,24 @@
             <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=account/wishlist">Danh sách</a></li>
             <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=account/newsletter">Thư mới</a></li>
           </ul>
-        </div>
-        
+        </div>        
         <div class="contact col-8 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <h5>Liên lạc</h5>
-            <ul class="list-unstyled">
-	            <li class="address"><img class="footer-icon" src="public/images/support/map.png" width="30"> Bigshop Plaza, Bac Giang.</li>
-              <li class="mobile"><img class="footer-icon" src="public/images/support/call.png" width="30"> +98 989748373</li>
-              <li class="email"><img class="footer-icon" src="public/images/support/email.png" width="30"><a href="mailto:info@bigshop.com">info@bigshop.com</a>
-			</ul>
+          <h5>Liên lạc</h5>
+          <ul class="list-unstyled">
+            <li class="address"><img class="footer-icon" src="public/images/support/map.png" width="30"> Bigshop Plaza, Bac Giang.</li>
+            <li class="mobile"><img class="footer-icon" src="public/images/support/call.png" width="30"> +98 989748373</li>
+            <li class="email"><img class="footer-icon" src="public/images/support/email.png" width="30"><a href="mailto:info@bigshop.com">info@bigshop.com</a>
+		      </ul>
         </div>                               
-      </div>
-	
-</div>
+      </div>    	
+    </div>
   </div>
 </footer>
 
 <footer class="footer-payment">
-  	<div class="container">
+  <div class="container">
   	<div id="powered" class="clearfix "> 
-      	<div class="row"> 
+      <div class="row"> 
   			<div class="col-sm-12 col-md-4 col-xl-4"> 
   				<div class="payments_types pointer d-flex justify-content-center"> 
   					<img data-toggle="tooltip" src="public/images/menu_icons/payment_paypal.png" alt="paypal" title="PayPal" class="pr-1"> 

@@ -16,32 +16,22 @@ use File;
 
 class ProductsController extends Controller
 {
-  public function __construct()
-    {
-      $this->middleware('auth:admin');
-    }
-  public function index()
-  {
+  public function __construct(){
+    $this->middleware('auth:admin');
+  }
+  public function index(){
     $products = Product::orderBy('id', 'desc')->get();
-    
     return view('backend.pages.product.index')->with('products', $products);
   }
-
-  public function create()
-  {
+  public function create(){
     return view('backend.pages.product.create');
   }
-
-  public function edit($id)
-  {
+  public function edit($id){
     $product = Product::find($id);
     $product_image=ProductImage::where('product_id',$id)->get();
     return view('backend.pages.product.edit',compact('product','product_image'));
   }
-
-  public function store(Request $request)
-  {
-
+  public function store(Request $request){
     $request->validate([
       'title'         => 'required|max:150',
       'description'     => 'required',
@@ -52,7 +42,6 @@ class ProductsController extends Controller
     ]);
 
     $product = new Product;
-
     $product->title = $request->title;
     $product->description = $request->description;
     $product->price = $request->price;
@@ -88,9 +77,7 @@ class ProductsController extends Controller
 
     return redirect()->route('admin.product.create');
   }
-  public function update(Request $request, $id)
-  {
-
+  public function update(Request $request, $id){
     $request->validate([
       'title'         => 'required|max:150',
       'description'     => 'required',
@@ -144,19 +131,14 @@ class ProductsController extends Controller
         $product_image->image = $image_new;
         $product_image->save();
         $i++;
-      }
-
     }
-
-    return redirect()->route('admin.products')->with('success','A new product has updated successfuly !!');
-
   }
 
-  public function delete($id)
-  {
-    $product = Product::find($id);
+    return redirect()->route('admin.products')->with('success','A new product has updated successfuly !!');
+  }
 
-    //Delete all images
+  public function delete($id){
+    $product = Product::find($id);
     $product_image=ProductImage::where('product_id',$product->id)->get();
       if (!is_null($product)) {
         if(File::exists('public/images/product/'.$product->image)){
@@ -195,7 +177,6 @@ class ProductsController extends Controller
     $parameter->memory=$request->memory;
     $parameter->sim=$request->sim;
     $parameter->pin=$request->pin;
-
 
     if($request->hasFile('image')){
       $image=$request->file('image');
@@ -265,7 +246,6 @@ class ProductsController extends Controller
     $paralaptop->size=$request->size;
     $paralaptop->time_launch=$request->time_launch;
 
-
     if($request->hasFile('image')){
       $image=$request->file('image');
       $img = $paralaptop->product->slug.'-'.time() . '.'. $image->getClientOriginalExtension();
@@ -314,8 +294,3 @@ class ProductsController extends Controller
     return redirect()->route('admin.products')->with('success','Đã cập nhật thông số thành công !!');
   } 
 }
-
-
-//php artisan config:cache
-//php artisan view:clear
-//composer dump-autoload

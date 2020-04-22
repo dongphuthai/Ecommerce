@@ -1,5 +1,9 @@
 @extends('frontend.layouts.master')
 
+@section('title')
+  {{ $product->title }} | Ecommerce Site
+@endsection
+
 @section('content')
 
 <div class="container page-feature pt-2" style="font-size: 14px">

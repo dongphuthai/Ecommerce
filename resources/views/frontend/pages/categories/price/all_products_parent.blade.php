@@ -3,7 +3,7 @@
     <div class="price_parent_item">
       <div class="price_child_item">
         @php
-          $str=mb_convert_case(App\Models\Category::where('id',$id)->first()->name,MB_CASE_UPPER, "UTF-8");
+          $str=App\Models\Category::where('id',$id)->first()->name;
         @endphp
         <p class="font-name"><b>TẤT CẢ {{ $str }}</b></p>                 
         <div class="list-item">

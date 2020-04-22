@@ -6,8 +6,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('public/asset/css/admin_style.css') }}">
   <link rel="shortcut icon" href="{{ public_path('images/favicon.png') }}" />
   <style type="text/css">
-      *{ font-family:Noto Sans, DejaVu Sans,sans-serif; font-size: 12px;}
-
+      body{font-family: Roboto,Times New Roman;}
       .content-wrapper{
         background-color: #fff;
       }
@@ -65,8 +64,8 @@
         <img src="{{ public_path('images/favicon.png') }}" alt="">
       </div>
       <div class="float-right site-address">
-        <h4>Ecommerce</h4>
-        <p>15/3, Lang Giang, Bac Giang</p>
+        <h4>Bigshop</h4>
+        <p style="font-family: Roboto">15/3, Lang Giang, Bac Giang</p>
         <p>Phone: <a href="">0989748373</a></p>
         <p>Email: <a href="">info@gmail.com</a></p>
       </div>
@@ -75,35 +74,35 @@
 
     <div class="invoice-description">
       <div class="invoice-left-top float-left ">
-        <h6>Invoice to</h6>
+        <h6 style="font-family: Roboto">Hóa đơn tới</h6>
         <h3>{{ $order->name }}</h3>
         <div class="address">
           <p><strong>Address: </strong>
             {{ $order->shipping_address }}</p>
             <p>Phone: {{ $order->phone_no }}</p>
-            <p>Enail: <a href="mailto:{{ $order->email }}">{{ $order->email }}</a></p>
+            <p>Email: <a href="mailto:{{ $order->email }}">{{ $order->email }}</a></p>
         </div>
       </div>
 
       <div class="invoice-right-top float-right ">
-        <h3>Hóa đơn #{{ $order->id }}</h3>
+        <h3 style="font-family: Roboto">Hóa đơn #{{ $order->id }}</h3>
         <p>{{ $order->created_at }}</p>
       </div>
       <div class="clearfix"></div>
     </div>
       
       <div class="card-body">
-        <h3>Sản phẩm</h3>
+        <h3 style="font-family: Roboto">Sản phẩm</h3>
         @if ($order->carts->count() > 0)
 
-        <table class="table table-bordered table-stripe text-center">
+        <table class="table table-bordered table-stripe text-center" >
           <thead>
             <tr>
               <th>No.</th>
-              <th>Tên sản phẩm</th>             
-              <th>Số lượng</th>
-              <th>Giá</th>
-              <th>Tổng giá</th>
+              <th style="font-family: Roboto">Tên sản phẩm</th>             
+              <th style="font-family: Roboto">Số lượng</th>
+              <th style="font-family: Roboto">Giá</th>
+              <th style="font-family: Roboto">Tổng giá</th>
             </tr>
           </thead>
           <tbody>
@@ -135,7 +134,7 @@
             @endforeach
             <tr>
               <td colspan="3"></td>
-              <td>
+              <td style="font-family: Roboto">
                 Giảm giá:
               </td>
               <td colspan="2">
@@ -144,7 +143,7 @@
             </tr>
             <tr>
               <td colspan="3"></td>
-              <td>
+              <td style="font-family: Roboto">
                 Phí giao hàng:
               </td>
               <td colspan="2">
@@ -153,7 +152,7 @@
             </tr>
             <tr>
               <td colspan="3"></td>
-              <td>
+              <td style="font-family: Roboto">
                 Tổng cộng:
               </td>
               <td colspan="2">
@@ -164,11 +163,11 @@
         </table>
         @endif
         <div class="thanks mt-3">
-          <h4>Cảm ơn bạn đã mua sản phẩm của Bigshop !!</h4>
+          <h4 style="font-family: Roboto">Cảm ơn bạn đã mua sản phẩm của Bigshop !!</h4>
         </div>
         <div class="authority float-right mt-5">
           <p>------------------------------</p>
-          <h5>Chữ ký:</h5>
+          <h5 style="font-family: Roboto">Chữ ký:</h5>
         </div>
         <div class="clearfix"></div>
       </div>

@@ -10,8 +10,4 @@ use willvincent\Rateable\Rateable;
 class Cmtrate extends Model
 {
 
-	// use Rateable;
- //    public function cmtrate(){
- //    	return $this->belongsTo(Rating::class);
- //    }
 }

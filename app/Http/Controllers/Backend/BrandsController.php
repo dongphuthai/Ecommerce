@@ -12,16 +12,14 @@ use File;
 
 class BrandsController extends Controller
 {
-    public function __construct()
-      {
+    public function __construct(){
         $this->middleware('auth:admin');
-      }
+    }
     public function index(){
     	$brands=Brand::orderBy('id','desc')->get();
     	return view('backend.pages.brands.index')->with('brands',$brands);
     }
-    public function create(){
-    	
+    public function create(){	
     	return view('backend.pages.brands.create');
     }
     public function store(Request $request){
@@ -36,8 +34,6 @@ class BrandsController extends Controller
     	$brand= new Brand;
     	$brand->name=$request->name;
     	$brand->description=$request->description;
-    	
-
     	if ($request->hasFile('image')) {
       		$image = $request->file('image');
         	$img = str::slug($brand->name).'-'.time() . '.'. $image->getClientOriginalExtension();
@@ -45,10 +41,8 @@ class BrandsController extends Controller
         	Image::make($image)->save($location);
         	$brand->image=$img;
 		}
-
     	$brand->save();
     	return redirect()->route('admin.brands')->with('success','A new brand has added successfuly !!');
-
     }
     public function edit($id){
     	$brand=Brand::find($id);
@@ -72,7 +66,6 @@ class BrandsController extends Controller
     	$brand->description=$request->description;
 
     	if ($request->hasFile('image')) {
-    		//Delete old image
     		if(File::exists('public/images/brands/'.$brand->image)){
     			File::delete('public/images/brands/'.$brand->image);
     		}
@@ -82,15 +75,11 @@ class BrandsController extends Controller
         	Image::make($image)->save($location);
         	$brand->image=$img;
 		}
-
     	$brand->save();
     	return redirect()->route('admin.brands')->with('success','A new brand has updated successfuly !!');
-
     }
-    public function delete($id)
-  	{
+    public function delete($id){
     	$brand = Brand::find($id);
-
     	if (!is_null($brand)) {
     		if(File::exists('public/images/brands/'.$brand->image)){
     			File::delete('public/images/brands/'.$brand->image);

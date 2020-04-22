@@ -1,5 +1,9 @@
 @extends('frontend.layouts.master')
 
+@section('title')
+  Bigshop | Ecommerce Site
+@endsection
+
 @section('content')
   <div class='container margin-top-20 mb-3'>
   	<div class="card card-body">

@@ -16,7 +16,10 @@
               <label for="name">Name</label>
               <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="Enter District Name">
             </div>
-
+            <div class="form-group">
+              <label for="priority">priority</label>
+              <input type="text" class="form-control" name="priority" id="priority" aria-describedby="emailHelp" placeholder="Enter Division priority">
+            </div>
             <div class="form-group">
               <label for="division_id">Select a division for this district</label>
               <select class="form-control" name="division_id">

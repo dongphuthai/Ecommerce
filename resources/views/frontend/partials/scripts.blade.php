@@ -1,13 +1,11 @@
-	<script type="text/javascript" src="public/asset/js/jquery-3.4.1.slim.min.js"></script>
-	<script type="text/javascript" src="public/asset/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="public/asset/css/scripts/jquery.rateit.js"></script>
-	<script type="text/javascript" src="public/asset/dist/popper.min.js"></script>
-	<script type="text/javascript" src="public/asset/css/scripts/star-rating.min.js"></script>
-	<script type="text/javascript" src="public/asset/css/scripts/typeahead.bundle.js"></script>
-	<script type="text/javascript" src="public/asset/js/bootstrap.min.js"></script>
-  {{-- <script type="text/javascript" src="public/asset/js/data-table.min.js"></script> --}}
-	<!-- JavaScript -->
-  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script type="text/javascript" src="public/asset/js/jquery-3.4.1.slim.min.js"></script>
+<script type="text/javascript" src="public/asset/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="public/asset/css/scripts/jquery.rateit.js"></script>
+<script type="text/javascript" src="public/asset/dist/popper.min.js"></script>
+<script type="text/javascript" src="public/asset/css/scripts/star-rating.min.js"></script>
+<script type="text/javascript" src="public/asset/css/scripts/typeahead.bundle.js"></script>
+<script type="text/javascript" src="public/asset/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="public/asset/dist/alertify.min.js"></script>
 <!-- CART AJAX -->
 <script type="text/javascript">
 	$.ajaxSetup({
@@ -89,7 +87,7 @@
   }
 </script>
 
- <!-- JS NAV SEARCH -->
+<!-- JS NAV SEARCH -->
 <script type="text/javascript">
     $(document).ready(function($){
         var url="{{ url('/') }}";
@@ -117,6 +115,26 @@
             }
         });
   });
+</script>
+<!-- BACK TO TOP -->
+<script type="text/javascript">
+  jQuery(document).ready(function($){   
+  if($(".btn-top").length > 0){
+    $(window).scroll(function () {
+      var e = $(window).scrollTop();
+      if (e > 300) {
+        $(".btn-top").show()
+      } else {
+        $(".btn-top").hide()
+      }
+    });
+    $(".btn-top").click(function () {
+      $('body,html').animate({
+        scrollTop: 0
+      })
+    })
+  }   
+});
 </script>
 
 

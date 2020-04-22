@@ -1,5 +1,9 @@
 @extends('frontend.layouts.master')
 
+@section('title')
+  {{ $product->title }} | Ecommerce Site
+@endsection
+
 @section('content')
 
 <div id="fb-root"></div>

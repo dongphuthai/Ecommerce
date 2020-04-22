@@ -21,13 +21,10 @@
               @endif
             @endif
             ">
-            <img src="{!! asset('public/images/categories/'.$child->image) !!}" width="60" >
-            
+            <img src="{!! asset('public/images/categories/'.$child->image) !!}" width="60" > 
           </a>
         @endforeach
       </div>
-
-
     </div>
   @endforeach
 </div>
