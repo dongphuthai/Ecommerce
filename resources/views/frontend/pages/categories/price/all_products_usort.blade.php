@@ -8,7 +8,7 @@
         @endphp
         <div class="mb-3 mt-2">
           <div class="float-right">
-            <span style="font-family: arial;"><b>TẤT CẢ {{ $str }}</b></span> 
+            <span class="font-name"><b>TẤT CẢ {{ $str }}</b></span> 
           </div> 
           <span class="price-right mr-1">
             @if(isset($thap))

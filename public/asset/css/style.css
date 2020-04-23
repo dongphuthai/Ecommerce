@@ -533,14 +533,14 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
     min-width: 500px;
   }
   .item{width: 33.3%;}
-  .list-item.height-item {max-height: 250px;}
+  .list-item.height-item {max-height: 260px;}
   .muatragop {width: 100%}
   .mobile-item{width:20%}
   .watches-item{width:10%}
   .feature{width: 66.6%;}
   .card-title{font-size: 12px;}
   .card-text{font-size: 13px;}
-  .card-img-page {height: 165px;}
+  .card-img-page {height: 170px;}
   .hiddenphone{display: none;}
   .hiddentitle{display: none;}
   .side-left{font-size: 18px;}

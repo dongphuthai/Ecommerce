@@ -119,7 +119,7 @@ class SlidersController extends Controller
     	}
       $slider->delete();
     }
-    session()->flash('success', 'Slider has deleted successfully !!');
-    return back();
+    // session()->flash('success', 'Slider has deleted successfully !!');
+    // return back();
   }
 }

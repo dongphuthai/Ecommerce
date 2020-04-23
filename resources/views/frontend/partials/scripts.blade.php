@@ -29,24 +29,6 @@
   		});
 	}
 </script>
-<!-- PRODUCT AJAX -->
-<script type="text/javascript">
-    $(document).on('click','.pagination-all nav ul.pagination a', function(e) {
-      e.preventDefault();
-      var page=($(this).attr('href').split('page=')[1]);
-      getProducts(page);
-    });
-    var url="{{ url('/') }}";
-    function getProducts(page){
-      $.ajax({
-        url:url+'/ajax/products?page='+page
-      }).done(function(data){
-        $('.content-product').html(data);
-        location.hash=page;          
-            $(".rating").rating();           
-      });
-    }
-</script>
 
 <!-- FUNCTION NUMBER_FORMAT  -->
 <script type="text/javascript">

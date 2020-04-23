@@ -27,7 +27,7 @@ class ProductsController extends Controller
   }  
   public function index(){
     $sliders = Slider::orderBy('priority', 'asc')->get();
-    $products = Product::orderBy('price', 'desc')->paginate(15);
+    $products = Product::orderBy('price', 'desc')->paginate(20);
     return view('frontend.pages.products.index',compact('sliders','products'));
   }
   public function show($slug){

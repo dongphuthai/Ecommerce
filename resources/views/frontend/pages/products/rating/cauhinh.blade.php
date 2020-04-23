@@ -18,10 +18,10 @@
             <td class="para-left">CPU</td><td>{{ !is_null($product->para) ? $product->para->cpu:'' }}</td>
           </tr>
           <tr>
-            <td class="para-left">RAM</td><td>{{ !is_null($product->para) ? $product->para->ram:'' }} GB</td>
+            <td class="para-left">RAM</td><td>{{ !is_null($product->para) ? $product->para->ram:'' }}</td>
           </tr>
           <tr>
-            <td class="para-left">Bộ nhớ trong</td><td>{{ !is_null($product->para) ? $product->para->internal_memory:'' }} GB</td>
+            <td class="para-left">Bộ nhớ trong</td><td>{{ !is_null($product->para) ? $product->para->internal_memory:'' }}</td>
           </tr>
           <tr>
             <td class="para-left">Thẻ nhớ</td><td>{{ !is_null($product->para) ? $product->para->memory:'' }}</td>
@@ -48,7 +48,9 @@
             </div>
 
             <div class="modal-body">
-              <img class="modalImg" src="public/images/parameter/{{ !is_null($product->para) ? $product->para->image:'' }}">
+              @if(!is_null($product->para))
+                <img class="modalImg" src="public/images/parameter/{{$product->para->image}}">
+              @endif
               <table class="table">     
                 <tbody style="font-size: 14px">
                   <tr>
@@ -67,10 +69,10 @@
                     <td>CPU</td><td>{{ !is_null($product->para) ? $product->para->cpu:'' }}</td>
                   </tr>
                   <tr>
-                    <td>RAM</td><td>{{ !is_null($product->para) ? $product->para->ram:'' }} GB</td>
+                    <td>RAM</td><td>{{ !is_null($product->para) ? $product->para->ram:'' }}</td>
                   </tr>
                   <tr>
-                    <td>Bộ nhớ trong</td><td>{{ !is_null($product->para) ? $product->para->internal_memory:'' }} GB</td>
+                    <td>Bộ nhớ trong</td><td>{{ !is_null($product->para) ? $product->para->internal_memory:'' }}</td>
                   </tr>
                   <tr>
                     <td>Thẻ nhớ</td><td>{{ !is_null($product->para) ? $product->para->memory:'' }}</td>

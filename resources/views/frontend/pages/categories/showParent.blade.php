@@ -4,6 +4,28 @@
   Bigshop | Ecommerce Site
 @endsection
 
+@section('scripts')
+<script type="text/javascript">
+    $(document).on('click','ul.pagination li.page-item a', function(e) {
+      e.preventDefault();
+      var page=($(this).attr('href').split('page=')[1]);
+      var slug=$('.parent-item a.active').attr('data-parent-slug');
+      getProducts(page,slug);
+    });
+    var url="{{ url('/') }}";
+    function getProducts(page,slug){
+      $.ajax({
+        url:url+'/ajax/the-loai/'+slug+'?page='+page
+      }).done(function(data){
+        console.log(data)
+        $('.content-showParent').html(data);
+        location.hash=page;          
+            $(".rating").rating();           
+      });
+    }
+</script>
+@endsection
+
 @section('content')
 
 <div class="container page-feature ">
@@ -19,7 +41,7 @@
         </div>               
       </div>
     </div> 
-    <div class="list-item content-product mt-3">
+    <div class="list-item mt-3">
       @foreach (App\Models\Category::orderBy('id', 'asc')->where('parent_id', $id)->get() as $child)
         <div class="child-item {{ ($id==41||$id==45)?'watches-item': 'mobile-item'}}" >
         <a id="child_{{ $child->id }}" href="the-loai/{{ $slug1 }}/{{ $child->slug }}" data-child-id="{{ $child->id }}" class="list-group-item list-group-item-action p-0 btn">
@@ -51,16 +73,12 @@
     @php
     $str=App\Models\Category::where('id',$id)->first()->name;
     @endphp
-    <p class="font-name"><b>TẤT CẢ {{ $str }}</b></p>                 
-    <div class="list-item">
-      @foreach($categories as $category)             
-        @php           
-          $products = App\Models\Product::where('category_id',$category->id)->paginate(15);
-        @endphp
-        @if ($products->count() > 0)
-          @include('frontend.pages.products.partials.all_products')
-        @endif
-      @endforeach
+    <p class="font-name pt-2"><b>TẤT CẢ {{ $str }}</b></p>                 
+    <div class="list-item content-showParent">
+      @if (count($products) > 0)
+        @include('frontend.pages.products.partials.all')
+      @endif
     </div>
   </div>
 @endsection
+

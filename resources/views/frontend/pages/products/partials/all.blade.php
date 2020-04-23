@@ -27,8 +27,9 @@
       </div>
     </div>
   @endforeach
+    
   <div class="mt-4 d-flex justify-content-center pagination-all" style="width: 100%;">
-      {{ $products->links() }}
+    {{ $products->links() }}
   </div>
 
 @section('scripts')
