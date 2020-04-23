@@ -8,11 +8,25 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Support\Str;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoriesController extends Controller
 {
-    public function index(){
-
+    public function elementProduct($categories,$slug){
+        $products=array();
+        foreach($categories as $key => $category){
+            $pdts=Product::orderBy('price','asc')->where('category_id',$category->id)->get();
+            foreach($pdts as $pdt){
+                $pdt=array($pdt);
+                $products=array_merge_recursive($pdt,$products);
+            }        
+        } 
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage=15;
+        $currentItems = array_slice($products, $perPage * ($currentPage - 1), $perPage);
+        $products= new LengthAwarePaginator($currentItems,count($products),$perPage,$currentPage);
+        $products->withPath('the-loai/'.$slug);
+        return $products;
     }
     public function show($slug1,$slug2){
         $sliders = Slider::orderBy('priority', 'asc')->get();
@@ -26,10 +40,11 @@ class CategoriesController extends Controller
     public function showParent($slug){       
         $sliders = Slider::orderBy('priority', 'asc')->get();
         $id=Category::where('slug',$slug)->first()->id;
-        $categories=Category::where('parent_id',$id)->get();
+        $categories=Category::where('parent_id',$id)->get();       
+        $products=$this->elementProduct($categories,$slug);
         $slug1=$slug;
-        if(!is_null($categories)){
-            return view('frontend.pages.categories.showParent',compact('categories','sliders','id','slug1'));
+        if(!is_null($products)){
+            return view('frontend.pages.categories.showParent',compact('products','sliders','id','slug1'));
         }else{
             session()->flash('errors','Sorry !! There is no category by this ID');
             return redirect('/');

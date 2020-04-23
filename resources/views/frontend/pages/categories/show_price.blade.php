@@ -5,216 +5,143 @@
 <!-- JAVASCRIPT -->
 @section('scripts')
 <script type="text/javascript">
-/*Lấy ra sản phẩm thể loại con có giá 2 triệu*/
+  var url="{{ url('/') }}"
+/*Function*/
+  function removePriceActive(){
+    $('a.child-plink').removeClass('price-active')
+  }
+  function removeLinkCheck(){   
+    $('#link-new').removeClass('link-check');
+    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+    $('#link-giamgia').removeClass('link-check');
+    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+  }
+  function htmlThapCao(){
+    $('.rating').rating();
+    $('#thap').html('<span>Giá thấp đến cao</span>');
+    $('#cao').html('<span>Giá cao đến thấp</span>');
+  }
+  function htmlGiamGia(){
+    $('a.child-plink').removeClass('price-active');
+    $('#link-giamgia').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Khuyến mãi<span class="new-after">MỚI</span>');
+  }
+  function htmlNew(){
+    $('a.child-plink').removeClass('price-active');
+    $('#link-new').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Mới');
+  }
+  function getPriceChild(slug1,slug2,slug){
+    $.ajax({
+      url:url+'/ajax/'+slug1+'/'+slug2+'/'+slug
+    }).done(function(data){
+      $('.price_child_item').html(data);
+      $('#price-child-right').addClass('py-price');
+      if(slug==='duoi-2-trieu'){
+        $('#price-child-right').html('Dưới 2 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
+      }else if(slug==='2-4-trieu'){
+        $('#price-child-right').html('Từ 2-4 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
+      }else if(slug==='4-7-trieu'){
+        $('#price-child-right').html('Từ 4-7 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
+      }else if(slug==='7-13-trieu'){
+        $('#price-child-right').html('Từ 7-13 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
+      }else if(slug==='tren-13-trieu'){
+        $('#price-child-right').html('Trên 13 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
+      }
+      htmlThapCao()
+      location.hash=slug2+'-'+slug;
+    });
+  }
+  function getProductChild(slug2){
+    $.ajax({
+        url:url+'/ajax/category/child/'+slug2
+      }).done(function(data){
+        $('.content-child').html(data);
+        $('.rating').rating();
+        location.hash=slug2;
+      });
+  }
+  function getNewChild(slug1,slug2){
+    $.ajax({
+      url:url+'/ajax/child/new/'+slug1+'/'+slug2
+    }).done(function(data){
+      $('.content-child').html(data);
+      $('.rating').rating();
+    });
+  }
+  function getGiamGiaChild(slug1,slug2){
+    $.ajax({
+      url:url+'/ajax/child/giam-gia/'+slug1+'/'+slug2
+    }).done(function(data){
+      $('.content-child').html(data);
+      $('.rating').rating();
+    });
+  }
+  function getProductParent(slug1){
+    $.ajax({
+      url:url+'/ajax/parent/'+slug1
+    }).done(function(data){
+      $('.content-parent').html(data);
+      $('.rating').rating();    
+      location.hash=slug1;
+    });
+  }
+  function getPriceParent(slug1,slug){
+    $.ajax({
+      url:url+'/ajax/'+slug1+'/'+slug
+    }).done(function(data){
+      $('.price_parent_item').html(data);
+      htmlThapCao()
+    });
+  }
+/*Lấy ra sản phẩm thể loại con theo giá*/
   $(document).on('click','#duoi-2-trieu',function() {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
-    /*Bắt lấy slug của thể loại con đang được active*/
+    removeLinkCheck()
+    removePriceActive()
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
-    var slug=$(this).attr('id');
-    var id=$('.child-item a').attr('data-child-id');
-    var url="{{ url('/') }}";
-    /*Remove class price-active */
-    $('#2-4-trieu').removeClass('price-active');
-    $('#4-7-trieu').removeClass('price-active');
-    $('#7-13-trieu').removeClass('price-active');
-    $('#tren-13-trieu').removeClass('price-active');
-    /*Thêm và xóa class price-active khỏi $this*/
-    $(this).toggleClass('price-active');
-    // Thay cho .toggle(handler1,handler2...) trong JQ-1.9.Sự kiện click lần lượt.
-    if($(this).hasClass('price-active')){
-      // Đang active: lấy ra các sản phẩm dưới 2 triệu
-      $.ajax({
-        url:url+'/ajax/'+slug1+'/'+slug2+'/duoi-2-trieu'
-      }).done(function(data){
-        $('.price_child_item').html(data);
-        $(".rating").rating();
-        $('#price-child-right').html('Dưới 2 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">')
-        $('#price-child-right').addClass('py-price')
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug;
-      });
-    }else{
-      /*Không active: lấy ra toàn bộ sản phẩm của thể loại con đang active*/
-      $.ajax({
-        url:url+'/ajax/category/child/'+slug2
-      }).done(function(data){
-        $('.content-child').html(data);
-        $(".rating").rating();
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug2;
-      });
-    }         
+    var slug=$(this).attr('id'); 
+    $(this).addClass('price-active');
+    getPriceChild(slug1,slug2,slug)
   });
-/*Lấy ra sản phẩm thể loại con có giá 2-4 triệu*/
   $(document).on('click', '#2-4-trieu', function(event) {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
+    removePriceActive()
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var slug=$(this).attr('id');
-    var id=$('.child-item a').attr('data-child-id');
-    var url="{{ url('/') }}";
-    $('#duoi-2-trieu').removeClass('price-active');
-    $('#4-7-trieu').removeClass('price-active');
-    $('#7-13-trieu').removeClass('price-active');
-    $('#tren-13-trieu').removeClass('price-active');
-    $(this).toggleClass('price-active');
-    if($(this).hasClass('price-active')){
-      $.ajax({
-        url:url+'/ajax/'+slug1+'/'+slug2+'/2-4-trieu'
-      }).done(function(data){
-        $('.price_child_item').html(data);
-        $(".rating").rating();
-        $('#price-child-right').html('Từ 2-4 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
-        $('#price-child-right').addClass('py-price');
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug;
-      });
-    }else{
-      $.ajax({
-        url:url+'/ajax/category/child/'+slug2
-      }).done(function(data){
-        $('.content-child').html(data);
-        $(".rating").rating();
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug2;
-      });
-    }
+    $(this).addClass('price-active');  
+    getPriceChild(slug1,slug2,slug)
   });
-/*Lấy ra sản phẩm thể loại con có giá 4-7 triệu*/
   $(document).on('click', '#4-7-trieu', function(event) {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
+    removePriceActive()
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var slug=$(this).attr('id');
-    var id=$('.child-item a').attr('data-child-id');
-    var url="{{ url('/') }}";
-    $('#duoi-2-trieu').removeClass('price-active');
-    $('#2-4-trieu').removeClass('price-active');
-    $('#7-13-trieu').removeClass('price-active');
-    $('#tren-13-trieu').removeClass('price-active');
-    $(this).toggleClass('price-active');
-    if($(this).hasClass('price-active')){
-      $.ajax({
-        url:url+'/ajax/'+slug1+'/'+slug2+'/4-7-trieu'
-      }).done(function(data){
-        $('.price_child_item').html(data);
-        $(".rating").rating();
-        $('#price-child-right').html('Từ 4-7 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
-        $('#price-child-right').addClass('py-price');
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug;
-      });
-    }else{
-      $.ajax({
-        url:url+'/ajax/category/child/'+slug2
-      }).done(function(data){
-        $('.content-child').html(data);
-        $(".rating").rating();
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug2;
-      });
-    }
+    $(this).addClass('price-active');
+    getPriceChild(slug1,slug2,slug)
   });
-/*Lấy ra sản phẩm thể loại con có giá 7-13 triệu*/
   $(document).on('click', '#7-13-trieu', function(event) {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
+    removePriceActive()
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var slug=$(this).attr('id');
-    var id=$('.child-item a').attr('data-child-id');
-    var url="{{ url('/') }}";
-    $('#duoi-2-trieu').removeClass('price-active');
-    $('#2-4-trieu').removeClass('price-active');
-    $('#4-7-trieu').removeClass('price-active');
-    $('#tren-13-trieu').removeClass('price-active');
-    $(this).toggleClass('price-active');
-    if($(this).hasClass('price-active')){
-      $.ajax({
-        url:url+'/ajax/'+slug1+'/'+slug2+'/7-13-trieu'
-      }).done(function(data){
-        $('.price_child_item').html(data);
-        $(".rating").rating();
-        $('#price-child-right').html('Từ 7-13 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
-        $('#price-child-right').addClass('py-price');
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug;
-      });
-    }else{
-      $.ajax({
-        url:url+'/ajax/category/child/'+slug2
-      }).done(function(data){
-        $('.content-child').html(data);
-        $(".rating").rating();
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug2;
-      });
-    }
+    $(this).addClass('price-active');
+    getPriceChild(slug1,slug2,slug)
   });
-/*Lấy ra sản phẩm thể loại con có giá trên 13 triệu*/
   $(document).on('click', '#tren-13-trieu', function(event) {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
+    removePriceActive()
     var slug1=$('.child-item a.active').attr('data-parent-slug');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var slug=$(this).attr('id');
-    var id=$('.child-item a').attr('data-child-id');
-    var url="{{ url('/') }}";
-    $('#duoi-2-trieu').removeClass('price-active');
-    $('#2-4-trieu').removeClass('price-active');
-    $('#7-13-trieu').removeClass('price-active');
-    $('#4-7-trieu').removeClass('price-active');
-    $(this).toggleClass('price-active');
-    if($(this).hasClass('price-active')){
-      $.ajax({
-        url:url+'/ajax/'+slug1+'/'+slug2+'/tren-13-trieu'
-      }).done(function(data){
-        $('.price_child_item').html(data);
-        $(".rating").rating();
-        $('#price-child-right').html('Trên 13 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
-        $('#price-child-right').addClass('py-price');
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug;
-      });
-    }else{
-      $.ajax({
-        url:url+'/ajax/category/child/'+slug2
-      }).done(function(data){
-        $('.content-child').html(data);
-        $(".rating").rating();
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá cao đến thấp</span>');
-        location.hash=slug2;
-      });
-    }
+    $(this).addClass('price-active');
+    getPriceChild(slug1,slug2,slug)
   });
 /*Click vào danh sách thể loại con*/
   $(document).on('click','.child-item a', function(event) {
@@ -222,7 +149,8 @@
     var id=$(this).attr('data-child-id');
     var slug1=$(this).attr('data-parent-slug');
     var slug2=$(this).attr('data-child-slug');
-    var url="{{ url('/') }}";
+    $('.child-item a').removeClass('active');
+    $('#child_'+id).addClass('active');
     /*Khi link giá là link của thể loại cha*/
     if($('.link_price_child a').hasClass('parent_plink')){
       $.ajax({
@@ -230,125 +158,21 @@
       }).done(function(data){
         $('.link_price_child').html(data);
       });
-      $.ajax({
-        url:url+'/ajax/category/child/'+slug2
-      }).done(function(data){
-        $('.content-child').html(data);
-        $(".rating").rating();
-        $('.child-item a').removeClass('active');
-        $('#child_'+id).addClass('active');
-        $('#thap').html('<span>Giá thấp đến cao</span>');
-        $('#cao').html('<span>Giá thấp đến cao</span>');
-        location.hash=slug2;
-      });
+      getProductChild(slug2);
     /*Khi link giá là link thể loại con*/
     }else{
       /*Khi link_price_child được active: lấy ra các sản phẩm có giá đang được active*/
       if($('.child-plink').hasClass('price-active')){
         var slug=$('.price-active').attr('id')
-        if(slug==='duoi-2-trieu'){
-          $.ajax({
-            url:url+'/ajax/'+slug1+'/'+slug2+'/duoi-2-trieu'
-          }).done(function(data){
-            $('.price_child_item').html(data);
-            $('.rating').rating();
-            $('.child-item a').removeClass('active');
-            $('#child_'+id).addClass('active');
-            $('#price-child-right').html('Dưới 2 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
-            $('#price-child-right').addClass('py-price');
-            $('#thap').html('<span>Giá thấp đến cao</span>');
-            $('#cao').html('<span>Giá thấp đến cao</span>');
-            location.hash=slug2+slug;
-          });
-        }else if(slug==='2-4-trieu'){
-          $.ajax({
-            url:url+'/ajax/'+slug1+'/'+slug2+'/2-4-trieu'
-          }).done(function(data){
-            $('.price_child_item').html(data);
-            $('.rating').rating();
-            $('.child-item a').removeClass('active');
-            $('#child_'+id).addClass('active');
-            $('#price-child-right').html('Từ 2-4 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
-            $('#price-child-right').addClass('py-price');
-            $('#thap').html('<span>Giá thấp đến cao</span>');
-            $('#cao').html('<span>Giá thấp đến cao</span>');
-            location.hash=slug2+slug;
-          });
-        }else if(slug==='4-7-trieu'){
-          $.ajax({
-            url:url+'/ajax/'+slug1+'/'+slug2+'/4-7-trieu'
-          }).done(function(data){
-            $('.price_child_item').html(data);
-            $('.rating').rating();
-            $('.child-item a').removeClass('active');
-            $('#child_'+id).addClass('active');
-            $('#price-child-right').html('Từ 4-7 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
-            $('#price-child-right').addClass('py-price');
-            $('#thap').html('<span>Giá thấp đến cao</span>');
-            $('#cao').html('<span>Giá thấp đến cao</span>');
-            location.hash=slug2+slug;
-          });
-        }else if(slug==='7-13-trieu'){
-          $.ajax({
-            url:url+'/ajax/'+slug1+'/'+slug2+'/7-13-trieu'
-          }).done(function(data){
-            $('.price_child_item').html(data);
-            $('.rating').rating();
-            $('.child-item a').removeClass('active');
-            $('#child_'+id).addClass('active');
-            $('#price-child-right').html('Từ 7-13 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
-            $('#price-child-right').addClass('py-price');
-            $('#thap').html('<span>Giá thấp đến cao</span>');
-            $('#cao').html('<span>Giá thấp đến cao</span>');
-            location.hash=slug2+slug;
-          });
-        }else if(slug==='tren-13-trieu'){
-          $.ajax({
-            url:url+'/ajax/'+slug1+'/'+slug2+'/tren-13-trieu'
-          }).done(function(data){
-            $('.price_child_item').html(data);
-            $('.rating').rating();
-            $('.child-item a').removeClass('active');
-            $('#child_'+id).addClass('active');
-            $('#price-child-right').html('Trên 13 triệu <img style="padding-bottom: 2px;" src="public/images/support/close-button.png" width="12px">');
-            $('#price-child-right').addClass('py-price');
-            $('#thap').html('<span>Giá thấp đến cao</span>');
-            $('#cao').html('<span>Giá thấp đến cao</span>');
-            location.hash=slug2+slug;
-          });
-        }
+        getPriceChild(slug1,slug2,slug);
       /*Không active:lấy ra tất cả sản phẩm */
       }else{
         if($('#link-new').hasClass('link-check')){
-          $.ajax({
-            url:url+'/ajax/child/new/'+slug1+'/'+slug2
-          }).done(function(data){
-            $('.content-child').html(data);
-            $('.rating').rating();
-            $('.child-item a').removeClass('active');
-            $('#child_'+id).addClass('active');
-          });
+          getNewChild(slug1,slug2)
         }else if($('#link-giamgia').hasClass('link-check')){
-          $.ajax({
-            url:url+'/ajax/child/giam-gia/'+slug1+'/'+slug2
-          }).done(function(data){
-            $('.content-child').html(data);
-            $('.rating').rating();
-            $('.child-item a').removeClass('active');
-            $('#child_'+id).addClass('active');
-          });
+          getGiamGiaChild(slug1,slug2)
         }else{
-          $.ajax({
-            url:url+'/ajax/category/child/'+slug2
-          }).done(function(data){
-            $('.content-child').html(data);
-            $(".rating").rating();
-            $('.child-item a').removeClass('active');
-            $('#child_'+id).addClass('active');
-            $('#thap').html('<span>Giá thấp đến cao</span>');
-            $('#cao').html('<span>Giá thấp đến cao</span>');
-            location.hash=slug2;
-          });
+          getProductChild(slug2);
         }
       }  
     }    
@@ -356,22 +180,12 @@
 /*Click và danh sách thể loại cha*/
   $(document).on('click', '.parent-item a', function(event) {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
     var parent_id=$(this).attr('data-parent-id');
     var slug1=$(this).attr('data-parent-slug');
-    var url="{{ url('/') }}";
-    $.ajax({
-      url:url+'/ajax/parent/'+slug1
-    }).done(function(data){
-      $('.content-parent').html(data);
-      $('.rating').rating();
-      $('.parent-item a').removeClass('active');
-      $('#parent_'+parent_id).addClass('active');
-      location.hash=slug1;
-    });
+    $('.parent-item a').removeClass('active');
+    $('#parent_'+parent_id).addClass('active');
+    getProductParent(slug1)
     $.ajax({
       url:url+'/ajax/sidebar-child/'+parent_id
     }).done(function(data){
@@ -386,163 +200,81 @@
 /*Click vào tên giá sản phẩm thể loại con*/
   $(document).on('click', '#price-child-right', function(event) {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
+    $('a.child-plink').removeClass('price-active');
     var slug2=$('.child-item a.active').attr('data-child-slug');
     var url="{{ url('/') }}";
-    $.ajax({
-      url:url+'/ajax/category/child/'+slug2
-    }).done(function(data){
-      $('.content-child').html(data);
-      $(".rating").rating();
-      $('a.child-plink').removeClass('price-active');
-      $('#thap').html('<span>Giá thấp đến cao</span>');
-      $('#cao').html('<span>Giá thấp đến cao</span>');
-      location.hash=slug2;
-    });
+    getProductChild(slug2)
   });
 /*Click vào tên thể loại con*/
   $(document).on('click', '#price-parent-right', function(event) {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
-    var url="{{ url('/') }}";
-    $.ajax({
-      url:url+'/ajax/parent/'+slug1
-    }).done(function(data){
-      $('.content-parent').html(data);
-      $('.rating').rating();
-      $('.child-item a').removeClass('active');
-      $('a.child-plink').removeClass('price-active');
-    });
+    $('.child-item a').removeClass('active');
+    $('a.child-plink').removeClass('price-active');
+    getProductParent(slug1)
     $.ajax({
       url:url+'/ajax/parent-link/'+slug1
     }).done(function(data){
       $('.link_price_child').html(data);
     });
   });
-/*Lấy ra thể loại cha có giá dưới 2 triệu*/
+/*Lấy ra sản phẩm thể loại cha theo giá*/
   $(document).on('click','#duoi-2t',function() {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
-    var id=$(this).attr('data-parent-id');
-    var url="{{ url('/') }}";
-    $.ajax({
-      url:url+'/ajax/'+slug1+'/duoi-2t'
-    }).done(function(data){
-      $('.price_parent_item').html(data);
-      $('.rating').rating();
-      $('a.parent_plink').removeClass('price-active');
-      $('#duoi-2t').addClass('price-active');
-      $('#thap').html('<span>Giá thấp đến cao</span>');
-      $('#cao').html('<span>Giá cao đến thấp</span>');
-    });
+    var slug=$(this).attr('id');
+    $('a.parent_plink').removeClass('price-active');
+    $(this).addClass('price-active');
+    getPriceParent(slug1,slug)
   });
-/*Lấy ra thể loại cha có giá 2-4 triệu*/
   $(document).on('click','#2-4t',function() {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
-    var id=$(this).attr('data-parent-id');
-    var url="{{ url('/') }}";
-    $.ajax({
-      url:url+'/ajax/'+slug1+'/2-4t'
-    }).done(function(data){
-      $('.price_parent_item').html(data);
-      $('.rating').rating();
-      $('a.parent_plink').removeClass('price-active');
-      $('#2-4t').addClass('price-active');
-      $('#thap').html('<span>Giá thấp đến cao</span>');
-      $('#cao').html('<span>Giá cao đến thấp</span>');
-    });
+    var slug=$(this).attr('id');
+    $('a.parent_plink').removeClass('price-active');
+    $(this).addClass('price-active');
+    getPriceParent(slug1,slug)
   });
-/*Lấy ra thể loại cha có giá 4-7 triệu*/
   $(document).on('click','#4-7t',function() {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
-    var id=$(this).attr('data-parent-id');
-    var url="{{ url('/') }}";
-    $.ajax({
-      url:url+'/ajax/'+slug1+'/4-7t'
-    }).done(function(data){
-      $('.price_parent_item').html(data);
-      $('.rating').rating();
-      $('a.parent_plink').removeClass('price-active');
-      $('#4-7t').addClass('price-active');
-      $('#thap').html('<span>Giá thấp đến cao</span>');
-      $('#cao').html('<span>Giá cao đến thấp</span>');
-    });
+    var slug=$(this).attr('id');
+    $('a.parent_plink').removeClass('price-active');
+    $(this).addClass('price-active');
+    getPriceParent(slug1,slug)
   });
-/*Lấy ra thể loại cha có giá 7-13 triệu*/
   $(document).on('click','#7-13t',function() {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
-    var id=$(this).attr('data-parent-id');
-    var url="{{ url('/') }}";
-    $.ajax({
-      url:url+'/ajax/'+slug1+'/7-13t'
-    }).done(function(data){
-      $('.price_parent_item').html(data);
-      $('.rating').rating();
-      $('a.parent_plink').removeClass('price-active');
-      $('#7-13t').addClass('price-active');
-      $('#thap').html('<span>Giá thấp đến cao</span>');
-      $('#cao').html('<span>Giá cao đến thấp</span>');
-    });
+    var slug=$(this).attr('id');
+    $('a.parent_plink').removeClass('price-active');
+    $(this).addClass('price-active');
+    getPriceParent(slug1,slug)
   });
-/*Lấy ra thể loại cha có giá tren 13 triệu*/
   $(document).on('click','#tren-13t',function() {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
     var slug1=$('.parent-item a.active').attr('data-parent-slug');
-    var id=$(this).attr('data-parent-id');
-    var url="{{ url('/') }}";
-    $.ajax({
-      url:url+'/ajax/'+slug1+'/tren-13t'
-    }).done(function(data){
-      $('.price_parent_item').html(data);
-      $('.rating').rating();
-      $('a.parent_plink').removeClass('price-active');
-      $('#tren-13t').addClass('price-active');
-      $('#thap').html('<span>Giá thấp đến cao</span>');
-      $('#cao').html('<span>Giá cao đến thấp</span>');
-    });
+    var slug=$(this).attr('id');
+    $('a.parent_plink').removeClass('price-active');
+    $(this).addClass('price-active');
+    getPriceParent(slug1,slug)
   }); 
 /*Giá thấp đến cao*/
   $(document).on('click', '#thap', function(event) {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
     if($('.child-item a').hasClass('active')){
       var id=$('.child-item a').attr('data-child-id');
       var slug1=$('.child-item a').attr('data-parent-slug');
       var slug2=$('.child-item a.active').attr('data-child-slug');
-      var url="{{ url('/') }}";
+      var url="{{ url('/') }}"
       if($('.child-plink').hasClass('price-active')){
         if($('#tren-13-trieu').hasClass('price-active')){
           var slug=$(this).attr('id');
@@ -592,10 +324,7 @@
 /*Giá cao đến thấp*/
   $(document).on('click', '#cao', function(event) {
     event.preventDefault();
-    $('#link-new').removeClass('link-check');
-    $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-    $('#link-giamgia').removeClass('link-check');
-    $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+    removeLinkCheck()
     if($('.child-item a').hasClass('active')){
       var id=$('.child-item a').attr('data-child-id');
       var slug1=$('.child-item a').attr('data-parent-slug');
@@ -621,7 +350,6 @@
         $.ajax({
           url:url+'/ajax/cao/child/'+slug2
         }).done(function(data){
-          console.log(data)
           $('.content-child').html(data);
           $(".rating").rating();
           $('#cao').html('<img class="dropdown-active" src="public/images/support/check.png" width="15"><span style="padding-left: 1px"> Giá cao đến thấp</span>');
@@ -657,57 +385,36 @@
     if($('.child-item a').hasClass('active')){
       var slug1=$('.child-item a.active').attr('data-parent-slug');
       var slug2=$('.child-item a.active').attr('data-child-slug');
-      var url="{{ url('/') }}";
       if($('#link-new').hasClass('link-check')){
         $.ajax({
           url:url+'/ajax/child/new/'+slug1+'/'+slug2
         }).done(function(data){
           $('.content-child').html(data);
-          $('.rating').rating();
-          $('a.child-plink').removeClass('price-active');
-          $('#link-new').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Mới');
-          $('#thap').html('<span>Giá thấp đến cao</span>');
-          $('#cao').html('<span>Giá thấp đến cao</span>');
+          htmlNew()
+          htmlThapCao()
           location.hash='new';
         });
       }else{
-          $.ajax({
-            url:url+'/ajax/category/child/'+slug2
-          }).done(function(data){
-          $('.content-child').html(data);
-          $(".rating").rating();
-          $('a.child-plink').removeClass('price-active');
-          $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-          $('#thap').html('<span>Giá thấp đến cao</span>');
-          $('#cao').html('<span>Giá thấp đến cao</span>');
-          location.hash=slug2;
-      });
+        $('a.child-plink').removeClass('price-active');
+        $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+        htmlThapCao()
+        getProductChild(slug2)
       }
     }else{
       var slug1=$('.parent-item a.active').attr('data-parent-slug');
-      var url="{{ url('/') }}";
       if($('#link-new').hasClass('link-check')){
         $.ajax({
           url:url+'/ajax/parent/new/'+slug1
         }).done(function(data){
           $('.content-parent').html(data);
-          $('.rating').rating();
-          $('a.parent-plink').removeClass('price-active');
-          $('#link-new').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Mới');
-          $('#thap').html('<span>Giá thấp đến cao</span>');
-          $('#cao').html('<span>Giá thấp đến cao</span>');
+          htmlNew()
+          htmlThapCao()
           location.hash='new';
         });
       }else{
-        $.ajax({
-          url:url+'/ajax/parent/'+slug1
-        }).done(function(data){
-          $('.content-parent').html(data);
-          $('.rating').rating();
-          $('a.parent-plink').removeClass('price-active');
-          $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
-          location.hash=slug1;
-        });
+        $('a.parent-plink').removeClass('price-active');
+        $('#link-new').html('<span class="link-check-none mr-1" style=""></span> Mới');
+        getProductParent(slug1)
       }
     }     
   });
@@ -725,57 +432,35 @@
     if($('.child-item a').hasClass('active')){
       var slug1=$('.child-item a.active').attr('data-parent-slug');
       var slug2=$('.child-item a.active').attr('data-child-slug');
-      var url="{{ url('/') }}";
       if($('#link-giamgia').hasClass('link-check')){
         $.ajax({
           url:url+'/ajax/child/giam-gia/'+slug1+'/'+slug2
         }).done(function(data){
           $('.content-child').html(data);
-          $('.rating').rating();
-          $('a.child-plink').removeClass('price-active');
-          $('#link-giamgia').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Khuyến mãi<span class="new-after">MỚI</span>');
-          $('#thap').html('<span>Giá thấp đến cao</span>');
-          $('#cao').html('<span>Giá thấp đến cao</span>');
+          htmlGiamGia()
+          htmlThapCao()
           location.hash='giam-gia';
         });
       }else{
-          $.ajax({
-            url:url+'/ajax/category/child/'+slug2
-          }).done(function(data){
-          $('.content-child').html(data);
-          $(".rating").rating();
-          $('a.child-plink').removeClass('price-active');
-          $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
-          $('#thap').html('<span>Giá thấp đến cao</span>');
-          $('#cao').html('<span>Giá thấp đến cao</span>');
-          location.hash=slug2;
-      });
+        $('a.child-plink').removeClass('price-active');
+        $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+        getProductChild(slug2)
       }
     }else{
       var slug1=$('.parent-item a.active').attr('data-parent-slug');
-      var url="{{ url('/') }}";
       if($('#link-giamgia').hasClass('link-check')){
         $.ajax({
           url:url+'/ajax/parent/giam-gia/'+slug1
         }).done(function(data){
           $('.content-parent').html(data);
-          $('.rating').rating();
-          $('a.parent-plink').removeClass('price-active');
-          $('#link-giamgia').html('<span class=" mr-1" style=""><img src="public/images/support/check-link.png" width="16" height="16" style="" class="img-check"></span> Khuyến mãi<span class="new-after">MỚI</span>');
-          $('#thap').html('<span>Giá thấp đến cao</span>');
-          $('#cao').html('<span>Giá thấp đến cao</span>');
+          htmlGiamGia()
+          htmlThapCao()
           location.hash='giam-gia';
         });
       }else{
-        $.ajax({
-          url:url+'/ajax/parent/'+slug1
-        }).done(function(data){
-          $('.content-parent').html(data);
-          $('.rating').rating();
-          $('a.parent-plink').removeClass('price-active');
-          $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
-          location.hash=slug1;
-        });
+        $('a.parent-plink').removeClass('price-active');
+        $('#link-giamgia').html('<span class="link-check-none mr-1" style=""></span> Khuyến mãi<span class="new-after">MỚI</span>');
+        getProductParent(slug1)
       }
     } 
   });   

@@ -1,6 +1,6 @@
 
 <div class="clearfix"></div>
-<div class="" style="position: relative;bottom: 0;left: 0;right: 0;">
+<div class="" style="">
 <footer id="footer" class="footer-bottom mt-5">
   <div class="fpart-first">
     <div class="container">
@@ -8,36 +8,36 @@
         <div class="column col-4 col-lg-2 col-md-2 col-sm-3 col-xs-12">
           <h5>Thông tin</h5>
           <ul class="list-unstyled">
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=information/information&amp;information_id=4">Giới thiệu</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=information/information&amp;information_id=6">Giao hàng</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=information/information&amp;information_id=3">Bảo mật</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=information/information&amp;information_id=5">Điều khoản</a></li>
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="#">Giao hàng</a></li>
+            <li><a href="#">Bảo mật</a></li>
+            <li><a href="#">Điều khoản</a></li>
           </ul>
         </div>
         <div class="column col-4 col-lg-2 col-md-2 col-sm-3 col-xs-12">
           <h5>Dịch vụ</h5>
           <ul class="list-unstyled">
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=information/contact">Liên hệ</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=account/return/add">Hoàn trả</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=information/sitemap">Bản đồ</a></li>
+            <li><a href="#">Liên hệ</a></li>
+            <li><a href="#">Hoàn trả</a></li>
+            <li><a href="#">Bản đồ</a></li>
           </ul>
         </div>
         <div class="column col-4 col-lg-2 col-md-2 col-sm-3 col-xs-12">
           <h5>Đặc biệt</h5>
           <ul class="list-unstyled">
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=product/manufacturer">Thương hiệu</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=account/voucher">Phiếu quà tặng</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=affiliate/account">Chi nhánh</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=product/special">Nổi bật</a></li>
+            <li><a href="#">Thương hiệu</a></li>
+            <li><a href="#">Phiếu quà tặng</a></li>
+            <li><a href="#">Chi nhánh</a></li>
+            <li><a href="#">Nổi bật</a></li>
           </ul>
         </div>
         <div class="column col-4 col-lg-2 col-md-2 col-sm-3 col-xs-12">
           <h5>Tài khoản</h5>
           <ul class="list-unstyled">
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=account/account">Tài khoản của bạn</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=account/order">Lịch sử đặt hàng</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=account/wishlist">Danh sách</a></li>
-            <li><a href="http://demo.harnishdesign.net/opencart/bigshop/v2/index.php?route=account/newsletter">Thư mới</a></li>
+            <li><a href="#">Tài khoản của bạn</a></li>
+            <li><a href="#">Lịch sử đặt hàng</a></li>
+            <li><a href="#">Danh sách</a></li>
+            <li><a href="#">Thư mới</a></li>
           </ul>
         </div>        
         <div class="contact col-8 col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -66,7 +66,7 @@
   					<img data-toggle="tooltip" src="public/images/menu_icons/payment_discover.png" alt="discover" title="Discover"> 
   				</div> 
   			</div> 
-  			<div class="col-sm-9 col-md-6 col-xl-4 powered_text float-left flip d-flex justify-content-center"> Bigshop Theme © 2020 | Ecommerce site
+  			<div class="col-sm-9 col-md-6 col-xl-4 powered_text float-left flip d-flex justify-content-center"> Cửa hàng BigShop © 2020 | Website điện tử
   				<br>
   			</div> 
   			<div class="col-sm-3 col-md-2 col-xl-4"> 

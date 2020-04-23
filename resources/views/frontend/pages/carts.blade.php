@@ -3,10 +3,10 @@
   		Bigshop | Ecommerce Site
 	@endsection
 @section('content')
-	<div class='container mt-3'>
+	<div class='container page-feature'>
 	    <h2 class="pb-2">Giỏ hàng của bạn</h2>
 			@if(App\Models\Cart::totalItem() >0)
-			<div class="reload_table">
+			<div class="reload_table" style="margin-bottom: 200px">
 				<table id="cart_table" class="table table-bordered table-stripe text-center" >
 				<thead>
 					<tr>
@@ -74,12 +74,12 @@
       	</div>
     	<div class="clearfix"></div>
 		@else
-			<div class="alert alert-warning">
+			<div class="alert alert-warning pb-5" style="margin-bottom: 200px">
 				<strong>
 					Không có sản phẩm nào trong giỏ hàng
 				</strong>
 				<br>
-				<a href="{{ route('products') }}" class="btn btn-info btn-lg mr-2">Tiếp tục mua hàng...</a>
+				<a href="{{ route('products') }}" class="btn btn-info btn-lg mr-2 mt-3">Tiếp tục mua hàng...</a>
 			</div>
 		@endif
 	</div>

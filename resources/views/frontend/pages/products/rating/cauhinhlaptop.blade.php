@@ -18,10 +18,10 @@
             <td class="para-left">Card màn hình</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->card_screen:'' }}</td>
           </tr>
           <tr>
-            <td class="para-left">Cổng kết nối</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->connector:'' }} GB</td>
+            <td class="para-left">Cổng kết nối</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->connector:'' }}</td>
           </tr>
           <tr>
-            <td class="para-left">Hệ điều hành</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->operating_system:'' }} GB</td>
+            <td class="para-left">Hệ điều hành</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->operating_system:'' }}</td>
           </tr>
           <tr>
             <td class="para-left">Thiết kế</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->design:'' }}</td>
@@ -48,7 +48,9 @@
             </div>
 
             <div class="modal-body">
-              <img class="modalImg" src="public/images/paralaptop/{{ !is_null($product->paralaptop) ? $product->paralaptop->image:'' }}">
+              @if(!is_null($product->para))
+                <img class="modalImg" src="public/images/parameter/{{$product->paralaptop->image}}">
+              @endif
               <table class="table">     
                 <tbody style="font-size: 14px">
                   <tr>
@@ -67,10 +69,10 @@
                     <td class="para-left">Card màn hình</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->card_screen:'' }}</td>
                   </tr>
                   <tr>
-                    <td class="para-left">Cổng kết nối</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->connector:'' }} GB</td>
+                    <td class="para-left">Cổng kết nối</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->connector:'' }}</td>
                   </tr>
                   <tr>
-                    <td class="para-left">Hệ điều hành</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->operating_system:'' }} GB</td>
+                    <td class="para-left">Hệ điều hành</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->operating_system:'' }}</td>
                   </tr>
                   <tr>
                     <td class="para-left">Thiết kế</td><td>{{ !is_null($product->paralaptop) ? $product->paralaptop->design:'' }}</td>

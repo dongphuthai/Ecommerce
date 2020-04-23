@@ -109,17 +109,21 @@ class ShowpriceController extends Controller
 	  	}
 	}
 /*SẮP XẾP THEO GIÁ THỂ LOẠI CHA THEO GIÁ*/
-	public function priceParentthap($slug){
-	  	$id=Category::where('slug',$slug)->first()->id;
-	  	$categories=Category::where('parent_id',$id)->get();    
-	  	$products=array();
-	  	foreach($categories as $key => $category){
+	public function elementProduct($categories){
+		$products=array();
+		foreach($categories as $key => $category){
 	    	$pdts=Product::orderBy('price','asc')->where('category_id',$category->id)->get();
 	    	foreach($pdts as $pdt){
 	      		$pdt=array($pdt);
 	      		$products=array_merge_recursive($pdt,$products);
 	    	}        
 	  	} 
+	  	return $products;
+	}
+	public function priceParentthap($slug){
+	  	$id=Category::where('slug',$slug)->first()->id;
+	  	$categories=Category::where('parent_id',$id)->get();    
+	  	$products=$this->elementProduct($categories);
 	  	usort($products, function($a, $b){
 	    	return $a->price>$b->price;
 	  	});
@@ -129,14 +133,7 @@ class ShowpriceController extends Controller
 	public function priceParentcao($slug){
 	  	$id=Category::where('slug',$slug)->first()->id;
 	  	$categories=Category::where('parent_id',$id)->get();    
-	  	$products=array();
-	  	foreach($categories as $key => $category){
-	    	$pdts=Product::orderBy('price','asc')->where('category_id',$category->id)->get();
-	    	foreach($pdts as $pdt){
-	      		$pdt=array($pdt);
-	      		$products=array_merge_recursive($pdt,$products);
-	    	}        
-	  	} 
+	  	$products=$this->elementProduct($categories);
 	  	usort($products, function($a, $b){
 	    	return $a->price<$b->price;
 	  	});

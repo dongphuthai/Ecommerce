@@ -185,6 +185,7 @@ Route::get('get-category/{id}',function($id){
 
 /*PRODUCT ALL AJAX*/
 Route::get('ajax/products','Frontend\showProductsController@allProduct');
+Route::get('ajax/the-loai/{slug}','Frontend\showProductsController@allParent');
 /*SHOW CHILD-PARENT PRRODUCT AJAX*/
 Route::get('ajax/category/{id}','Frontend\showProductsController@parentProduct')->name('categories.show.ajax');
 Route::get('ajax/parent/{slug}','Frontend\showProductsController@parentslugProduct');

@@ -3,7 +3,6 @@
 @section('content')
   <div class="main-panel">
     <div class="content-wrapper">
-
       <div class="card">
         <div class="card-header">
           Manage Slides
@@ -147,8 +146,6 @@
                               <label for="priority">Slider Priority <small class="text-danger">(required)</small></label>
                               <input type="number" class="form-control" name="priority"  placeholder="Slider Piority; e.g: 10" value="{{ $slider->priority }}"required>
                             </div>
-
-
                             <button id="submit" type="submit" class="btn btn-success">Slider Edit</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>                     
                           </form>
@@ -162,46 +159,93 @@
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Are sure to delete?</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa slider này?</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <div class="modal-body">
-                          <form action="{!! route('admin.slider.delete', $slider->id) !!}"  method="post">
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger">Permanent Delete</button>
+                          <form data_id="{{ $slider->id }}" id="form_delete_slider" action="{!! route('admin.slider.delete', $slider->id) !!}"  method="post">
+                            @csrf
+                            <button id="ok_button_{{ $slider->id }}" type="submit" class="btn btn-danger">Xóa vĩnh viễn</button>
                           </form>
-
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                         </div>
                       </div>
                     </div>
                   </div>
-
                 </td>
               </tr>
             @endforeach
           </tbody>
-
-          {{-- <tfoot>
-            <tr>
-              <th>#</th>
-              <th>Slider Title</th>
-              <th>Slider Image</th>
-              <th>Slider Priority</th>
-              <th>Action</th>
-            </tr>
-          </tfoot> --}}
-
           </table>
         </div>
         </div>
       </div>
-
     </div>
   </div>
-  <!-- main-panel ends -->
+@endsection
+@section('scripts')
+<script type="text/javascript">
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
+<script type="text/javascript">
+    $(document).on('submit', '#form_delete_slider', function(event) {
+      event.preventDefault();
+      var id=$(this).attr('data_id');
+      var url=$(this).attr('action');
+      $.ajax({
+        url:url,
+        method:"POST",
+        beforeSend:function(){
+          $('#ok_button_'+id).text('Đang xóa...');
+        }
+      }).done(function(data){
+        setTimeout(function(){
+          $('.load_slider_tb').load(' #slider_table');
+          $('#deleteModal'+id).modal('hide');
+        },2000);
+      });
+      
+    });
+
+    $('#sample_form').on('submit', function(event) {
+      event.preventDefault();
+      $.ajax({
+        url:"{{ route('ajax-crud.store') }}",
+        method:"POST",
+        data:new FormData(this),
+        contentType:false,
+        cache:false,
+        processData:false,
+        dataType:"json",
+        success:function(data){
+          console.log(data);
+          var html='';
+          if(data.errors)
+          {
+            html='<div class="alert alert-danger">';
+            for(var count=0; count<data.errors.length; count++)
+            {
+              html+='<p>'+data.errors[count]+'</p>';
+            }
+            html+='</div>';
+          }
+          if(data.success){
+            html='<div class="alert alert-success">'+data.success+'</div>';
+            $('#sample_form')[0].reset();
+            $('.load_slider_tb').load(' #slider_table');
+          }
+          $('#form_result').html(html);
+
+        }
+      });
+    });
+  </script>
 @endsection

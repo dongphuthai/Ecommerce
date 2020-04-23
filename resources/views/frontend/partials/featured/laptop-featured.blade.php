@@ -31,7 +31,7 @@
           <span class="card-text">{{ number_format($product->price,0,"",".") }}₫ </span>
         @endif
       </p>
-      <input id="input-{{ $product->id }}" name="input-id" class="rating rating-loading " data-min="0" data-max="5" data-step="0.1" value="{{ $product->averageRating }}" data-size="x" disabled >
+      <input id="inputt-{{ $product->id }}" name="input-id" class="rating rating-loading " data-min="0" data-max="5" data-step="0.1" value="{{ $product->averageRating }}" data-size="x" disabled >
       </div>
     </div>
                              
@@ -63,7 +63,7 @@
               <span class="card-text">{{ number_format($product->price,0,"",".") }}₫ </span>
             @endif
           </p>
-          <input id="input-{{ $product->id }}" name="input-id" class="rating rating-loading " data-min="0" data-max="5" data-step="0.1" value="{{ $product->averageRating }}" data-size="x" disabled >
+          <input id="inputt-{{ $product->id }}" name="input-id" class="rating rating-loading " data-min="0" data-max="5" data-step="0.1" value="{{ $product->averageRating }}" data-size="x" disabled >
         </div>
       </div>
     @endforeach
@@ -93,7 +93,7 @@
             <span class="card-text">{{ number_format($product->price,0,"",".") }}₫ </span>
           @endif
         </p>
-        <input id="input-{{ $product->id }}" name="input-id" class="rating rating-loading " data-min="0" data-max="5" data-step="0.1" value="{{ $product->averageRating }}" data-size="x" disabled >
+        <input id="inputtt-{{ $product->id }}" name="input-id" class="rating rating-loading " data-min="0" data-max="5" data-step="0.1" value="{{ $product->averageRating }}" data-size="x" disabled >
       </div>
     </div>
   </div>  

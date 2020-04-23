@@ -1,7 +1,7 @@
 <div class='container' style="font-size: 14px;">
   <div class="row">
     <div class="col-xl-7 col-12 page-feature">
-      <h5 class="pb-3">So sánh với các sản phẩm tương tự (<a href="{{ route('show.compare',$product->slug) }}" style="font-size: 16px">hoặc với sản phẩm khác</a>)</h5>    
+      <h5 class="pb-2 ">So sánh với các sản phẩm tương tự (<a href="{{ route('show.compare',$product->slug) }}" style="font-size: 16px">hoặc với sản phẩm khác</a>)</h5>    
       <div class="list-item height-item" >
         @foreach($categories as $category)
           @php
@@ -16,7 +16,7 @@
               <div class=" item mb-2 product-compara-x">               
                 <a href="{!! route('products.show',$pdt->slug) !!}" >
                   <div class="img-hover-zoom ">                     
-                    <img class=" card-img-top pl-0 pr-0 pl-sm-2 pr-sm-2 pl-md-0 pr-md-0 pl-lg-3 pr-lg-3 pl-xl-3 pr-xl-3 pt-3 card-img-page" src="public/images/product/{{ $pdt->image }} " alt=" {{ $pdt->title }}" >
+                    <img class=" card-img-top px-0 px-sm-2 px-md-3 px-lg-4 px-xl-3 pt-3 card-img-page" src="public/images/product/{{ $pdt->image }} " alt=" {{ $pdt->title }}" >
                     @if($pdt->discount>0)
                       <label class="card-title m-0 giam-gia"><img src="public/images/discount.png" width="18"> Giảm {!! number_format($pdt->discount,0,"",".") !!}₫</label>
                     @else
