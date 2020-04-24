@@ -1,5 +1,5 @@
 <div class="col-12 col-lg-5 page-feature">
-      <h5 class="pb-1">Thông số kỹ thuật</h5>            
+      <h5 class="pb-3 pt-1">Thông số kỹ thuật</h5>            
       <table class="table">     
         <tbody style="font-size: 14px">
           <tr>

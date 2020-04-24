@@ -72,8 +72,9 @@ class showProductsController extends Controller
 	  	$id=$category->parent->id;  
 	  	return view('frontend.pages.categories.price.all_products_child',compact('products','id','id_child'))->render();
 	}
-	public function sidabarChild($id){
-  		return view('frontend.partials.product-sidebar-child-ajax',compact('id'));
+	public function sidebarChild($id){
+		$slug1=Category::find($id)->slug;
+  		return view('frontend.partials.product-sidebar-child',compact('id','slug1'));
 	}
 /*SHOW NEW PRODUCTS*/
 	public function newChild($slug1,$slug2){

@@ -99,7 +99,7 @@ li.par.ml-2.mt-3,li.par.ml-4.mt-3 {list-style: none;}
   font-weight: bold;
   margin-bottom: 1px;
   display: inline-block;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 .ratingLst li .rc {margin: 0 5px 5px 0;}
 .rh div.rating-stars{margin-top: 0px;font-size: 11px;}
@@ -536,7 +536,6 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
   .list-item.height-item {max-height: 260px;}
   .muatragop {width: 100%}
   .mobile-item{width:20%}
-  .watches-item{width:10%}
   .feature{width: 66.6%;}
   .card-title{font-size: 12px;}
   .card-text{font-size: 13px;}
@@ -552,7 +551,6 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
 }
 @media only screen and (min-width: 580px) and (max-width: 770px) {
   .mobile-item{width:20%}
-  .watches-item{width:10%}
   .item{width: 33.3%;}
   .muatragop {width: 100%}
   .list-item.height-item {max-height: 260px;}
@@ -583,7 +581,6 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
     min-width: 1024px;
   }
   .mobile-item{width:10%}
-  .watches-item{width:11%}
   .widget{margin-left: 15px;}
   .item{width: 25%;}
   .muatragop {width: 100%}
@@ -597,7 +594,6 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
   }
   .list-item.height-item {max-height: 300px;}
   .mobile-item{width:10%}
-  .watches-item{width:6%}
   .list-item{min-width: 900px;}
   .feature{width: 50%;}
   .item{width: 25%;}
@@ -609,7 +605,6 @@ div.side div i.fas.fa-star{font-size: 13px;color: orange}
   .list-item.height-item {max-height: 300px;}
   .hiddentablet{display: none;}
   .mobile-item{width:10%}
-  .watches-item{width:5%}
   .item.product-compara-x{width: 33.3%}
   .price{font-size: 14px}
 }

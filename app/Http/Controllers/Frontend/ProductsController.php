@@ -80,7 +80,7 @@ class ProductsController extends Controller
         $product->ratings()->save($rating);
         }
     }else{
-      return response()->json(['errors'=>'Bạn cần đăng nhập để đánh giá sản phẩm này.']);
+      return response()->json(['error'=>'Bạn cần đăng nhập để đánh giá sản phẩm này.']);
     }
     $countRate=\willvincent\Rateable\Rating::where('rateable_id',$product->id)->count();
     return response()->json(['count'=>$countRate,'success'=>'Cảm ơn bạn đã đánh giá sản phẩm này']);

@@ -7,7 +7,7 @@
         @csrf
 
         <div class="form-group row">
-          <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
+          <label for="first_name" class="col-md-4 col-form-label text-md-right">Tên đệm</label>
 
           <div class="col-md-6">
             <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ $user->first_name }}" required autofocus>
@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="last_name" class="col-md-4 col-form-label text-md-right">Last Name</label>
+          <label for="last_name" class="col-md-4 col-form-label text-md-right">Họ</label>
 
           <div class="col-md-6">
             <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ $user->last_name }}" required autofocus>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
+          <label for="username" class="col-md-4 col-form-label text-md-right">Tài khoản</label>
 
           <div class="col-md-6">
             <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ $user->username }}" required autofocus>
@@ -49,7 +49,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+          <label for="email" class="col-md-4 col-form-label text-md-right">E-mail</label>
 
           <div class="col-md-6">
             <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $user->email }}" required>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="phone_no" class="col-md-4 col-form-label text-md-right">Phone No</label>
+          <label for="phone_no" class="col-md-4 col-form-label text-md-right">Số điện thoại</label>
 
           <div class="col-md-6">
             <input id="phone_no" type="text" class="form-control{{ $errors->has('phone_no') ? ' is-invalid' : '' }}" name="phone_no" value="{{ $user->phone_no }}" required>
@@ -77,11 +77,11 @@
         </div>
 
         <div class="form-group row">
-          <label for="division_id" class="col-md-4 col-form-label text-md-right">Division</label>
+          <label for="division_id" class="col-md-4 col-form-label text-md-right">Tỉnh, thành phố</label>
 
           <div class="col-md-6">
-            <select class="form-control" name="division_id">
-              <option value="">Please select your division</option>
+            <select class="form-control" id="division_id" name="division_id">
+              <option value="">Nhập tỉnh, thành phố bạn đang sống</option>
               @foreach ($divisions as $division)
                 <option value="{{ $division->id }}" {{ $user->division_id == $division->id ? 'selected' : '' }}>{{ $division->name }}</option>
               @endforeach
@@ -89,12 +89,14 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="district_id" class="col-md-4 col-form-label text-md-right">District</label>
+          <label for="district_id" class="col-md-4 col-form-label text-md-right">Quận, huyện</label>
 
           <div class="col-md-6">
-            <select class="form-control" name="district_id">
-              <option value="">Please select your district</option>
-              @foreach ($districts as $district)
+            <select class="form-control" name="district_id" id="district_area">
+              @php
+                $division=App\Models\Division::find($user->division_id);
+              @endphp
+              @foreach ($division->districts as $district)
                 <option value="{{ $district->id }}" {{ $user->district_id == $district->id ? 'selected' : '' }}>{{ $district->name }}</option>
               @endforeach
             </select>
@@ -102,7 +104,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="street_address" class="col-md-4 col-form-label text-md-right">Street Address</label>
+          <label for="street_address" class="col-md-4 col-form-label text-md-right">Nơi ở hiện nay</label>
 
           <div class="col-md-6">
             <input id="street_address" type="text" class="form-control{{ $errors->has('street_address') ? ' is-invalid' : '' }}" name="street_address" value="{{ $user->street_address }}" required>
@@ -116,7 +118,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="shipping_address" class="col-md-4 col-form-label text-md-right">Shipping Address (optional)</label>
+          <label for="shipping_address" class="col-md-4 col-form-label text-md-right">Địa chỉ nhận hàng (không bắt buộc)</label>
 
           <div class="col-md-6">
             <textarea id="shipping_address" class="form-control{{ $errors->has('shipping_address') ? ' is-invalid' : '' }}" rows="4" name="shipping_address">{{ $user->shipping_address }}</textarea>
@@ -130,7 +132,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="password" class="col-md-4 col-form-label text-md-right">New Password (optional)</label>
+          <label for="password" class="col-md-4 col-form-label text-md-right">Mật khẩu mới (không bắt buộc)</label>
 
           <div class="col-md-6">
             <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
@@ -146,7 +148,7 @@
         <div class="form-group row mb-0">
           <div class="col-md-6 offset-md-4">
             <button type="submit" class="btn btn-primary">
-              Update Profile
+              Cập nhật hồ sơ
             </button>
           </div>
         </div>
@@ -154,3 +156,20 @@
     </div>
   </div>
 @endsection
+@section('scripts')
+  <script type="text/javascript"> 
+    $("#division_id").change(function(){
+      var division=$("#division_id").val();
+      var option="";
+      var url="{{ url('/') }}";
+      $.get( url+"/get-districts/" + division, function( data ) {
+        data=JSON.parse(data);
+        data.forEach( function(element) {
+          option+="<option value='"+ element.id +"'>"+ element.name +"</option>"; 
+        });
+      $("#district_area").html(option);
+      });
+    });        
+  </script>
+@endsection
+

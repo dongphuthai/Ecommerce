@@ -1,5 +1,5 @@
 <div class="col-12 col-lg-5 page-feature">
-      <h5 class="pb-1">Thông số kỹ thuật</h5>            
+      <h5 class="pb-3 pt-1">Thông số kỹ thuật</h5>            
       <table class="table">     
         <tbody style="font-size: 14px">
           <tr>
@@ -18,10 +18,10 @@
             <td class="para-left">CPU</td><td>{{ !is_null($product->para) ? $product->para->cpu:'' }}</td>
           </tr>
           <tr>
-            <td class="para-left">RAM</td><td>{{ !is_null($product->para) ? $product->para->ram:'' }}</td>
+            <td class="para-left">RAM</td><td>{{ !is_null($product->para) ? $product->para->ram.' GB':'' }}</td>
           </tr>
           <tr>
-            <td class="para-left">Bộ nhớ trong</td><td>{{ !is_null($product->para) ? $product->para->internal_memory:'' }}</td>
+            <td class="para-left">Bộ nhớ trong</td><td>{{ !is_null($product->para) ? $product->para->internal_memory.' GB':'' }}</td>
           </tr>
           <tr>
             <td class="para-left">Thẻ nhớ</td><td>{{ !is_null($product->para) ? $product->para->memory:'' }}</td>
@@ -69,10 +69,10 @@
                     <td>CPU</td><td>{{ !is_null($product->para) ? $product->para->cpu:'' }}</td>
                   </tr>
                   <tr>
-                    <td>RAM</td><td>{{ !is_null($product->para) ? $product->para->ram:'' }}</td>
+                    <td>RAM</td><td>{{ !is_null($product->para) ? $product->para->ram.' GB':'' }}</td>
                   </tr>
                   <tr>
-                    <td>Bộ nhớ trong</td><td>{{ !is_null($product->para) ? $product->para->internal_memory:'' }}</td>
+                    <td>Bộ nhớ trong</td><td>{{ !is_null($product->para) ? $product->para->internal_memory.' GB':'' }}</td>
                   </tr>
                   <tr>
                     <td>Thẻ nhớ</td><td>{{ !is_null($product->para) ? $product->para->memory:'' }}</td>

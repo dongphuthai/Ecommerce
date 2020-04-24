@@ -16,7 +16,7 @@
               <div class=" item mb-2 product-compara-x">               
                 <a href="{!! route('products.show',$pdt->slug) !!}" >
                   <div class="img-hover-zoom ">                     
-                    <img class=" card-img-top px-0 px-sm-2 px-md-3 px-lg-4 px-xl-3 pt-3 card-img-page" src="public/images/product/{{ $pdt->image }} " alt=" {{ $pdt->title }}" >
+                    <img class=" card-img-top px-0 px-sm-2 px-md-3 px-lg-4 px-xl-3 pt-3 card-img-page {{ $product->category->parent->id==29?'pb-4':'' }}" src="public/images/product/{{ $pdt->image }} " alt=" {{ $pdt->title }}" >
                     @if($pdt->discount>0)
                       <label class="card-title m-0 giam-gia"><img src="public/images/discount.png" width="18"> Giảm {!! number_format($pdt->discount,0,"",".") !!}₫</label>
                     @else

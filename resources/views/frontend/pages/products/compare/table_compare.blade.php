@@ -48,7 +48,7 @@
     <ul class="compare-table compare-product mb-0">
       <li class="cp-cell cp-cell-1"><span class="cp-space">RAM</span></li>
       <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->ram:'' }}</span>
+        <span class="cp-space">{{ !is_null($product->para) ? $product->para->ram.' GB':'' }}</span>
       </li>
       <li class="cp-cell cp-cell-3 cp-product">
         <span class="cp-space" id="para6"></span>
@@ -57,7 +57,7 @@
     <ul class="compare-table compare-product mb-0">
       <li class="cp-cell cp-cell-1"><span class="cp-space">Bộ nhớ trong</span></li>
       <li class="cp-cell cp-cell-2">
-        <span class="cp-space">{{ !is_null($product->para) ? $product->para->internal_memory:'' }}</span>
+        <span class="cp-space">{{ !is_null($product->para) ? $product->para->internal_memory.' GB':'' }}</span>
       </li>
       <li class="cp-cell cp-cell-3 cp-product">
         <span class="cp-space" id="para7"></span>

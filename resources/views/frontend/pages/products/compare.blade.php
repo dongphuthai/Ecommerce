@@ -105,56 +105,56 @@
 
 
 @section('scripts')
-  {{-- <script type="text/javascript">
-    $(".rating").rating();
-  </script>  --}}
 <!-- STAR PAGE COMPARE -->
   <script type="text/javascript">
+    function getTableCompare(data){
+      if(data.parent_id==29){
+        $('#para1').html(data.para.cpu);
+        $('#para2').html(data.para.ram);
+        $('#para3').html(data.para.hard_drive);
+        $('#para4').html(data.para.screen);
+        $('#para5').html(data.para.card_screen);
+        $('#para6').html(data.para.connector);
+        $('#para7').html(data.para.operating_system);
+        $('#para8').html(data.para.design);
+        $('#para9').html(data.para.size);
+        $('#para10').html(data.para.time_launch);
+      }else if(data.parent_id==32||data.parent_id==33){
+        $('#para1').html(data.para.screen);
+        $('#para2').html(data.para.operating_system);
+        $('#para3').html(data.para.rear_camera);
+        $('#para4').html(data.para.front_camera);
+        $('#para5').html(data.para.cpu);
+        $('#para6').html(data.para.ram+' GB');
+        $('#para7').html(data.para.internal_memory+' GB');
+        $('#para8').html(data.para.memory);
+        $('#para9').html(data.para.sim);
+        $('#para10').html(data.para.pin);
+      }   
+    }
     $(document).ready(function(){
       var slug=$('#slug2').attr('title2');
-      var url="{{ url('/') }}";
-      $.ajax({
-        url:url+'/ajax/card-compare/'+slug
-      }).done(function(data){
-        $('#itemProd2').html(data);
-        $(".rating").rating();
-      });
-      $.ajax({
-        url:url+'/ajax/card-compare/para/'+slug
-      }).done(function(data){
-        if(data.parent_id==29){
-          $('#para1').html(data.para.cpu);
-          $('#para2').html(data.para.ram);
-          $('#para3').html(data.para.hard_drive);
-          $('#para4').html(data.para.screen);
-          $('#para5').html(data.para.card_screen);
-          $('#para6').html(data.para.connector);
-          $('#para7').html(data.para.operating_system);
-          $('#para8').html(data.para.design);
-          $('#para9').html(data.para.size);
-          $('#para10').html(data.para.time_launch);
-        }else if(data.parent_id==32||data.parent_id==33){
-          $('#para1').html(data.para.screen);
-          $('#para2').html(data.para.operating_system);
-          $('#para3').html(data.para.rear_camera);
-          $('#para4').html(data.para.front_camera);
-          $('#para5').html(data.para.cpu);
-          $('#para6').html(data.para.ram);
-          $('#para7').html(data.para.internal_memory);
-          $('#para8').html(data.para.memory);
-          $('#para9').html(data.para.sim);
-          $('#para10').html(data.para.pin);
-        }       
-      });
-      $.ajax({
-        url:url+'/ajax/button-compare/'+slug
-      }).done(function(data){
-        $('#card-button2').html(data);
-      });
+      if(slug!=''){
+        var url="{{ url('/') }}";
+        $.ajax({
+          url:url+'/ajax/card-compare/'+slug
+        }).done(function(data){
+          $('#itemProd2').html(data);
+          $(".rating").rating();
+        });
+        $.ajax({
+          url:url+'/ajax/card-compare/para/'+slug
+        }).done(function(data){
+          getTableCompare(data)
+        });
+        $.ajax({
+          url:url+'/ajax/button-compare/'+slug
+        }).done(function(data){
+          $('#card-button2').html(data);
+        });
+      }  
     });
-  </script>
-<!-- CLICK CANCEL BUTTON -->
-  <script type="text/javascript">   
+/*CLICK CANCEL BUTTON*/  
     $(document).on('click', '#cancel-img', function(event) {
       event.preventDefault();
       $('#para1').empty();
@@ -192,15 +192,12 @@
             display: function(data){
             },templates: {
                 suggestion: function (data) {
-                  console.log(data)
                     return '<a href="products/'+data.slug+'" class="list-group-item" style="width:370px">' + data.title + '</a>';
                 }
             }
         });
     });
-  </script>
-<!-- CLICK SEARCH PRODUCT COMPARE -->
-  <script type="text/javascript">
+/*CLICK SEARCH PRODUCT COMPARE*/
     $(document).on('click', '.search-input a', function(event) {
       event.preventDefault();
       var slug=($(this).attr('href').split('/')[1]);
@@ -215,36 +212,13 @@
       $.ajax({
         url:url+'/ajax/card-compare/para/'+slug
       }).done(function(data){
-        if(data.parent_id==29){
-          $('#para1').html(data.para.cpu);
-          $('#para2').html(data.para.ram);
-          $('#para3').html(data.para.hard_drive);
-          $('#para4').html(data.para.screen);
-          $('#para5').html(data.para.card_screen);
-          $('#para6').html(data.para.connector);
-          $('#para7').html(data.para.operating_system);
-          $('#para8').html(data.para.design);
-          $('#para9').html(data.para.size);
-          $('#para10').html(data.para.time_launch);
-        }else if(data.parent_id==32||data.parent_id==33){
-          $('#para1').html(data.para.screen);
-          $('#para2').html(data.para.operating_system);
-          $('#para3').html(data.para.rear_camera);
-          $('#para4').html(data.para.front_camera);
-          $('#para5').html(data.para.cpu);
-          $('#para6').html(data.para.ram);
-          $('#para7').html(data.para.internal_memory);
-          $('#para8').html(data.para.memory);
-          $('#para9').html(data.para.sim);
-          $('#para10').html(data.para.pin);
-        }
+        getTableCompare(data)
         $('#slug2').html('và <b>'+data.pdt.title+'</b>');
       });
       $.ajax({
         url:url+'/ajax/button-compare/'+slug
       }).done(function(data){
         $('#card-button2').html(data);
-
       });
     });
   </script>

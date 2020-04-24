@@ -51,14 +51,12 @@
   <script type="text/javascript">
     $(".rating").rating();
   </script> 
-
   <script type="text/javascript">
     $(document).ready(function(){
       $('.text-rating').hide();     
       $('#rate').mouseup(function() {
         $('.text-rating').show();
       });
-
       $('.text').hide();
       /*LOOP RATING*/
       $('.cmthref').each(function(){
@@ -87,8 +85,15 @@
               var html='';
               if(data.errors){
                 for(var count = 0; count < data.errors.length; count++){
-                  html += '<p id="result-cmt" style="color:#ff3c00; font-size:12px;"><i>' + data.errors[count] + '</i></p>';
+                  html += '<span id="result-cmt" style="color:#ff3c00; font-size:12px;"><i>' + data.errors[count] + '</i></span>';
                 }
+                $('#result-errors-'+id).html(html);
+                $('#cmt'+id).html(html);
+                setTimeout(function(){
+                  $("#result-cmt").remove();
+                }, 100000 );
+              }else if(data.error){
+                html = '<span id="result-cmt" style="color:#ff3c00; font-size:12px;"><i>' + data.error + '</i></span>';
                 $('#result-errors-'+id).html(html);
                 $('#cmt'+id).html(html);
                 setTimeout(function(){
@@ -132,7 +137,7 @@
     });
   </script>
 
-  <!-- AJAX STAR -->
+  <!-- AJAX STAR REVIEW -->
   <script type="text/javascript">      
     $('#form-review').on('submit', function(event) {
       event.preventDefault();
@@ -147,6 +152,12 @@
               for(var count = 0; count < data.errors.length; count++){
                 html += '<span style="color:#ff3c00;">' + data.errors[count] + '</span>';
               }
+              $('#rating-result').html(html);
+              setTimeout(function(){
+                  $("#rating-result").empty();
+                }, 10000 );
+            }else if(data.error){
+              html += '<span style="color:#ff3c00;">' + data.error + '</span>';
               $('#rating-result').html(html);
               setTimeout(function(){
                   $("#rating-result").empty();

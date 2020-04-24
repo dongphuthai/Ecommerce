@@ -183,6 +183,7 @@
     removeLinkCheck()
     var parent_id=$(this).attr('data-parent-id');
     var slug1=$(this).attr('data-parent-slug');
+    $('.child-item a').removeClass('active');
     $('.parent-item a').removeClass('active');
     $('#parent_'+parent_id).addClass('active');
     getProductParent(slug1)
@@ -473,7 +474,7 @@
     <div class="row ">
       <!-- SIDEBAR PARENT AJAX -->
       <div class="col-12 mt-0">
-        @include('frontend.partials.product-sidebar-parent-ajax')
+        @include('frontend.partials.product-sidebar-parent')
       </div>
       <!-- LINK GIÁ SP PARENT OR CHILD -->       
       <div class="price col-12 mt-3">
@@ -488,7 +489,7 @@
     </div>
    <!-- SIDEBAR CHILD AJAX -->
     <div class="list-item content-product mt-2">   
-      @include('frontend.partials.product-sidebar-child-ajax')        
+      @include('frontend.partials.product-sidebar-child')        
     </div>    
   </div>
 </div>

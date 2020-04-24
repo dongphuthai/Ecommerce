@@ -17,7 +17,6 @@
       $.ajax({
         url:url+'/ajax/the-loai/'+slug+'?page='+page
       }).done(function(data){
-        console.log(data)
         $('.content-showParent').html(data);
         location.hash=page;          
             $(".rating").rating();           
@@ -42,13 +41,7 @@
       </div>
     </div> 
     <div class="list-item mt-3">
-      @foreach (App\Models\Category::orderBy('id', 'asc')->where('parent_id', $id)->get() as $child)
-        <div class="child-item {{ ($id==41||$id==45)?'watches-item': 'mobile-item'}}" >
-        <a id="child_{{ $child->id }}" href="the-loai/{{ $slug1 }}/{{ $child->slug }}" data-child-id="{{ $child->id }}" class="list-group-item list-group-item-action p-0 btn">
-          <img src="{!! asset('public/images/categories/'.$child->image) !!}" width="100%" style="height: auto; background: #fff;padding:3px;">
-        </a>
-      </div>
-      @endforeach
+      @include('frontend.partials.product-sidebar-child')
     </div>   
   </div>   
 </div>

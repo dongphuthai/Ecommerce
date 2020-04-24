@@ -29,7 +29,6 @@
   		});
 	}
 </script>
-
 <!-- FUNCTION NUMBER_FORMAT  -->
 <script type="text/javascript">
 	function number_format (number, decimals, dec_point, thousands_sep) {
@@ -68,7 +67,6 @@
     return s.join(dec);
   }
 </script>
-
 <!-- JS NAV SEARCH -->
 <script type="text/javascript">
     $(document).ready(function($){
