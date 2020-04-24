@@ -40,7 +40,7 @@ class PagesController extends Controller
       $comment->save();
       return view('frontend.pages.products.rating.rating_comment',compact('comment'));
     }else{
-      return response()->json(['errors'=>'Bạn cần đăng nhập để thảo luận.']);
+      return response()->json(['error'=>'Bạn cần đăng nhập để thảo luận.']);
     }
   }
 	public function index(){

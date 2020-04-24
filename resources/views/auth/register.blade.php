@@ -69,7 +69,6 @@
 
                         <div class="form-group row">
                             <label for="division_id" class="col-md-4 col-form-label text-md-right">Division</label>
-
                             <div class="col-md-6">
                               <select class="form-control" id="division_id" name="division_id">
                                 <option value="">Please select your division</option>
@@ -144,7 +143,6 @@
 @endsection
 
 @section('scripts')
-
     <script type="text/javascript"> 
         $("#division_id").change(function(){
             var division=$("#division_id").val();
@@ -159,8 +157,7 @@
                 });
                 $("#district_area").html(option);
             });
-        });
-        
+        });       
     </script>
 @endsection
 

@@ -73,8 +73,3 @@
     </div>
   </div>
 </nav>
-<!-- End Navbar Part -->
-
-@section('scripts')
-
-@endsection

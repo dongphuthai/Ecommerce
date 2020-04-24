@@ -1,3 +1,4 @@
+  
 		<label>Chọn mức giá:</label>              
           <a href="{{ route('categories.show.parent.price2', $slug1) }}" class="pr-1 {{ Route::is('categories.show.parent.price2') ? 'active':''}}">Dưới 2 triệu</a>
           <a href="{{ route('categories.show.parent.price24', $slug1) }}" class="pr-1 {{ Route::is('categories.show.parent.price24') ? 'active':''}}">Từ 2-4 triệu</a>

@@ -191,7 +191,7 @@ Route::get('ajax/category/{id}','Frontend\showProductsController@parentProduct')
 Route::get('ajax/parent/{slug}','Frontend\showProductsController@parentslugProduct');
 Route::get('ajax/category/child/{slug}','Frontend\showProductsController@childProduct');
 /*SHOW SIDEBAR CHILD*/
-Route::get('ajax/sidebar-child/{id}','Frontend\showProductsController@sidabarChild');
+Route::get('ajax/sidebar-child/{id}','Frontend\showProductsController@sidebarChild');
 /*SẮP XẾP SẢN PHẨM THỂ LOẠI CON THEO GIÁ*/
 Route::get('ajax/thap/child/{slug}','Frontend\ShowpriceController@priceChildthap');
 Route::get('ajax/cao/child/{slug}','Frontend\ShowpriceController@priceChildcao');
