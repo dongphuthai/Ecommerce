@@ -46,7 +46,7 @@ class CartsController extends Controller
             }else {
                 $cart = new Cart();
                 if (Auth::check()) {
-                $cart->user_id = Auth::id();
+                    $cart->user_id = Auth::id();
                 }
                 $cart->ip_address = request()->ip();
                 $cart->product_id = $product_id;

@@ -1,5 +1,11 @@
       <a href="{!! route('products.show',$product->slug) !!}">
+        @if($product->id==96)
         <img class="card-img-top card-img-page" src="public/images/right-sidebar/laptop-feature.jpg" >
+        @elseif($product->id==87)
+        <img class="card-img-top card-img-page" src="public/images/right-sidebar/phone-featured.jpg" >
+        @elseif($product->id==91)
+        <img class="card-img-top card-img-page" src="public/images/right-sidebar/tablet-featured.jpg" >
+        @endif
         @if($product->discount>0)
           <label class="card-title m-0 giam-gia-parent"><img src="public/images/discount.png" width="18"> Giảm {!! number_format($product->discount,0,"",".") !!}₫</label>
         @else

@@ -177,7 +177,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //API Routes
 Route::get('get-districts/{id}',function($id){
-  return json_encode(App\Models\District::where('division_id',$id)->get());
+  return json_encode(App\Models\District::orderBy('name', 'asc')->where('division_id',$id)->get());
 });
 Route::get('get-category/{id}',function($id){
   return json_encode(App\Models\Category::orderBy('name', 'asc')->where('parent_id', $id)->get());
@@ -186,6 +186,7 @@ Route::get('get-category/{id}',function($id){
 /*PRODUCT ALL AJAX*/
 Route::get('ajax/products','Frontend\showProductsController@allProduct');
 Route::get('ajax/the-loai/{slug}','Frontend\showProductsController@allParent');
+Route::get('ajax/tren-13-trieu','Frontend\showProductsController@allProduct13');
 /*SHOW CHILD-PARENT PRRODUCT AJAX*/
 Route::get('ajax/category/{id}','Frontend\showProductsController@parentProduct')->name('categories.show.ajax');
 Route::get('ajax/parent/{slug}','Frontend\showProductsController@parentslugProduct');

@@ -27,10 +27,24 @@ class Product extends Model
         $count=0;
         $categories=Category::where('parent_id',$parent_id)->get();
         foreach($categories as $category){
-            $products=Product::where('category_id',$category->id)->get();
-            $count+=count($products);
+            $count_child=$category->products()->count();
+            $count+=$count_child;
         }
           return $count;
+    }
+    public static function allParent($slug){
+        $products=array();
+        $parent_id=Category::where('slug',$slug)->first()->id;
+        $categories=Category::where('parent_id',$parent_id)->get();
+        foreach($categories as $category){
+            $pdts=Product::orderBy('price','asc')->where('category_id',$category->id)->get();
+
+            foreach($pdts as $pdt){
+                $pdt=array($pdt);
+                $products=array_merge_recursive($pdt,$products);
+            }        
+        } 
+        return $products;
     }
 
 }

@@ -18,7 +18,7 @@
       }).done(function(data){
         $('.content-product').html(data);
         location.hash=page;          
-            $(".rating").rating();           
+        $(".rating").rating();           
       });
     }
 </script>

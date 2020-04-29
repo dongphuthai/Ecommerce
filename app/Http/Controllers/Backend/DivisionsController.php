@@ -13,7 +13,7 @@ class DivisionsController extends Controller
     $this->middleware('auth:admin');
   }
   public function index(){
-    $divisions = Division::orderBy('priority', 'asc')->get();
+    $divisions = Division::orderBy('name', 'asc')->get();
     return view('backend.pages.divisions.index', compact('divisions'));
   }
   public function create(){

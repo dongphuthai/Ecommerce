@@ -51,7 +51,6 @@ class CheckoutsController extends Controller
             return back();
           }
         }
-
         $order->name = $request->name;
         $order->email = $request->email;
         $order->phone_no = $request->phone_no;
