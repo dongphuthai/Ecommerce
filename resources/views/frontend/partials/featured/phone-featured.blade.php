@@ -9,7 +9,7 @@
   <div class="list-item" >
     <div class="card feature" >
       @php
-        $product=App\Models\Product::where('id','87')->first();
+        $product=App\Models\Product::where('id',87)->first();
       @endphp
       @include('frontend.partials.featured.product-km')
     </div>                             

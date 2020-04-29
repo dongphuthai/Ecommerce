@@ -19,15 +19,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class showProductsController extends Controller
 {
-	public function elementProduct($categories,$slug){
-        $products=array();
-        foreach($categories as $key => $category){
-            $pdts=Product::orderBy('price','asc')->where('category_id',$category->id)->get();
-            foreach($pdts as $pdt){
-                $pdt=array($pdt);
-                $products=array_merge_recursive($pdt,$products);
-            }        
-        } 
+	public function elementProduct($slug){
+        $products=Product::allParent($slug);
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $perPage=15;
         $currentItems = array_slice($products, $perPage * ($currentPage - 1), $perPage);
@@ -36,15 +29,18 @@ class showProductsController extends Controller
         return $products;
     }
 /*PRODUCT AJAX*/
+	public function allProduct13(){
+    	$products=Product::where('price','>','13000000')->paginate(20);
+    	return view('frontend.pages.products.partials.all',compact('products'))->render();
+	}
     public function allProduct(){
 	  	$products = Product::orderBy('price', 'desc')->paginate(20);
 	  	return view('frontend.pages.products.partials.all',compact('products'))->render();
 	}
 /*PARENT showPRODUCT*/
 	public function allParent($slug){
-		$id=Category::where('slug',$slug)->first()->id;
-        $categories=Category::where('parent_id',$id)->get();       
-        $products=$this->elementProduct($categories,$slug);
+		$id=Category::where('slug',$slug)->first()->id;       
+        $products=$this->elementProduct($slug);
         $slug1=$slug;
         if(!is_null($products)){
         return view('frontend.pages.products.partials.all',compact('products','id','slug1'))->render();
@@ -93,7 +89,6 @@ class showProductsController extends Controller
 	    	return view('frontend.pages.categories.price.all_products_parent',compact('categories','id','slug1','date'));
 	  	}
 	}
-
 /*SHOW DISCOUNT PRODUCTS*/
 	public function giamgiaChild($slug1,$slug2){
 		$id_child=Category::where('slug',$slug2)->first()->id;

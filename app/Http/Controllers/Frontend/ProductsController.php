@@ -87,27 +87,27 @@ class ProductsController extends Controller
   }   
   public function price2(){
     $sliders = Slider::orderBy('priority', 'asc')->get();
-    $products=Product::where('price','<','2000000')->get();
+    $products=Product::where('price','<','2000000')->paginate(20);
     return view('frontend.pages.products.index_price',compact('sliders','products')); 
   }
   public function price24(){
     $sliders = Slider::orderBy('priority', 'asc')->get();
-    $products=Product::where('price','>=','2000000')->where('price','<','4000000')->get();
+    $products=Product::where('price','>=','2000000')->where('price','<','4000000')->paginate(20);
     return view('frontend.pages.products.index_price',compact('sliders','products')); 
   }
   public function price47(){
     $sliders = Slider::orderBy('priority', 'asc')->get();
-    $products=Product::where('price','>=','4000000')->where('price','<','7000000')->get();
+    $products=Product::where('price','>=','4000000')->where('price','<','7000000')->paginate(20);
     return view('frontend.pages.products.index_price',compact('sliders','products')); 
   }
   public function price713(){
     $sliders = Slider::orderBy('priority', 'asc')->get();
-    $products=Product::where('price','>=','7000000')->where('price','<','13000000')->get();
+    $products=Product::where('price','>=','7000000')->where('price','<','13000000')->paginate(20);
     return view('frontend.pages.products.index_price',compact('sliders','products')); 
   }
   public function price13(){
     $sliders = Slider::orderBy('priority', 'asc')->get();
-    $products=Product::where('price','>','13000000')->get();
+    $products=Product::where('price','>','13000000')->paginate(20);
     return view('frontend.pages.products.index_price',compact('sliders','products')); 
   }
 }

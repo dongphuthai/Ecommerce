@@ -14,11 +14,11 @@ class DistrictsController extends Controller
     $this->middleware('auth:admin');
   }
   public function index(){
-    $districts = District::orderBy('name', 'asc')->get();
+    $districts = District::orderBy('name', 'asc')->with('division')->get();
     return view('backend.pages.districts.index', compact('districts'));
   }
   public function create(){
-    $divisions = Division::orderBy('priority', 'asc')->get();
+    $divisions = Division::orderBy('name', 'asc')->get();
     return view('backend.pages.districts.create', compact('divisions'));
   }
   public function store(Request $request){
