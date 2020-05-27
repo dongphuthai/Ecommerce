@@ -5,7 +5,7 @@
       $time= $product->created_at->getTimestamp();
       $subtime=($date-$time)/(60*60*24);
     @endphp
-    @if($subtime<10)
+    @if($subtime<30)
       @include('frontend.pages.products.partials.all_pro')
     @endif
   @endforeach
